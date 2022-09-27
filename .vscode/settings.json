@@ -1,0 +1,9 @@
+{
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "css.lint.unknownAtRules": "ignore",
+
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+  },
+}
