@@ -1,0 +1,18 @@
+name: Deploy registration
+
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+    paths:
+      - 'apps/registration/**'
+      - 'packages/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    uses: cpe-kmutt-student/bangmod-hackathon-2023/.github/workflows/build-and-deploy.yml@main
+    with:
+      context: registration
+    secrets: inherit

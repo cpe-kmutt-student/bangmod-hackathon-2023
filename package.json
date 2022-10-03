@@ -1,0 +1,28 @@
+{
+  "name": "bangmod-hackathon-2023",
+  "version": "1.0.0",
+  "author": "CPE KMUTT Student Union",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean && rimraf ./node_modules",
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev",
+    "dev:dashboard": "cross-env FORCE_COLOR=1 turbo run dev:dashboard",
+    "dev:registration": "cross-env FORCE_COLOR=1 turbo run dev:registration",
+    "preview": "turbo run preview"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "rimraf": "^3.0.2",
+    "turbo": "latest"
+  },
+  "engines": {
+    "npm": "please-use-yarn",
+    "node": ">=16.0.0"
+  },
+  "packageManager": "^yarn@1.22.0"
+}

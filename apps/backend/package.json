@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "clean": "rimraf ./.turbo ./dist node_modules",
+    "dev": "nodemon",
+    "prisma:generate": "prisma generate",
+    "start": "node ./dist/App"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.3.1",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.2",
+    "googleapis": "^108.0.0",
+    "springpress": "^1.3.1",
+    "tsconfig-paths": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "api-schema": "*",
+    "nodemon": "^2.0.20",
+    "prisma": "^4.3.1",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.7.0",
+    "typescript": "^4.6.4"
+  }
+}

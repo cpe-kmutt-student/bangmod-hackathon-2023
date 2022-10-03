@@ -1,0 +1,18 @@
+name: Deploy dashboard
+
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+    paths:
+      - 'apps/dashboard/**'
+      - 'packages/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    uses: cpe-kmutt-student/bangmod-hackathon-2023/.github/workflows/build-and-deploy.yml@main
+    with:
+      context: dashboard
+    secrets: inherit

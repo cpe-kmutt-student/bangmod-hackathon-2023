@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+model Auth {
+  id            Int         @id @default(autoincrement())
+  sessionId     String      @unique
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId Int
+  expireDate    DateTime
+}
+
+// -------- Personal Information --------
+
+model Academic {
+  id          Int           @id @default(autoincrement())
+  name        String
+  participant Participant[]
+  Team        Team[]
+}
+
+model Team {
+  id          Int           @id @default(autoincrement())
+  academic    Academic      @relation(fields: [academicId], references: [id])
+  academicId  Int
+  Participant Participant[]
+}
+
+model Participant {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  email       String
+  phoneNumber String
+  team        Team     @relation(fields: [teamId], references: [id])
+  teamId      Int
+  isAdvisor   Boolean
+  Academic    Academic @relation(fields: [academicId], references: [id])
+  academicId  Int
+  result      Result[]
+  auth        Auth[]
+}
+
+// -------- Grading --------
+
+model Question {
+  id           Int    @id @default(autoincrement())
+  questionPath String
+  inputPath    String
+  testCasePath String
+}
+
+model Result {
+  id          Int         @id @default(autoincrement())
+  submitter   Participant @relation(fields: [submitterId], references: [id])
+  submitterId Int
+  score       Decimal
+  timestamp   DateTime
+}
