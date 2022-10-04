@@ -1,0 +1,66 @@
+name: Deploy to VM
+
+on:
+  workflow_call:
+    inputs:
+      context:
+        required: true
+        type: string
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set Development env
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        run: |
+          echo "ENV=dev" >> $GITHUB_ENV
+          mv apps/${{ inputs.context }}/.env.dev apps/${{ inputs.context }}/.env
+
+      - name: Set Production env
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          echo "ENV=prod" >> $GITHUB_ENV
+          mv apps/${{ inputs.context }}/.env.prod apps/${{ inputs.context }}/.env
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build:${{ inputs.context }}
+
+      - name: Deploy to VM with Dev environment
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          rm: true
+          source: "apps/dashboard/dist/*,apps/registration/dist/*"
+          target: "/var/www/dev.bmh.kmutt.in.th/html/${{ inputs.context }}"
+          strip_components: 3
+      
+      - name: Deploy to VM with Prod environment
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          rm: true
+          source: "apps/dashboard/dist/*,apps/registration/dist/*"
+          target: "/var/www/bmh.kmutt.in.th/html/${{ inputs.context }}"
+          strip_components: 3
+          

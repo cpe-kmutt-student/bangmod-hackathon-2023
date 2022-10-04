@@ -9,14 +9,6 @@
       "dependsOn": ["^dev"],
       "cache": false
     },
-    "dev:dashboard": {
-      "dependsOn": ["dashboard#dev"],
-      "cache": false
-    },
-    "dev:registration": {
-      "dependsOn": ["registration#dev"],
-      "cache": false
-    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
