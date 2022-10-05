@@ -11,8 +11,8 @@ const Inputbox = ({
   placeholder?: string;
   required?: boolean;
 }) => {
-  const handleChange = (e) => {
-    if (setObj) setObj(e.target.value);
+  const handleChange = (e: InputEvent) => {
+    if (setObj) setObj((e.target as HTMLInputElement).value);
   };
 
   return (
