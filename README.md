@@ -19,3 +19,7 @@ Each app will be started in development server in difference port:
 - **Backend**: http://localhost:3000
 - **Registration**: http://localhost:3001
 - **Dashboard**: http://localhost:3002
+
+## Guildlines Table
+
+- [Building a Component](guildelines/building-component.md)
