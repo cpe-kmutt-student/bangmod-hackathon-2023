@@ -9,10 +9,12 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "clean": "turbo run clean && rimraf ./node_modules",
+    "build:dashboard": "yarn build --filter=dashboard",
+    "build:registration": "yarn build --filter=registration",
+    "clean": "turbo run clean && rimraf ./node_modules ./out",
     "dev": "cross-env FORCE_COLOR=1 turbo run dev",
-    "dev:dashboard": "cross-env FORCE_COLOR=1 turbo run dev:dashboard",
-    "dev:registration": "cross-env FORCE_COLOR=1 turbo run dev:registration",
+    "dev:dashboard": "yarn dev --filter=dashboard",
+    "dev:registration": "yarn dev --filter=registration",
     "preview": "turbo run preview"
   },
   "devDependencies": {
