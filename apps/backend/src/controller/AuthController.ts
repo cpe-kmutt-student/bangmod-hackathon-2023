@@ -18,7 +18,7 @@ export class AuthController extends Controller {
   @RouteMapping('/', Methods.GET)
   private async requestToOAuth(req: Request, res: Response) {
     const authUrl = this.authSerive.getOAuthUrl();
-    res.redirect(authUrl);
+    res.status(200).json({ authUrl });
   }
 
   @RouteMapping('/callback', Methods.GET)
