@@ -1,0 +1,81 @@
+name: Deploy backend
+
+on:
+  push:
+    branches:
+      - "main"
+      - "dev"
+    paths:
+      - 'apps/backend/**'
+      - 'packages/**'
+  workflow_dispatch:
+
+jobs:
+  publish-images:
+    name: Publish docker image
+    runs-on: ubuntu-22.04
+
+    outputs:
+      env: ${{ steps.extracted-output.outputs.ENV }}
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set Development env
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        run: |
+          echo "ENV=dev" >> $GITHUB_ENV
+
+      - name: Set Production env
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          echo "ENV=prod" >> $GITHUB_ENV
+
+      - name: Extract output
+        id: extracted-output
+        run: |
+          echo "::set-output name=ENV::${{ env.ENV }}"
+
+      - name: Login to GitHub container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/cpe-kmutt-student/bangmod-hackathon-2023-backend
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./apps/backend/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+
+  deploy:
+    name: Deploy
+    needs: [publish-images]
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASS }}
+          script: |
+            cd ${{ secrets.SSH_CWD }}
+            export ENV=${{ needs.publish-images.outputs.env }}
+            echo "Pulling backend $ENV"
+            docker compose pull backend-$ENV
+            echo "Deploying backend"
+            docker compose up -d backend-$ENV
+            echo "Pruning images"
+            docker image prune
