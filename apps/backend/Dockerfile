@@ -13,10 +13,8 @@ WORKDIR /app
 
 COPY --from=deps /app/out/json .
 COPY --from=deps /app/out/yarn.lock .
-# RUN yarn run prisma:generate
 RUN yarn install --frozen-lockfile
 
-# Build the application
 COPY --from=deps /app/out/full .
 COPY turbo.json .
 RUN yarn turbo run build --filter=backend...
@@ -29,15 +27,18 @@ RUN apk add tzdata
 ENV TZ Asia/Bangkok
 
 ENV NODE_ENV production
-RUN addgroup --system --gid 1001 springpress
+RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 springpress
 
 COPY --from=builder /app/apps/backend/package.json .
 COPY --from=builder /app/yarn.lock .
-COPY --from=builder /app/apps/backend/prisma .
-COPY --from=builder --chown=app:nodejs /app/apps/backend/dist ./dist
+COPY --from=builder --chown=springpress:nodejs /app/apps/backend/dist ./dist
 
-RUN yarn install --production
+# Copy Prisma Client
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
+
+RUN yarn install --production --frozen-lockfile
 
 USER springpress
 EXPOSE 3000
