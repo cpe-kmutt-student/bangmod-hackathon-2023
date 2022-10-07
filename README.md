@@ -20,6 +20,20 @@ Each app will be started in development server in difference port:
 - **Registration**: http://localhost:3001
 - **Dashboard**: http://localhost:3002
 
+Each project can also be run individually
+
+```
+yarn dev:backend
+yarn dev:dashboard
+yarn dev:registration
+```
+
+or, to develop all apps and packages
+
+```
+yarn dev
+```
+
 ## Guildlines Table
 
-- [Building a Component](guildelines/building-component.md)
+- [Building a Component](.github/guildelines/building-component.md)
