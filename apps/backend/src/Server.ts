@@ -25,12 +25,16 @@ export class Server extends Springpress {
   );
 
   public async onStartup(): Promise<void> {
+    console.log(`Connecting to the database...`);
+    await this.databaseConnector.connect();
+
+    console.log(`Registering all controllers...`);
     this.registerControllers();
 
     console.log(`Listening on port ${this.getPort()}`);
   }
 
-  private async registerControllers(): Promise<void> {
+  private registerControllers(): void {
     const registry = this.getControllerRegistry();
 
     const register = (controller: Controller) => {
