@@ -8,6 +8,8 @@ declare global {
       GOOGLE_OAUTH_REDIRECT_URL: string;
       GOOGLE_OAUTH_CLIENT_ID: string;
       GOOGLE_OAUTH_CLIENT_SECRET: string;
+
+      FRONTEND_URL: string;
     }
   }
 
