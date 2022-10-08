@@ -25,7 +25,7 @@ const EmailInputbox = ({
 
   return (
     <>
-      <div class="mb-6">
+      <div className="mb-6">
         {name ? (
           <label
             for="default-input"
