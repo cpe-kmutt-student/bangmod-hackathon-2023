@@ -15,9 +15,16 @@ declare global {
 
   declare namespace Express {
     export interface Request {
+      nathee: boolean,
       session?: {
         id: string,
       }
+    }
+  }
+
+  declare namespace Springpress {
+    export interface RouteMetadata {
+      authentication?: boolean;
     }
   }
 }
