@@ -1,7 +1,4 @@
-@import "tailwind/custom";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 
-body {
-  font-family: 'Baloo 2', 'Noto Sans Thai';
-}
+@import "tailwind/custom";
