@@ -5,12 +5,12 @@ export const ImageInputBox = (prop:{
 }) => {
     const handleUpload = () => {}
     const {name} = prop
-    
+
     //file in this obj
     const [files, setFiles] = useState(null)
 
-    const inputRef:any = useRef(null)
-    const handleDragOver = (event:MouseEvent)=>{
+    const inputRef: any = useRef(null)
+    const handleDragOver = (event:DragEvent)=>{
         event.preventDefault()
     }
     const handleDrop = (event:any)=>{
@@ -94,7 +94,9 @@ export const ImageInputBox = (prop:{
                     <input type='file' multiple accept='.jpg, .pdf, .png' onChange={(event: any)=>{
                     setFiles(event.target.files)}} hidden ref={inputRef}/>
                     <button class='font-bold text-4xl antialiased text-violet-400 hover:text-violet-600'
-                    onClick={()=>{inputRef.current.click()}} >+</button>
+                    onClick={()=>{
+                        inputRef.current.click()
+                    }} >+</button>
                  </div>
                 )
             }
