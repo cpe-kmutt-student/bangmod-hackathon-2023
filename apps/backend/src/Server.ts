@@ -15,22 +15,27 @@ export class Server extends Springpress {
   private readonly databaseClient = this.databaseConnector.getClient();
   private readonly sessionRepository = new SessionRepository(this.databaseClient);
 
-  private readonly authMiddleware = new AuthMiddleware(this.cookieProvider);
-
   private readonly authService = new AuthService(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
     process.env.GOOGLE_OAUTH_REDIRECT_URL,
+    this.cookieProvider,
     this.sessionRepository,
   );
 
+  private readonly authMiddleware = new AuthMiddleware(this.authService);
+
   public async onStartup(): Promise<void> {
+    console.log(`Connecting to the database...`);
+    await this.databaseConnector.connect();
+
+    console.log(`Registering all controllers...`);
     this.registerControllers();
 
     console.log(`Listening on port ${this.getPort()}`);
   }
 
-  private async registerControllers(): Promise<void> {
+  private registerControllers(): void {
     const registry = this.getControllerRegistry();
 
     const register = (controller: Controller) => {
@@ -42,7 +47,7 @@ export class Server extends Springpress {
     };
 
     register(new IndexController());
-    registerWithAuthMiddleware(new AuthController(this.cookieProvider, this.authService));
+    registerWithAuthMiddleware(new AuthController(this.authService));
   }
   
 }

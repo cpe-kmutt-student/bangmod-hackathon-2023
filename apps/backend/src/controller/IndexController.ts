@@ -3,13 +3,12 @@ import { Controller, ControllerMapping, Methods, Request, Response, RouteMapping
 @ControllerMapping('/')
 export class IndexController extends Controller {
 
-  @RouteMapping('/', Methods.POST)
+  @RouteMapping('/', Methods.GET)
   private async index(req: Request, res: Response) {
-    res
-      .status(200)
-      .json({
-        name: 'Bangmod Hackathon 2023',
-      });
+    res.status(200).json({
+      name: 'Bangmod Hackathon 2023',
+      timestamp: new Date(),
+    });
   }
 
 }
