@@ -1,15 +1,19 @@
-import { Response } from 'express';
+import { CreateApiSchema } from 'springpress';
 
-export interface TypedResponse<T> extends Response<T> { };
+export type AuthGetAuthApiSchema = CreateApiSchema<{
+  res: {
+    url: string
+  },
+}>;
 
-export type AuthGetOAuthUrlResponse = {
-  url: string,
-};
+export type AuthGetCallbackApiSchema = CreateApiSchema<{
+  query: {
+    code: string,
+  },
+}>;
 
-export type AuthGetOAuthCallbackResponse = {
-  success: boolean,
-};
-
-export type AuthGetMeResponse = {
-  name: string,
-};
+export type AuthGetMeApiSchema = CreateApiSchema<{
+  res: {
+    name: string,
+  },
+}>; 
