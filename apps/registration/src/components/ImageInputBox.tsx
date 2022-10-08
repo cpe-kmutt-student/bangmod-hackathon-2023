@@ -1,11 +1,11 @@
 import { useRef, useState } from 'preact/compat';
 
-export const ImageInputBox = () => {
+export const ImageInputBox = (prop:{
+    name: string[]
+}) => {
     const handleUpload = () => {}
-    const name = ["รูปนักเรียนขนาด 1.5 นิ้ว", 
-    "สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า หรือ บัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย", 
-    "ปพ.7 ของผู้เข้าแข่งขันตัวจริง"]
-
+    const {name} = prop
+    
     //file in this obj
     const [files, setFiles] = useState(null)
 
@@ -38,7 +38,7 @@ export const ImageInputBox = () => {
                             justify-start items-start h-30 m-5'>
                 <h1 className='text-xl text-violet-900 antialiased'>แนบไฟล์เอกสาร*</h1>
                 <ul>
-                    {Array.from(name).map((name:string, idx) => {
+                    {Array.from(name).map((name, idx) => {
                         if(name != ''){
                             return <li className='px-4 text-violet-900 antialiased text-lg' 
                         key = {idx}>{idx+1}<span>{". "}</span>{name}</li>
@@ -77,7 +77,7 @@ export const ImageInputBox = () => {
                         justify-start items-start h-30 m-5'>
                 <h1 className='text-xl text-violet-900 antialiased'>แนบไฟล์เอกสาร*</h1>
                 <ul>
-                    {Array.from(name).map((name:string, idx) => {
+                    {Array.from(name).map((name, idx) => {
                         if(name != ''){
                             return <li className='px-4 text-violet-900 antialiased text-lg' 
                         key = {idx}>{idx+1}<span>{". "}</span>{name}</li>
