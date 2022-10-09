@@ -93,6 +93,17 @@ export class AuthService {
     return this.sessionRepository.getSessionById(sessionId);
   }
 
+  public async destroySession(res: Response, session: Auth): Promise<void> {
+    await this.sessionRepository.updateSession(session.email, { sessionId: '' });
+
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const removingCookie = new Cookie('sid', 'your-cookie-will-be-annihilated')
+      .setExpiryDate(yesterday);
+
+    this.cookieProvider.setCookie(res, removingCookie);
+  }
+
   public async destroyExpiredSession(res: Response, session: Auth): Promise<boolean> {
     if (new Date() < session.expiryDate) return false;
 
@@ -108,16 +119,9 @@ export class AuthService {
      * with the `sessionId` field empty it means this session is expired and the `expiryDate`
      * will leave the expiry date information to you.
      */
-    await this.sessionRepository.updateSession(session.email, { sessionId: '' });
-
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    const removingCookie = new Cookie('sid', 'your-cookie-will-be-destroyed')
-      .setExpiryDate(yesterday);
-
-    this.cookieProvider.setCookie(res, removingCookie);
     
+    await this.destroySession(res, session);
+
     return true;
   }
 

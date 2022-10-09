@@ -40,4 +40,12 @@ export class AuthController extends Controller {
     res.status(200).json(req.session);
   }
 
+  @RequireAuth()
+  @RouteMapping('/logout', Methods.GET)
+  private async logout(req: Request, res: Response) {
+    const session = await this.authService.getSessionFromRequest(req);
+    if (session) await this.authService.destroySession(res, session);
+    res.redirect(process.env.FRONTEND_URL);
+  }
+
 }
