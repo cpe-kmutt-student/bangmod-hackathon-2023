@@ -1,6 +1,6 @@
 import { useRef } from 'preact/compat';
 
-export const ImageInputBox = ({
+const ImageInputBox = ({
     obj,
     setObj,
     name,
@@ -91,3 +91,5 @@ export const ImageInputBox = ({
         </div>
     )
 }
+
+export default ImageInputBox;
