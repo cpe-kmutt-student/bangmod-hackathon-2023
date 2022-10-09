@@ -21,3 +21,9 @@ export type AuthGetMeApiSchema = CreateApiSchema<{
     picture: string,
   },
 }>; 
+
+export type AuthGetLogoutApiSchema = CreateApiSchema<{
+  res: {
+    message: string
+  }
+}>

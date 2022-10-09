@@ -45,7 +45,7 @@ export class AuthController extends Controller {
   private async logout(req: Request, res: Response) {
     const session = await this.authService.getSessionFromRequest(req);
     if (session) await this.authService.destroySession(res, session);
-    res.redirect(process.env.FRONTEND_URL);
+    res.status(200).json({ message: 'logout successfully' });
   }
 
 }
