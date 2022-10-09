@@ -1,5 +1,6 @@
-import PhoneInput from "@/components/PhoneInput";
-import { useState, useAuth } from '@/contexts/AuthContext';
+import PhoneInput from '@/components/PhoneInput';
+import { useAuth } from '@/contexts/AuthContext';
+import { useState } from 'preact/hooks';
 
 export const Welcome = () => {
   const [obj, setObj] = useState('');
