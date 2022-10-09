@@ -4,7 +4,7 @@ import { useState } from 'preact/hooks';
 
 export const Welcome = () => {
   const [obj, setObj] = useState('');
-  const { user, status, login } = useAuth();
+  const { user, status, login, logout } = useAuth();
   
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
@@ -24,6 +24,12 @@ export const Welcome = () => {
           <div className="flex flex-row items-center space-x-2">
             <div><span className="font-semibold">{user!.name}</span> ({user!.email})</div>
             <img className="w-8 h-8 rounded-md" src={user!.picture} alt="" />
+            <button
+            className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white text-lg rounded-md"
+            onClick={() => logout()}
+          >
+            Logout
+          </button>
           </div>
         )}
 
