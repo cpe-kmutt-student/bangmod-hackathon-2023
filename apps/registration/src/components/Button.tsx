@@ -1,16 +1,12 @@
 const Button = ({
   onClick,
-  label,
+  name,
   type,
-  className,
-  style,
   disabled,
 }: {
   onClick: () => void;
-  label?: string;
+  name?: string;
   type?: string;
-  className?: string;
-  style?: string;
   disabled?: boolean;
 }) => {
   return (
@@ -18,11 +14,10 @@ const Button = ({
       <button
         type={type}
         onClick={onClick}
-        className={className}
-        style={style}
+        className="bg-black text-white border border-gray-400 px-3 py-3 rounded-lg shadow hover:bg-zinc-900  "
         disabled={disabled}
       >
-        {label}
+        {name}
       </button>
     </>
   );
