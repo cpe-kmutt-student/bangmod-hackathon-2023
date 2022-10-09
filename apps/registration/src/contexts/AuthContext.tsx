@@ -1,5 +1,5 @@
 import { fetch } from '@/utils/Fetch';
-import { AuthGetAuthApiSchema, AuthGetMeApiSchema, Payload } from 'api-schema';
+import { AuthGetAuthApiSchema, AuthGetLogoutApiSchema, AuthGetMeApiSchema, Payload } from 'api-schema';
 import { ComponentChildren, createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 
@@ -15,6 +15,7 @@ type AuthContextValue = {
   status: AuthStatus,
   user: User | null,
   login: Function;
+  logout: Function;
 };
 
 type AuthProviderProps = {
@@ -36,7 +37,9 @@ export const AuthProvider = ({
   };
 
   const logout = async () => {
-    // TODO
+    fetch.get<Payload<AuthGetLogoutApiSchema>>('/auth/logout')
+    setUser(null);
+    setStatus('unauthenticated');
   };
 
   useEffect(() => {
