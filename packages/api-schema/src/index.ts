@@ -1,4 +1,6 @@
-import { CreateApiSchema } from 'springpress';
+import { ApiSchema, CreateApiSchema } from 'springpress';
+
+export type Payload<T extends ApiSchema> = T['res'];
 
 export type AuthGetAuthApiSchema = CreateApiSchema<{
   res: {
@@ -14,6 +16,8 @@ export type AuthGetCallbackApiSchema = CreateApiSchema<{
 
 export type AuthGetMeApiSchema = CreateApiSchema<{
   res: {
+    email: string,
     name: string,
+    picture: string,
   },
 }>; 
