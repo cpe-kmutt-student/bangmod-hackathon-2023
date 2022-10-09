@@ -1,3 +1,5 @@
+type OAuthUser = import('./src/utils/Types').OAuthUser;
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -15,10 +17,7 @@ declare global {
 
   declare namespace Express {
     export interface Request {
-      nathee: boolean,
-      session?: {
-        id: string,
-      }
+      session?: OAuthUser,
     }
   }
 

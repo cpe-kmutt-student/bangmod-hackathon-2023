@@ -12,18 +12,20 @@ export class AuthMiddleware extends Middleware {
 
   public getHandler(routeMetadata: RouteMetadata): RouteHandler {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const session = this.authService.getSession(req);
+      const session = await this.authService.getSessionFromRequest(req);
+      if (!session) throw new UnauthorizedException('Authentication is required');
 
-      if (!session) {
-        throw new UnauthorizedException('authentication is required');
-      }
-
+      const isSessionExpired = await this.authService.destroyExpiredSession(res, session);
+      if (isSessionExpired) throw new UnauthorizedException('Session is expired');
+      
       // Assign session property in the incoming Request object,
       // for manipulating with the authenticated request that can identify a user 
       // to retrieve the user data in the subsequent request
-      // req.session = {
-      //   id: sessionId,
-      // };
+      req.session = {
+        email: session.email,
+        name: session.name,
+        picture: session.picture,
+      };
 
       next();
     };

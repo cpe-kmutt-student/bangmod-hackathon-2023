@@ -8,9 +8,8 @@ datasource db {
 }
 
 model Auth {
-  id         Int      @id @default(autoincrement())
+  email      String   @id
   sessionId  String   @unique
-  email      String
   name       String
   picture    String
   expiryDate DateTime
