@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Auth {
-  id            Int         @id @default(autoincrement())
-  sessionId     String      @unique
-  participant   Participant @relation(fields: [participantId], references: [id])
-  participantId Int
-  expireDate    DateTime
+  email      String   @id
+  sessionId  String   @unique
+  name       String
+  picture    String
+  expiryDate DateTime
 }
 
 // -------- Personal Information --------
@@ -42,7 +42,6 @@ model Participant {
   Academic    Academic @relation(fields: [academicId], references: [id])
   academicId  Int
   result      Result[]
-  auth        Auth[]
 }
 
 // -------- Grading --------
