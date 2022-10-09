@@ -47,15 +47,15 @@ const ImageInputBox = ({
             <div className='grid grid-cols-8'>
                 <div></div>
                 <div className={border}>
-                    <div class='m-5 flex flex-col 
+                    <div className='m-5 flex flex-col 
                             justify-center items-center'>
                         <ul>
                         {Array.from(obj).map((file:any, idx) => 
                                 <li>{file.name}</li>
                             )}
                         </ul>
-                    <div class='py-2'>
-                            <button class={button+"focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"}
+                    <div className='py-2'>
+                            <button className={button+"focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"}
                             onClick={() => setObj(null)}>Cancel</button>
                     </div>
                     </div>
@@ -80,7 +80,7 @@ const ImageInputBox = ({
                     onDrop={handleDrop}>
                         <input type='file' accept='.jpg, .pdf, .png' onInput={(event: any)=>{
                         setObj(event.target.files)}} hidden ref={inputRef}/>
-                        <button class='font-bold text-4xl antialiased text-violet-400 hover:text-violet-600'
+                        <button className='font-bold text-4xl antialiased text-violet-400 hover:text-violet-600'
                         onClick={()=>{
                             inputRef.current.click()
                         }} >+</button>

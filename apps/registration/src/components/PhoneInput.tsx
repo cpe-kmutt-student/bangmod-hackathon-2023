@@ -53,7 +53,7 @@ const PhoneInput = ({
         {isValid ? (
           <div></div>
         ) : (
-          <span class="text-sm text-red-500">Please Enter Phone</span>
+          <span className="text-sm text-red-500">Please Enter Phone</span>
         )}
       </div>
     </div>
