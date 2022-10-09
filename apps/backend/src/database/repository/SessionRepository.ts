@@ -1,4 +1,4 @@
-import { OAuthUser } from '@/service/AuthService';
+import { OAuthUser } from '@/utils/Types';
 import { Auth, PrismaClient } from '@prisma/client';
 
 export class SessionRepository {
@@ -21,11 +21,22 @@ export class SessionRepository {
     });
   }
 
-  public async getSession(sessionId: string): Promise<Auth | null> {
+  public async getSessionById(sessionId: string): Promise<Auth | null> {
     return this.database.auth.findFirst({
-      where: {
-        sessionId: sessionId,
-      },
+      where: { sessionId: sessionId },
+    });
+  }
+
+  public async getSessionByEmail(email: string): Promise<Auth | null> {
+    return this.database.auth.findFirst({
+      where: { email: email },
+    });
+  }
+
+  public async updateSession(email: string, data: Partial<Auth>) {
+    await this.database.auth.update({
+      where: { email: email },
+      data: data,
     });
   }
 
