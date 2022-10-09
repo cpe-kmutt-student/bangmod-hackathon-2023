@@ -1,6 +1,8 @@
-import { useAuth } from '@/contexts/AuthContext';
+import PhoneInput from "@/components/PhoneInput";
+import { useState, useAuth } from '@/contexts/AuthContext';
 
 export const Welcome = () => {
+  const [obj, setObj] = useState('');
   const { user, status, login } = useAuth();
   
   return (
@@ -23,6 +25,15 @@ export const Welcome = () => {
             <img className="w-8 h-8 rounded-md" src={user!.picture} alt="" />
           </div>
         )}
+
+        <PhoneInput
+          name="phone"
+          id="phone"
+          placeholder="please enter phone"
+          obj={obj}
+          setObj={setObj}
+          required={true}
+        />
       </div>
     </div>
   );
