@@ -3,6 +3,7 @@ import { IndexController } from '@/controller/IndexController';
 import { DatabaseConnector } from '@/database/DatabaseConnector';
 import { SessionRepository } from '@/database/repository/SessionRepository';
 import { AuthMiddleware } from '@/middleware/AuthMiddleware';
+import { DevCorsMiddleware } from '@/middleware/DevCorsMiddleware';
 import { AuthService } from '@/service/AuthService';
 import { CookieProvider } from '@/utils/cookies/CookieProvider';
 import { Controller, Springpress } from 'springpress';
@@ -45,6 +46,12 @@ export class Server extends Springpress {
     const registerWithAuthMiddleware = (controller: Controller) => {
       registry.register(controller, [this.authMiddleware]);
     };
+
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('(!) Registering Development CORS middleware');
+      registry.registerGlobalMiddleware(new DevCorsMiddleware());
+    }
 
     register(new IndexController());
     registerWithAuthMiddleware(new AuthController(this.authService));
