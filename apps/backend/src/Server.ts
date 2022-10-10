@@ -1,12 +1,16 @@
 import { AuthController } from '@/controller/AuthController';
+import { FileController } from '@/controller/FileController';
 import { IndexController } from '@/controller/IndexController';
 import { DatabaseConnector } from '@/database/DatabaseConnector';
 import { SessionRepository } from '@/database/repository/SessionRepository';
 import { AuthMiddleware } from '@/middleware/AuthMiddleware';
 import { DevCorsMiddleware } from '@/middleware/DevCorsMiddleware';
+import { FileMiddleware } from '@/middleware/FileMiddleware';
 import { AuthService } from '@/service/AuthService';
+import { FileService } from '@/service/FileService';
 import { CookieProvider } from '@/utils/cookies/CookieProvider';
-import { Controller, Springpress } from 'springpress';
+import path from 'path';
+import { Controller, Middleware, Springpress } from 'springpress';
 
 export class Server extends Springpress {
 
@@ -23,8 +27,11 @@ export class Server extends Springpress {
     this.cookieProvider,
     this.sessionRepository,
   );
-
   private readonly authMiddleware = new AuthMiddleware(this.authService);
+
+  private readonly uploadDestPath = path.resolve(process.cwd(), 'upload');
+  private readonly fileService = new FileService(this.uploadDestPath);
+  private readonly fileMiddleware = new FileMiddleware(this.fileService);
 
   public async onStartup(): Promise<void> {
     console.log(`Connecting to the database...`);
@@ -43,10 +50,11 @@ export class Server extends Springpress {
       registry.register(controller);
     };
 
-    const registerWithAuthMiddleware = (controller: Controller) => {
-      registry.register(controller, [this.authMiddleware]);
+    const registerWithAuthMiddleware = (
+      controller: Controller, ...middleware: Middleware[]
+    ) => {
+      registry.register(controller, [this.authMiddleware, ...middleware]);
     };
-
 
     if (process.env.NODE_ENV !== 'production') {
       console.log('(!) Registering Development CORS middleware');
@@ -55,6 +63,7 @@ export class Server extends Springpress {
 
     register(new IndexController());
     registerWithAuthMiddleware(new AuthController(this.authService));
+    registerWithAuthMiddleware(new FileController(), this.fileMiddleware);
   }
   
 }
