@@ -7,12 +7,12 @@ const DropDown = ({
   obj,
   setObj,
   options,
-  label,
+  name,
   required,
 }: {
-  obj: string | number;
-  setObj: any;
-  label?: string | number;
+  obj?: string | number;
+  setObj?: any;
+  name?: string | number;
   options: option[];
   required?: boolean;
 }) => {
@@ -28,7 +28,7 @@ const DropDown = ({
         for="default-select"
         className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
       >
-        {label}
+        {name}
         {required ? <span className="text-pink-700">*</span> : <div />}
         <select
           value={obj}
