@@ -1,7 +1,6 @@
 import { useState } from "preact/hooks";
 const PhoneInput = ({
   name,
-  id,
   placeholder,
   obj,
   setObj,
@@ -9,7 +8,6 @@ const PhoneInput = ({
   width,
 }: {
   name: string;
-  id: string;
   placeholder: string;
   obj: string | number;
   setObj: any;
@@ -44,7 +42,6 @@ const PhoneInput = ({
         <input
           type="text"
           name={name}
-          id={id}
           placeholder={placeholder}
           value={obj}
           onInput={handleChange}
