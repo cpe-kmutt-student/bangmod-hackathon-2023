@@ -3,8 +3,26 @@ import ImageInputBox from "@/components/ImageInputBox";
 import Inputbox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
 import { useState } from "preact/hooks";
+
+export type TeamForm = {
+  teamName: string;
+  school: string;
+  amount: number;
+  perfixTH: string;
+  nameTH: string;
+  middleNameTH: string;
+  surnameTH: string;
+  perfixEN: string;
+  nameEN: string;
+  middleNameEN: string;
+  surnameEN: string;
+  email: string;
+  phone: string;
+  line: string;
+};
+
 export const TeamForm = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState<TeamForm>({
     teamName: "",
     school: "",
     amount: 0,
@@ -31,7 +49,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.teamName}
             setObj={setData}
-            name="ชื่อทีม"
+            name="teamName"
+            label="ชื่อทีม"
             placeholder="Teams name"
             required
             width="w-full md:w-3/5"
@@ -39,7 +58,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.school}
             setObj={setData}
-            name="โรงเรียน"
+            name="school"
+            label="โรงเรียน"
             placeholder="School name"
             required
             width="w-full md:w-2/5"
@@ -47,7 +67,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.amount}
             setObj={setData}
-            name="จำนวนสมาชิก"
+            name="amount"
+            label="จำนวนผู้สมัคร"
             placeholder="จำนวน"
             required
             width="w-full md:w-1/5"
@@ -64,7 +85,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.perfixTH}
             setObj={setData}
-            name="คำนำหน้า"
+            name="perfixTH"
+            label="คำนำหน้า"
             placeholder="Prefix"
             required
             width="w-full md:w-2/12"
@@ -72,7 +94,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.nameTH}
             setObj={setData}
-            name="ชื่อ (ภาษาไทย)"
+            name="nameTH"
+            label="ชื่อ (ภาษาไทย)"
             placeholder="Name"
             required
             width="w-full md:w-3/12"
@@ -80,7 +103,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.middleNameTH}
             setObj={setData}
-            name="ชื่อกลาง (ภาษาไทย)"
+            name="middleNameTH"
+            label="ชื่อกลาง (ภาษาไทย)"
             placeholder="Middle name"
             required
             width="w-full md:w-3/12"
@@ -88,7 +112,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.surnameTH}
             setObj={setData}
-            name="นามสกุล (ภาษาไทย)"
+            name="surnameTH"
+            label="นามสกุล (ภาษาไทย)"
             placeholder="Surname"
             required
             width="w-full md:w-3/12"
@@ -99,7 +124,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.perfixEN}
             setObj={setData}
-            name="Prefix"
+            name="perfixEN"
+            label="Prefix"
             placeholder="Prefix"
             required
             width="w-full md:w-2/12"
@@ -107,7 +133,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.nameEN}
             setObj={setData}
-            name="Name"
+            name="nameEN"
+            label="Name"
             placeholder="Name"
             required
             width="w-full md:w-3/12"
@@ -115,7 +142,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.middleNameEN}
             setObj={setData}
-            name="Middle name"
+            name="middleNameEN"
+            label="Middle name"
             placeholder="Middle name"
             required
             width="w-full md:w-3/12"
@@ -123,7 +151,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.surnameEN}
             setObj={setData}
-            name="Surname"
+            name="surnameEN"
+            label="Surname"
             placeholder="Surname"
             required
             width="w-full md:w-3/12"
@@ -134,7 +163,8 @@ export const TeamForm = () => {
           <EmailInputbox
             obj={data.email}
             setObj={setData}
-            name="Email"
+            name="email"
+            label="Email"
             placeholder="Email"
             required
             width="w-full md:w-2/6"
@@ -150,7 +180,8 @@ export const TeamForm = () => {
           <Inputbox
             obj={data.line}
             setObj={setData}
-            name="ID Line"
+            name="line"
+            label="Line ID"
             placeholder="ID Line"
             required
             width="w-full md:w-2/6"

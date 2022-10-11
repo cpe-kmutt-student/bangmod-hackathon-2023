@@ -1,15 +1,18 @@
-import { useState } from "preact/hooks";
+import { TeamForm } from "@/components/TeamForm";
+import { StateUpdater, useState } from "preact/hooks";
 const EmailInputbox = ({
   obj,
   setObj,
   name,
+  label,
   placeholder,
   required,
   width,
 }: {
   obj: string | number;
-  setObj: any;
-  name?: string;
+  setObj: StateUpdater<TeamForm>;
+  name: string;
+  label?: string;
   placeholder?: string;
   required?: boolean;
   width?: string;
@@ -23,18 +26,18 @@ const EmailInputbox = ({
     const email = event.target.value;
     if (reg.test(email) === false) setIsValid(true);
     else setIsValid(false);
-    setObj(email);
+    setObj((obj) => ({ ...obj, [name]: email }));
   };
 
   return (
     <>
       <div className={`mb-6 ${width && width}`}>
-        {name ? (
+        {label ? (
           <label
             for="default-input"
             className="block uppercase tracking-wide text-gray-700 text-sm md:text-2xl font-bold mb-2"
           >
-            {name}
+            {label}
             {required ? <span className="text-pink-700">*</span> : <div />}
           </label>
         ) : (

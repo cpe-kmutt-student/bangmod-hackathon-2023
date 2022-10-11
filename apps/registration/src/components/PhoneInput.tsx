@@ -1,16 +1,19 @@
-import { useState } from "preact/hooks";
+import { TeamForm } from "@/components/TeamForm";
+import { StateUpdater, useState } from "preact/hooks";
 const PhoneInput = ({
   name,
   placeholder,
   obj,
+  label,
   setObj,
   required,
   width,
 }: {
   name: string;
+  label?: string;
   placeholder: string;
   obj: string | number;
-  setObj: any;
+  setObj: StateUpdater<TeamForm>;
   required?: boolean;
   width?: string;
 }) => {
@@ -20,19 +23,18 @@ const PhoneInput = ({
     if (!(event.target instanceof HTMLInputElement)) return;
     const phone = event.target.value;
     // if (phone.length > 10) return;
-
-    setObj(event.target.value);
+    setObj((obj) => ({ ...obj, [name]: phone }));
     setIsValid(phone.length == 10);
   };
 
   return (
     <div className={`mb-6 ${width && width}`}>
-      {name ? (
+      {label ? (
         <label
           for="default-input"
           className="block uppercase tracking-wide text-gray-700 text-sm md:text-2xl font-bold mb-2"
         >
-          {name}
+          {label}
           {required ? <span className="text-pink-700">*</span> : <div />}
         </label>
       ) : (

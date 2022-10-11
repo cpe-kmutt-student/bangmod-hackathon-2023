@@ -1,14 +1,18 @@
+import { TeamForm } from "@/components/TeamForm";
+import { StateUpdater } from "preact/hooks";
 const Inputbox = ({
   obj,
   setObj,
   name,
+  label,
   placeholder,
   width,
   required,
 }: {
   obj: string | number;
-  setObj: any;
-  name?: string;
+  setObj: StateUpdater<TeamForm>;
+  name: string;
+  label?: string;
   placeholder?: string;
   width?: string;
   required?: boolean;
@@ -16,17 +20,17 @@ const Inputbox = ({
   const handleChange = (event: Event) => {
     if (!(event.target instanceof HTMLInputElement)) return;
     const value = event.target.value;
-    setObj((setObj.obj = value));
+    setObj((obj) => ({ ...obj, [name]: value }));
   };
 
   return (
     <div className={`mb-6 ${width && width}`}>
-      {name ? (
+      {label ? (
         <label
           for="default-input"
           className="block uppercase tracking-wide text-gray-700 text-sm md:text-2xl font-bold mb-2"
         >
-          {name}
+          {label}
           {required ? <span className="text-pink-700">*</span> : <div />}
         </label>
       ) : (
