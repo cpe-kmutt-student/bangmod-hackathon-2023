@@ -11,7 +11,7 @@ const Card = ({
 }) => {
   return (
     <>
-      <div className="w-full max-w-sm lg:max-w-full bg-white rounded-3xl shadow-2xl">
+      <div className="w-full max-w-sm mb-5 bg-white rounded-3xl shadow-2xl">
         <a href="#">
           <img
             className="p-8 rounded-t-lg w-full"
@@ -19,9 +19,9 @@ const Card = ({
           />
         </a>
         <div className="flex flex-col items-center pb-6">
-            <p className="font-bold text-purple-900 "> {title} </p>
-            <p className="text-xs font-light text-purple-700"> {desc1} </p>
-            <p className="text-xs font-light text-purple-700"> {desc2} </p>
+            <p className="font-bold text-purple-900 lg:text-base "> {title} </p>
+            <p className="md:text-xs font-light text-purple-700 "> {desc1} </p>
+            <p className="md:text-xs font-light text-purple-700 "> {desc2} </p>
         </div>
       </div>
     </>
