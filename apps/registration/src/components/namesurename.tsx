@@ -1,4 +1,4 @@
-import { useState } from "Preact/compat";
+import { useState } from "preact/compat";
 
 export const namesurename = () => {
   
