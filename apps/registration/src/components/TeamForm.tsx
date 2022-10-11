@@ -1,3 +1,4 @@
+import DropDown from "@/components/DropDown";
 import EmailInputbox from "@/components/EmailInputbox";
 import ImageInputBox from "@/components/ImageInputBox";
 import Inputbox from "@/components/Inputbox";
@@ -53,7 +54,7 @@ export const TeamForm = () => {
             label="ชื่อทีม"
             placeholder="Teams name"
             required
-            width="w-full md:w-3/5"
+            width="w-full md:w-3/6"
           />
           <Inputbox
             obj={data.school}
@@ -62,16 +63,20 @@ export const TeamForm = () => {
             label="โรงเรียน"
             placeholder="School name"
             required
-            width="w-full md:w-2/5"
+            width="w-full md:w-2/6"
           />
-          <Inputbox
+          <DropDown
             obj={data.amount}
             setObj={setData}
             name="amount"
-            label="จำนวนผู้สมัคร"
-            placeholder="จำนวน"
+            label="จำนวนสมาชิก"
+            options={[
+              { label: "1", value: 1 },
+              { label: "2", value: 2 },
+              { label: "3", value: 3 },
+            ]}
             required
-            width="w-full md:w-1/5"
+            width="w-full md:w-1/6"
           />
         </div>
         {/* Sensei */}
@@ -81,13 +86,17 @@ export const TeamForm = () => {
           </h1>
         </div>
         {/* Second grid */}
-        <div className="flex flex-col md:flex-row justify-center  md:justify-between md:space-x-5">
-          <Inputbox
+        <div className="flex flex-col items-center md:flex-row justify-center  md:justify-between ">
+          <DropDown
             obj={data.perfixTH}
             setObj={setData}
             name="perfixTH"
             label="คำนำหน้า"
-            placeholder="Prefix"
+            options={[
+              { label: "นาย", value: "นาย" },
+              { label: "นาง", value: "นาง" },
+              { label: "นางสาว", value: "นางสาว" },
+            ]}
             required
             width="w-full md:w-2/12"
           />
@@ -120,13 +129,17 @@ export const TeamForm = () => {
           />
         </div>
         {/* Thrid grid */}
-        <div className="flex flex-col md:flex-row justify-center  md:justify-between md:space-x-5">
-          <Inputbox
+        <div className="flex flex-col md:flex-row justify-center  md:justify-between ">
+          <DropDown
             obj={data.perfixEN}
             setObj={setData}
-            name="perfixEN"
+            name="perfixTH"
             label="Prefix"
-            placeholder="Prefix"
+            options={[
+              { label: "Mr.", value: "Mr." },
+              { label: "Mrs.", value: "Mrs." },
+              { label: "Miss.", value: "Miss." },
+            ]}
             required
             width="w-full md:w-2/12"
           />
@@ -159,7 +172,7 @@ export const TeamForm = () => {
           />
         </div>
         {/* Fourth grid */}
-        <div className="flex flex-col md:flex-row justify-center  md:justify-between md:space-x-7">
+        <div className="flex flex-col items-center md:flex-row justify-center  md:justify-between md:space-x-7">
           <EmailInputbox
             obj={data.email}
             setObj={setData}
@@ -172,7 +185,8 @@ export const TeamForm = () => {
           <PhoneInput
             obj={data.phone}
             setObj={setData}
-            name="เบอร์โทรศัพท์"
+            name="phone"
+            label="เบอร์โทรศัพท์"
             placeholder="Tel. number"
             required
             width="w-full md:w-2/6"
