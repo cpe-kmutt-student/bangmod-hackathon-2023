@@ -1,4 +1,5 @@
-import { useState } from "preact/hooks";
+import { useState } from 'preact/hooks';
+import { useAuth } from '@/contexts/AuthContext';
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/image/logo.png";
 
@@ -14,7 +15,7 @@ export const NavElement = ({
   !className ? className = "" : className
   console.log(className)
   return (
-    <a href={to} className={className + " flex-auto flex justify-center items-center md:border-y-[0.01px] border-white/20"}>{text}</a>
+    <a href={to} className={className + " flex-auto flex justify-center items-center md:border-y-[0.01px] border-white/20 hover:bg-white/90 hover:text-black hover:backdrop-blur-md "}>{text}</a>
   );
 };
 
