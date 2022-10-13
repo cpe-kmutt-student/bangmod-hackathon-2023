@@ -5,12 +5,26 @@ import { BadRequestException, Controller, ControllerMapping, Methods, Request, R
 @ControllerMapping('/file')
 export class FileController extends Controller {
 
-  @AllowFile(FileType.DOCUMENT, false)
   @RequireAuth()
+  @AllowFile(FileType.DOCUMENT, false)
   @RouteMapping('/document', Methods.POST)
   private async uploadRegistrationDocument(req: Request, res: Response) {
     if (!req.file) throw new BadRequestException('No provided file');
-    res.status(200).json({ message: 'File upload successfully' });
+
+    const fileName = req.file.filename;
+
+    res.status(200).json({ url: `http://localhost:8080/${fileName}` });
+  }
+
+  @RequireAuth()
+  @AllowFile(FileType.DOCUMENT, false)
+  @RouteMapping('/sourcecode', Methods.POST)
+  private async uploadSourceCode(req: Request, res: Response) {
+    if (!req.file) throw new BadRequestException('No provided file');
+
+    const fileName = req.file.filename;
+
+    res.status(200).json({ url: `http://localhost:8080/${fileName}` });
   }
 
 }

@@ -9,18 +9,19 @@ import { FileMiddleware } from '@/middleware/FileMiddleware';
 import { AuthService } from '@/service/AuthService';
 import { FileService } from '@/service/FileService';
 import { CookieProvider } from '@/utils/cookies/CookieProvider';
-import path from 'path';
+import { SeaweedClient } from '@/utils/seaweedfs/SeaweedClient';
+import { SeaweedStorageEngine } from '@/utils/seaweedfs/SeaweedStorageEngine';
 import { Controller, Middleware, Springpress } from 'springpress';
 
 export class Server extends Springpress {
 
-  private readonly cookieProvider = new CookieProvider('this_is_a_secret');
+  private readonly cookieProvider     = new CookieProvider('this_is_a_secret');
 
-  private readonly databaseConnector = new DatabaseConnector();
-  private readonly databaseClient = this.databaseConnector.getClient();
-  private readonly sessionRepository = new SessionRepository(this.databaseClient);
+  private readonly databaseConnector  = new DatabaseConnector();
+  private readonly databaseClient     = this.databaseConnector.getClient();
+  private readonly sessionRepository  = new SessionRepository(this.databaseClient);
 
-  private readonly authService = new AuthService(
+  private readonly authService        = new AuthService(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
     process.env.GOOGLE_OAUTH_REDIRECT_URL,
@@ -29,8 +30,9 @@ export class Server extends Springpress {
   );
   private readonly authMiddleware = new AuthMiddleware(this.authService);
 
-  private readonly uploadDestPath = path.resolve(process.cwd(), 'upload');
-  private readonly fileService = new FileService(this.uploadDestPath);
+  private readonly seaweedClient  = new SeaweedClient('localhost', 9333);
+  private readonly storageEngine  = new SeaweedStorageEngine(this.seaweedClient);
+  private readonly fileService    = new FileService(this.storageEngine);
   private readonly fileMiddleware = new FileMiddleware(this.fileService);
 
   public async onStartup(): Promise<void> {

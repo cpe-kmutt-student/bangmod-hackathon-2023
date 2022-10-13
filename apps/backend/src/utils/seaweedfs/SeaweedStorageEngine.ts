@@ -11,20 +11,21 @@ export class SeaweedStorageEngine implements StorageEngine {
   }   
   
   public async _handleFile(
-    req: Request, file: File, callback: (error?: any, info?: Partial<File> | undefined) => void
+    req: Request, file: File, callback: (error?: any, info?: Partial<File>) => void
   ): Promise<void> {
     try {
       const fileId = await this.seaweedClient.write(file.stream);
-      console.log(fileId);
-      callback(null, file);
-    } catch {
-      // callback(null, false);
+      // Add field `filename` to retrieve file id later
+      callback(null, { filename: fileId });
+    } catch (error) {
+      callback(error);
     }
   }
   
   public _removeFile(
     req: Request, file: File, callback: (error: Error | null) => void
   ): void {
+    // TODO
   }
 
 }

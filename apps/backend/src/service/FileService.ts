@@ -1,33 +1,35 @@
-import mime from 'mime';
 import multer, { FileFilterCallback, Multer, StorageEngine } from 'multer';
+import path from 'path';
 import { BadRequestException, Request } from 'springpress';
 
 type File = Express.Multer.File;
 
 export class FileService {
-  
-  private readonly documentStorage: StorageEngine;
-  private readonly documentUpload: Multer;
 
-  public constructor(destination: string) {
-    this.documentStorage = multer.diskStorage({
-      destination: (req, file, cb) => cb(null, destination),
-      filename: (req, file, cb) => cb(null, this.handleDocumentFileName(file)),
-    });
+  private readonly documentUpload: Multer;
+  private readonly sourceCodeUpload: Multer;
+
+  public constructor(storageEngine: StorageEngine) {
     this.documentUpload = multer({
-      storage: this.documentStorage,
+      storage: storageEngine,
       fileFilter: this.filterDocumentFile,
     });
-  }
-
-  private handleDocumentFileName(file: File) {
-    const suffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-    return `${file.fieldname}-${suffix}.${mime.getExtension(file.mimetype)}`;
+    this.sourceCodeUpload = multer({
+      storage: storageEngine,
+      fileFilter: this.filterSourceCodeFile,
+    });
   }
 
   private filterDocumentFile(req: Request, file: File, cb: FileFilterCallback) {
-    const allowedExtension = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
-    const isValid = allowedExtension.includes(file.mimetype);
+    const allowedMimes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    const isValid = allowedMimes.includes(file.mimetype);
+    if (isValid) return cb(null, true);
+    cb(new BadRequestException('This file extension not allowed'));
+  }
+
+  private filterSourceCodeFile(req: Request, file: File, cb: FileFilterCallback) {
+    const allowedExtension = ['.c', '.cc', '.cpp', '.java'];
+    const isValid = allowedExtension.includes(path.extname(file.originalname));
     if (isValid) return cb(null, true);
     cb(new BadRequestException('This file extension not allowed'));
   }
@@ -37,8 +39,7 @@ export class FileService {
   }
 
   public uploadSingleSourcecode(fileName: string) {
-    // TODO: Upload sourcecode
-    return this.documentUpload.single(fileName);
+    return this.sourceCodeUpload.single(fileName);
   }
 
 }
