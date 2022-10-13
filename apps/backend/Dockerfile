@@ -3,7 +3,7 @@ FROM node:16.17-alpine AS deps
 WORKDIR /app
 
 # Prune unnecessary things which not related to building context
-RUN yarn global add turbo
+RUN yarn global add turbo@1.5.5
 COPY . .
 RUN turbo prune --scope=backend --docker
 

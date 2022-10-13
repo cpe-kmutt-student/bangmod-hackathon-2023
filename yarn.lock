@@ -2300,7 +2300,7 @@ turbo-windows-arm64@1.5.5:
   resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-1.5.5.tgz#60522e1e347a54c64bdddb68089fc322ee19c3d7"
   integrity sha512-3AfGULKNZiZVrEzsIE+W79ZRW1+f5r4nM4wLlJ1PTBHyRxBZdD6KTH1tijGfy/uTlcV5acYnKHEkDc6Q9PAXGQ==
 
-turbo@latest:
+turbo@1.5.5:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/turbo/-/turbo-1.5.5.tgz#9fc3a917c914ffa113c260a4eadb4bc632eee227"
   integrity sha512-PVQSDl0STC9WXIyHcYUWs9gXsf8JjQig/FuHfuB8N6+XlgCGB3mPbfMEE6zrChGz2hufH4/guKRX1XJuNL6XTA==
