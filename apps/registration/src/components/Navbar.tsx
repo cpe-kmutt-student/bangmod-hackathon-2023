@@ -1,5 +1,4 @@
 import { useState } from 'preact/hooks';
-import { useAuth } from '@/contexts/AuthContext';
 import { NavLink } from 'react-router-dom';
 import logo from "../assets/image/logo.png";
 
@@ -10,10 +9,8 @@ export const NavElement = ({
 }: {
   text: string,
   to: string,
-  className?: string
+  className?: string | ""
 }) => {
-  !className ? className = "" : className
-  console.log(className)
   return (
     <a href={to} className={className + " flex-auto flex justify-center items-center md:border-y-[0.01px] border-white/20 hover:bg-white/90 hover:text-black hover:backdrop-blur-md "}>{text}</a>
   );
@@ -29,7 +26,7 @@ export const Navbar = () => {
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
         >
-          { navbar ? (
+          { !navbar ? (
             <div className="b h-[1rem] w-[1.3125rem] flex flex-col items-center justify-between">
               <div className="h-0 border-t-[0.13rem] border-white w-[1.3125rem] rounded-md" />
               <div className="h-0 border-t-[0.13rem] border-white w-[1.3125rem] rounded-md" />
@@ -57,8 +54,9 @@ export const Navbar = () => {
           <NavLink to="/registration" className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"> สมัคร </NavLink>
         </nav>
       </div>
+      {console.log(navbar)}
       {
-        !navbar && (
+        navbar && (
           <div className="static flex justify-center items-center md:hidden">
             <nav className="w-full h-[20rem] flex flex-col bg-[#3E245D]/70 backdrop-blur-md p-0 text-white pb-5">
               <NavElement text="รายละเอียด" to="#" />
