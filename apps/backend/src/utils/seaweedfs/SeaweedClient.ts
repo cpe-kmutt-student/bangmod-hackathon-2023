@@ -67,7 +67,7 @@ export class SeaweedClient {
     });
   }
 
-  public lookup(fileId: string): Promise<void> {
+  public lookup(fileId: string): Promise<VolumeLocation> {
     return new Promise((resolve, reject) => {
       const request = http.request({
         host: this.host,
@@ -89,12 +89,15 @@ export class SeaweedClient {
     });
   }
 
+  public async read(fileId: string): Promise<string | null> {
+    const volumeLocations = await this.lookup(fileId);
+    if (!volumeLocations.locations) return null;
+    return 'http://' + volumeLocations.locations[0].publicUrl + '/' + fileId;
+  }
+
   public remove(): Promise<void> {
     return new Promise((resolve, reject) => {
-      // const request = http.request({
-      //   host: this.host,
-      //   port: 
-      // });
+      // TODO
     });
   }
 
@@ -105,4 +108,13 @@ type VolumeData = {
   fid: string,
   url: string,
   publicUrl: string,
+};
+
+type VolumeLocation = {
+  volumeOrFileId: string,
+  locations: {
+    url: string,
+    publicUrl: string,
+    dataCenter: string,
+  }[],
 };
