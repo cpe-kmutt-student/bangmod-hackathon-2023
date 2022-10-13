@@ -1,8 +1,8 @@
-const Information = () => {
+const InformationSection = () => {
   return (
     <div className="flex h-screen items-center justify-center text-white">
       <div className="flex mx-12 w-80 h-80 bg-white items-center justify-center border-2 border-white rounded-3xl">
-        <img className="" src="./" />
+        <img className="" src="./" alt="" />
       </div>
       <div>
         <div className="my-4 mx-4 py-3 px-2 max-w-3xl bg-yellow-600 rounded-xl border-8 border-yellow-600 text-center">
@@ -25,4 +25,4 @@ const Information = () => {
   );
 };
 
-export default Information;
+export default InformationSection;
