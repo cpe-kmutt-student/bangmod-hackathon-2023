@@ -27,3 +27,11 @@ export type AuthGetLogoutApiSchema = CreateApiSchema<{
     message: string
   }
 }>
+
+export type FileGetApiSchema = CreateApiSchema<{
+  param: {
+    hashedEmail: string,
+    fileId: string,
+    originalName: string,
+  },
+}>;

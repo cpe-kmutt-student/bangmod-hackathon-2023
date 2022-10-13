@@ -13,6 +13,16 @@ model Auth {
   name       String
   picture    String
   expiryDate DateTime
+  File       File[]
+}
+
+model File {
+  id           Int      @id @default(autoincrement())
+  owner        Auth     @relation(fields: [ownerId], references: [email])
+  ownerId      String
+  originalName String
+  fileKey      String
+  uploadDate   DateTime
 }
 
 // -------- Personal Information --------
