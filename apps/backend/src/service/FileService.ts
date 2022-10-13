@@ -12,26 +12,29 @@ export class FileService {
   public constructor(storageEngine: StorageEngine) {
     this.documentUpload = multer({
       storage: storageEngine,
-      fileFilter: this.filterDocumentFile,
+      fileFilter: this.filterFile(this.filterDocumentFile),
     });
     this.sourceCodeUpload = multer({
       storage: storageEngine,
-      fileFilter: this.filterSourceCodeFile,
+      fileFilter: this.filterFile(this.filterSourceCodeFile),
     });
   }
 
-  private filterDocumentFile(req: Request, file: File, cb: FileFilterCallback) {
-    const allowedMimes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
-    const isValid = allowedMimes.includes(file.mimetype);
-    if (isValid) return cb(null, true);
-    cb(new BadRequestException('This file extension not allowed'));
+  private filterFile(filter: (file: File) => boolean) {
+    return (req: Request, file: File, callback: FileFilterCallback) => {
+      if (filter(file)) return callback(null, true);
+      callback(new BadRequestException('This file extension not allowed'));
+    };
   }
 
-  private filterSourceCodeFile(req: Request, file: File, cb: FileFilterCallback) {
+  private filterDocumentFile(file: File): boolean {
+    const allowedMimes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    return allowedMimes.includes(file.mimetype);
+  }
+
+  private filterSourceCodeFile(file: File): boolean {
     const allowedExtension = ['.c', '.cc', '.cpp', '.java'];
-    const isValid = allowedExtension.includes(path.extname(file.originalname));
-    if (isValid) return cb(null, true);
-    cb(new BadRequestException('This file extension not allowed'));
+    return allowedExtension.includes(path.extname(file.originalname));
   }
 
   public uploadSingleDocument(fileName: string) {
