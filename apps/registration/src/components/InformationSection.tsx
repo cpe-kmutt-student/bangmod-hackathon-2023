@@ -6,7 +6,7 @@ const InformationSection = () => {
       </div>
 
       <div className="w-2/4 mb-4 md:mb-0 md:w-1/3 mx-auto">
-        <img className="bg-white p-3 rounded-[2.5rem]" src="bmh-old-photo.png" alt="" />
+        <img className="bg-white p-3 rounded-[2.5rem]" src="bmh-old-photo.webp" alt="" />
       </div>
 
       <div className="w-3/4 md:w-2/3 flex flex-col">

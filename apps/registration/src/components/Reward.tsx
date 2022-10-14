@@ -8,25 +8,25 @@ export const Reward = () => {
       </div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
         <Card
-          img="reward/champion.png"
+          img="reward/champion.webp"
           title="รางวัลชนะเลิศ"
           desc1="30,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="reward/first-medal.png"
+          img="reward/first-medal.webp"
           title="รางวัลรองชนะเลิศอันดับหนึ่ง"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="reward/second-medal.png"
+          img="reward/second-medal.webp"
           title="รางวัลรองชนะเลิศอันดับสอง"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="reward/bronze-medal.png"
+          img="reward/bronze-medal.webp"
           title="รางวัลชมเชย"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"

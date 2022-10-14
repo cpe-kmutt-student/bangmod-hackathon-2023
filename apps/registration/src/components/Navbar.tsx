@@ -1,6 +1,5 @@
 import { useState } from 'preact/hooks';
 import { NavLink } from 'react-router-dom';
-import logo from "../assets/image/logo.png";
 
 export const NavElement = ({
   text,
@@ -43,7 +42,7 @@ export const Navbar = () => {
         </button>
       </div>
       <div className="static hidden md:flex justify-center items-center">
-        <a href="/register" className="h-20"><img src={logo} alt="logo" className="h-[100%] w-auto" /></a>
+        <a href="/register" className="h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
         <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] m-10 p-0 text-white drop-shadow">
           <NavElement text="รายละเอียด" to="#" className="border-l-[0.01px] border-white/20 rounded-l-md" />
           <NavElement text="คุณสมบัติ" to="#" />

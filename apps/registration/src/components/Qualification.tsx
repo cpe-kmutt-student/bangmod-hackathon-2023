@@ -8,18 +8,18 @@ export const Qualification = () => {
       </div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
         <Card
-          img="qualification/team.png"
+          img="qualification/team.webp"
           desc1="รับสมัครเป็นทีม "
           desc2="ทีมละ 2-3 คน"
         />
         <Card
-          img="qualification/student.png"
+          img="qualification/student.webp"
           desc1="ผู้สมัครต้องเป็นนักเรียนระดับชั้น มัธยมศึกษาตอนต้น, มัธยมศึกษาตอนปลาย หรือ นักศึกษาอาชีวศึกษาในระดับ  ปวช. หรือเทียบเท่า"
         />
 
         <div className="hidden md:block">
           <Card
-            img="qualification/teacher.png"
+            img="qualification/teacher.webp"
             desc1="อาจารย์ที่ปรึกษาทีม 1 คน "
             desc2="โดยอาจารย์ที่ปรึกษาต้องเป็น"
             desc3="อาจารย์ที่สอนในสถานศึกษานั้น ๆ"
@@ -27,21 +27,21 @@ export const Qualification = () => {
         </div>
         <div className="block md:hidden">
           <Card
-            img="qualification/teacher.png"
+            img="qualification/teacher.webp"
             desc1="อาจารย์ที่ปรึกษาทีม 1 คน โดยอาจารย์ที่ปรึกษาต้องเป็น อาจารย์ที่สอนในสถานศึกษานั้น ๆ"
           />
         </div>
 
         <div className="hidden md:block">
           <Card
-            img="qualification/school.png"
+            img="qualification/school.webp"
             desc1="แต่ละสถานศึกษาสามารถ"
             desc2="ส่งผู้เข้าแข่งขันได้มากที่สุด 2 ทีม"
           />
         </div>
         <div className="block md:hidden">
           <Card
-            img="qualification/school.png"
+            img="qualification/school.webp"
             desc1="แต่ละสถานศึกษาสามารถ ส่งผู้เข้าแข่งขันได้มากที่สุด 2 ทีม"
           />
         </div>
