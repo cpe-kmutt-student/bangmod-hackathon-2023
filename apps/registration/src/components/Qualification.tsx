@@ -2,7 +2,7 @@ import Card from "@/components/Card";
 
 export const Qualification = () => {
   return (
-    <section className="h-full py-12">
+    <section className="h-full py-14">
       <div className="w-fit mx-auto mb-8 px-8 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         คุณสมบัติผู้สมัคร
       </div>

@@ -1,15 +1,15 @@
 export const ScopeSection = () => {
   return (
-    <div className="w-full space-y-14 ">
+    <section className="h-full py-14">
       <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-base md:text-2xl text-white font-bold shadow-xl">
         ขอบเขตเนื้อหาที่ใช้ในการแข่งขัน
       </div>
 
-      <div className="bg-white p-3 md:p-10 rounded-3xl ">
-        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-indigo-500 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
+      <div className="bg-white p-3 md:p-10 rounded-3xl mb-8">
+        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-violet-400 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
           พื้นฐานวิทยาการคอมพิวเตอร์
         </div>
-        <ul className="list-decimal p-3 md:p-5 leading-loose  text-purple-700 font-semibold text-xs md:text-2xl md:space-y-3">
+        <ul className="list-decimal p-3 md:p-5 leading-loose  text-purple-700 font-semibold text-xs md:text-xl md:space-y-3">
           <li>พื้นฐานการเขียนโปรแกรม</li>
           <li>ทักษะการแก้ปัญหา (Problem-solving Skill)</li>
           <li>พื้นฐานโครงสร้างข้อมูล</li>
@@ -46,11 +46,12 @@ export const ScopeSection = () => {
           </ul>
         </ul>
       </div>
+
       <div className="bg-white p-3 md:p-10 rounded-3xl">
-        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-indigo-500 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
+        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-violet-400 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
           อัลกอริทึม
         </div>
-        <ul className="list-decimal p-3 md:p-5 leading-loose font-semibold text-purple-700 text-xs md:text-2xl md:space-y-3">
+        <ul className="list-decimal p-3 md:p-5 leading-loose font-semibold text-purple-700 text-xs md:text-xl md:space-y-3">
           <li>
             พื้นฐานการวิเคราะห์ความซับซ้อนของอัลกอริทึม (Algorithmic Complexity)
           </li>
@@ -103,7 +104,7 @@ export const ScopeSection = () => {
             <li>Transitive Closure (Floyd's Algorithm)</li>
             <li>Minimum Spanning Tree</li>
           </ul>
-          <li>กราฟและต้นไม</li>
+          <li>กราฟและต้นไม้</li>
           <ul className="list-[lower-alpha] md:space-y-3 ml-3 md:ml-5 font-normal ">
             <li>ต้นไม้และคุณสมบัติพื้นฐาน</li>
             <li>
@@ -123,6 +124,6 @@ export const ScopeSection = () => {
           </ul>
         </ul>
       </div>
-    </div>
+    </section>
   );
 };

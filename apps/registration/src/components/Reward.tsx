@@ -2,7 +2,7 @@ import Card from "@/components/Card";
 
 export const Reward = () => {
   return (
-    <section className="h-full py-12">
+    <section className="h-full py-14">
       <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         รางวัล
       </div>
