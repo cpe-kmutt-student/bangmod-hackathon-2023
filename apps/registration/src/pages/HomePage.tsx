@@ -1,7 +1,8 @@
-import InformationSection from '@/components/InformationSection';
-import { Navbar } from '@/components/Navbar';
-import { Qualification } from '@/components/Qualification';
-import { Reward } from '@/components/Reward';
+import InformationSection from "@/components/InformationSection";
+import { Navbar } from "@/components/Navbar";
+import { Qualification } from "@/components/Qualification";
+import { Reward } from "@/components/Reward";
+import { ScopeSection } from "@/components/ScopeSection";
 
 export const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ export const HomePage = () => {
         <InformationSection />
         <Qualification />
         <Reward />
+        <ScopeSection />
       </div>
     </div>
   );
