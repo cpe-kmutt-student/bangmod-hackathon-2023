@@ -1,3 +1,4 @@
+import InputName from '@/components/InputName';
 import PhoneInput from '@/components/PhoneInput';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'preact/hooks';
@@ -41,6 +42,52 @@ export const Welcome = () => {
           setObj={setObj}
           required={true}
         />
+        <div class="columns-3">     
+          <InputName
+            name="ชื่อจริง"
+            id="Tname"
+            placeholder="Name"
+            obj={obj}
+            pattern="[ก-ฮ]{2,}"
+          />
+          <InputName
+            name="ชื่อกลาง"
+            id="Tmname"
+            placeholder="Middle name"
+            obj={obj}
+            pattern="[ก-ฮ]{2,}"
+          />
+          <InputName
+            name="นามสกุล"
+            id="Tlname"
+            placeholder="Surename"
+            obj={obj}
+            pattern="[ก-ฮ]{2,}"
+          />
+        </div>
+        <div class="columns-3">     
+          <InputName
+            name="Firstname"
+            id="Tname"
+            placeholder="Name"
+            obj={obj}
+            pattern="[a-zA-Z]{2,}"
+          />
+          <InputName
+            name="Middle name"
+            id="Tmname"
+            placeholder="Middle name"
+            obj={obj}
+            pattern="[a-zA-Z]{2,}"
+          />
+          <InputName
+            name="Surename"
+            id="Tlname"
+            placeholder="Surename"
+            obj={obj}
+            pattern="[a-zA-Z]{2,}"
+          />
+        </div>
       </div>
     </div>
   );
