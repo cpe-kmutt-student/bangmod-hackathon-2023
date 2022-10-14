@@ -1,6 +1,17 @@
+import { useNavbar } from '@/contexts/NavbarContext';
+import useInView from '@/hooks/useInView';
+import { useEffect } from 'preact/hooks';
+
 export const ContactSection = () => {
+  const { setVisibleSection } = useNavbar();
+  const [isVisible, ref] = useInView<HTMLElement>();
+
+  useEffect(() => {
+    isVisible && setVisibleSection('contact');
+  }, [isVisible]);
+
   return (
-    <section className="h-full py-12">
+    <section ref={ref} id="contact-section" className="h-full py-12">
       <div>
         <div className="py-4 text-6xl text-center text-white font-bold">
           <h1>NEED HELPS?</h1>

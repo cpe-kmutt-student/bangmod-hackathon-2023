@@ -83,7 +83,7 @@ export const Navbar = () => {
           <NavElement
             className={visibleSection === 'contact' ? 'bg-white text-black' : ''}
             text="ติดต่อสอบถาม"
-            to="#"
+            to="#contact-section"
           />
           <NavLink
             to="/register"
@@ -119,7 +119,7 @@ export const Navbar = () => {
               />
               <NavElement
                 text="ติดต่อสอบถาม"
-                to="#"
+                to="#contact-section"
               />
               <NavLink
                 to="/register"
