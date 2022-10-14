@@ -12,7 +12,7 @@ export const Qualification = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="qualification-section" className="h-full py-24">
+    <section ref={ref} id="qualification-section" className="h-full">
       <div className="w-fit mx-auto mb-8 px-8 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         คุณสมบัติผู้สมัคร
       </div>

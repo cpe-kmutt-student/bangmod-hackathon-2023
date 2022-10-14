@@ -24,8 +24,10 @@ export const Navbar = () => {
   const [navbar, setNavbar] = useState(false);
 
   return (
-    <div className="fixed w-full h-16 md:h-30 z-10">
-      <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-end items-center z-10 pr-5">
+    <div className="fixed w-full h-16 md:h-30 z-50">
+      <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-between items-center z-10 px-5">
+        <span className="p-2 rounded-md w-10" />
+        <a href="/register" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto"   /></a>
         <button
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
@@ -45,14 +47,14 @@ export const Navbar = () => {
         </button>
       </div>
 
-      <div className="static hidden md:flex justify-center items-center">
+      <div className="static hidden md:flex justify-center items-center mx-4 my-2">
         <a
           href="/register"
           className="h-20"
         >
           <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" />
         </a>
-        <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] m-10 p-0 text-white drop-shadow">
+        <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] p-0 text-white drop-shadow">
           <NavElement
             text="รายละเอียด"
             to="#information-section"
@@ -81,7 +83,7 @@ export const Navbar = () => {
           <NavElement
             className={visibleSection === 'contact' ? 'bg-white text-black' : ''}
             text="ติดต่อสอบถาม"
-            to="#"
+            to="#contact-section"
           />
           <NavLink
             to="/register"
@@ -117,7 +119,7 @@ export const Navbar = () => {
               />
               <NavElement
                 text="ติดต่อสอบถาม"
-                to="#"
+                to="#contact-section"
               />
               <NavLink
                 to="/register"

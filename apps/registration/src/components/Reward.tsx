@@ -12,7 +12,7 @@ export const Reward = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="reward-section" className="h-full py-24">
+    <section ref={ref} id="reward-section" className="h-full">
       <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         รางวัล
       </div>
