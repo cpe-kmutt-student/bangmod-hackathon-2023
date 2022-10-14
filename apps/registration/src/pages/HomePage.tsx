@@ -1,3 +1,4 @@
+import { Contact } from '@/components/Contact';
 import InformationSection from '@/components/InformationSection';
 import { Navbar } from '@/components/Navbar';
 import { Qualification } from '@/components/Qualification';
@@ -12,6 +13,7 @@ export const HomePage = () => {
         <InformationSection />
         <Qualification />
         <Reward />
+        <Contact />
       </div>
     </div>
   );
