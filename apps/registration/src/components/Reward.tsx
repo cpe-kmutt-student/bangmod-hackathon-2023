@@ -6,7 +6,7 @@ export const Reward = () => {
       <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         รางวัล
       </div>
-      <div className="grid sm:grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
         <Card
           img="reward/champion.png"
           title="รางวัลชนะเลิศ"
