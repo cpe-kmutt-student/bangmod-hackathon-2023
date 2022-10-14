@@ -1,6 +1,17 @@
+import { useNavbar } from '@/contexts/NavbarContext';
+import useInView from '@/hooks/useInView';
+import { useEffect } from 'preact/hooks';
+
 const InformationSection = () => {
+  const { setVisibleSection } = useNavbar();
+  const [isVisible, ref] = useInView<HTMLElement>();
+
+  useEffect(() => {
+    isVisible && setVisibleSection('info');
+  }, [isVisible]);
+
   return (
-    <div className="h-screen flex flex-col md:flex-row justify-center items-center md:space-x-8 text-white">
+    <section ref={ref} id="information-section" className="h-screen flex flex-col md:flex-row justify-center items-center md:space-x-8 text-white">
       <div className="md:hidden w-fit mb-8 px-16 py-4 text-xl font-bold bg-yellow-600 rounded-xl">
         รายละเอียด
       </div>
@@ -22,7 +33,7 @@ const InformationSection = () => {
           และฝึกการทำงานร่วมกันเป็นทีมอีกด้วย
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,8 +1,18 @@
 import Card from "@/components/Card";
+import { useNavbar } from '@/contexts/NavbarContext';
+import useInView from '@/hooks/useInView';
+import { useEffect } from 'preact/hooks';
 
 export const Qualification = () => {
+  const { setVisibleSection } = useNavbar();
+  const [isVisible, ref] = useInView<HTMLElement>();
+
+  useEffect(() => {
+    isVisible && setVisibleSection('qualification');
+  }, [isVisible]);
+
   return (
-    <section className="h-full py-14">
+    <section ref={ref} id="qualification-section" className="h-full py-14">
       <div className="w-fit mx-auto mb-8 px-8 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         คุณสมบัติผู้สมัคร
       </div>
