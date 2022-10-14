@@ -2,7 +2,7 @@ import InformationSection from "@/components/InformationSection";
 import { Navbar } from "@/components/Navbar";
 import { Qualification } from "@/components/Qualification";
 import { Reward } from "@/components/Reward";
-import { Scope } from "@/components/Scope";
+import { Scope } from "@/components/ScopeSection";
 
 export const HomePage = () => {
   return (
