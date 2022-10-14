@@ -24,6 +24,11 @@ declare global {
   declare namespace Springpress {
     export interface RouteMetadata {
       authentication?: boolean;
+      allowMultipartFormData?: {
+        allowMultiple: boolean,
+        isDocument?: boolean,
+        isSourceCode?: boolean,
+      };
     }
   }
 }

@@ -1,28 +1,33 @@
 import { TeamForm } from "@/components/TeamForm";
 import { StateUpdater } from "preact/hooks";
-const Inputbox = ({
+type option = {
+  label?: string | number;
+  value?: string | number;
+};
+
+const DropDown = ({
   obj,
   setObj,
+  options,
   name,
   label,
-  placeholder,
-  width,
   required,
+  width,
 }: {
-  obj: string | number;
+  obj?: string | number;
   setObj: StateUpdater<TeamForm>;
   name: string;
   label?: string;
-  placeholder?: string;
-  width?: string;
+  options: option[];
   required?: boolean;
+  width?: string;
 }) => {
   const handleChange = (event: Event) => {
-    if (!(event.target instanceof HTMLInputElement)) return;
+    if (!(event.target instanceof HTMLSelectElement)) return;
     const value = event.target.value;
+
     setObj((obj) => ({ ...obj, [name]: value }));
   };
-
   return (
     <div className={`mb-6 ${width && width}`}>
       {label ? (
@@ -36,15 +41,17 @@ const Inputbox = ({
       ) : (
         <div />
       )}
-      <input
-        type="text"
-        placeholder={placeholder}
+      <select
         value={obj}
-        onInput={handleChange}
+        onChange={handleChange}
         className="rounded-lg appearance-none relative block w-full px-5 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 text-sm md:text-2xl sm:text-sm"
-      />
+      >
+        {options.map((e: option) => (
+          <option value={e.value}>{e.label}</option>
+        ))}
+      </select>
     </div>
   );
 };
 
-export default Inputbox;
+export default DropDown;

@@ -1,4 +1,3 @@
-import PhoneInput from '@/components/PhoneInput';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'preact/hooks';
 
@@ -32,15 +31,6 @@ export const Welcome = () => {
           </button>
           </div>
         )}
-
-        <PhoneInput
-          name="phone"
-          id="phone"
-          placeholder="please enter phone"
-          obj={obj}
-          setObj={setObj}
-          required={true}
-        />        
       </div>
     </div>
   );
