@@ -11,8 +11,8 @@ export const ScopeSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="scope-section" className="h-full py-24">
-      <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-base md:text-2xl text-white font-bold shadow-xl">
+    <section ref={ref} id="scope-section" className="h-full">
+      <div className="w-fit mx-auto mb-8 px-8 py-4 bg-yellow-600 rounded-xl text-base md:text-2xl text-white font-bold shadow-xl text-center">
         ขอบเขตเนื้อหาที่ใช้ในการแข่งขัน
       </div>
 
