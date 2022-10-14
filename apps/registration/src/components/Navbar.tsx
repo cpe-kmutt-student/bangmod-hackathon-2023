@@ -43,7 +43,7 @@ export const Navbar = () => {
         </button>
       </div>
       <div className="static hidden md:flex justify-center items-center">
-        <a href="/registration" className="h-20"><img src={logo} alt="logo" className="h-[100%] w-auto" /></a>
+        <a href="/register" className="h-20"><img src={logo} alt="logo" className="h-[100%] w-auto" /></a>
         <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] m-10 p-0 text-white drop-shadow">
           <NavElement text="รายละเอียด" to="#" className="border-l-[0.01px] border-white/20 rounded-l-md" />
           <NavElement text="คุณสมบัติ" to="#" />
@@ -51,7 +51,7 @@ export const Navbar = () => {
           <NavElement text="ไทม์ไลน์" to="#" />
           <NavElement text="ขอบเขตเนื้อหา" to="#" />
           <NavElement text="ติดต่อสอบถาม" to="#" />
-          <NavLink to="/registration" className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"> สมัคร </NavLink>
+          <NavLink to="/register" className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"> สมัคร </NavLink>
         </nav>
       </div>
       {
@@ -64,7 +64,7 @@ export const Navbar = () => {
               <NavElement text="ไทม์ไลน์" to="#" />
               <NavElement text="ขอบเขตเนื้อหา" to="#" />
               <NavElement text="ติดต่อสอบถาม" to="#" />
-              <NavLink to="/registration" className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"> สมัคร </NavLink>
+              <NavLink to="/register" className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"> สมัคร </NavLink>
             </nav>
           </div>
         )
