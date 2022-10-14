@@ -6,12 +6,14 @@ export const Contact = () => {
                     NEED HELP?
                 </div>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-2 text-white lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
-                    <img class='md:h-full md:w-48' src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/600px-Facebook_Logo_%282019%29.png'></img>
+                    <img class='pl-1' src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/600px-Facebook_Logo_%282019%29.png'></img>
                     <p className="font-bold text-white lg:text-base" > BANGMOD HACKTHON 2023</p>
-                    <img src="https://www.clipartmax.com/png/full/2-23363_icon-telephone-png.png" width={74} height={74}></img>
-                    <p className="text-sm font-light">0945169692  (พี่เจต)</p>
-                    <p className="text-sm font-light">0982725713   (พี่ปัน) </p>
-                    <p className="text-sm font-light">0939416441  (พี่เฟรนด์) </p>
+                    <img class='pl-1' src="https://www.clipartmax.com/png/full/2-23363_icon-telephone-png.png"></img>
+                    <div className="h-full flex flex-col justify-center items-center text-right mt-4">
+                        <p className="text-sm font-light">0945169692  (พี่เจต)</p>
+                        <p className="text-sm font-light">0982725713   (พี่ปัน) </p>
+                        <p className="text-sm font-light">0939416441  (พี่เฟรนด์) </p>
+                    </div>
                     <p>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
                         ชั้น 10 อาคารวิศววัฒนะ 126ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140
                     </p>
