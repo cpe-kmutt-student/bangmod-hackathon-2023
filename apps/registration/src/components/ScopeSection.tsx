@@ -1,4 +1,4 @@
-export const Scope = () => {
+export const ScopeSection = () => {
   return (
     <div className="w-full space-y-14 ">
       <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-base md:text-2xl text-white font-bold shadow-xl">
