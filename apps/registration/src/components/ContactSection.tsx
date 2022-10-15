@@ -11,34 +11,50 @@ export const ContactSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="contact-section" className="h-full py-12">
+    <section ref={ref} id="contact-section" className="h-full py-24">
       <div>
-        <div className="py-4 text-6xl text-center text-white font-bold">
+        <div className="py-4 text-6xl text-center text-white font-bold mb-12">
           <h1>NEED HELPS?</h1>
         </div>
-        <div className="py-12 grid gap-x-20 grid-cols-2">
-          <div className="flex items-center justify-end grid gap-2 grid-cols-2 md:flex">
-            <div className="md:shrink-0">
-              <img class="object-contain h-24 w-24 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/600px-Facebook_Logo_%282019%29.png"></img>
+
+        <div className="flex flex-row justify-center space-x-24">
+          <div className="flex flex-row space-x-4">
+            <div className="bg-gray-300 rounded-full p-3">
+              <img className="w-18 h-18" src="fb-icon.webp" alt="" />
             </div>
-            <div>
-              <p className="font-bold text-white" > BANGMOD HACKTHON 2023</p>
-              <a href="https://www.facebook.com/BangmodHackathon" target="_blank">
-                <button className="text-white bg-[#db9116] px-4 py-1 rounded-lg font-bold text-xs">CHAT NOW</button>
+            <div className="flex flex-col justify-center space-y-2">
+              <div className="text-white font-bold text-xl">BANGMOD HACKATHON 2023</div>
+              <a
+                className="text-white bg-[#db9116] w-fit px-4 py-1 rounded-lg text-sm"
+                href="https://www.facebook.com/BangmodHackathon"
+                target="_blank"
+              >
+                CHAT NOW
               </a>
             </div>
           </div>
-          <div className="flex items-center justify-start grid gap-2 grid-cols-2 md:flex">
-            <div className="md:shrink-0">
-              <img class="object-contain h-24 w-24" src="https://www.clipartmax.com/png/full/2-23363_icon-telephone-png.png"></img>
+          <div className="flex flex-row space-x-4">
+            <div className="bg-gray-300 rounded-full p-3">
+              <img className="w-18 h-18" src="tel-icon.webp" alt="" />
             </div>
-            <div className="text-left font-bold text-white">
-              <p className="font-bold">0945169692  (พี่เจต)</p>
-              <p className="font-bold">0982725713   (พี่ปัน) </p>
+            <div className="flex flex-col justify-center text-white">
+              <div className="grid grid-cols-2 gap-2">
+                <a href="tel:0945169692">0945169692</a>
+                <div>(พี่เจต)</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <a href="tel:0982725713">0982725713</a>
+                <div>(พี่ปัน)</div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <a href="tel:0939416441">0939416441</a>
+                <div>(พี่เฟรนด์)</div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="px-4 text-center font-bold text-white ">
+
+        <div className="mt-12 text-center font-bold text-white">
           <p>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
           <p>ชั้น 10 อาคารวิศววัฒนะ 126ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140</p>
         </div>
