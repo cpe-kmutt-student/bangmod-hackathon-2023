@@ -1,19 +1,22 @@
 import { useRef } from "preact/compat";
+import { StateUpdater } from "preact/hooks";
 
-const ImageInputBox = ({
+const ImageInputBox = <T,>({
   obj,
   setObj,
   name,
+  index,
 }: {
   obj: FileList | null;
-  setObj: any;
-  name?: string;
+  setObj: StateUpdater<T>;
+  name: string;
+  index?: number;
 }) => {
   const pText = "px-4 text-violet-900 antialiased text-lg";
   const button =
     "p-2 m-2 text-white rounded-full border-solid focus:outline-none focus:ring";
   const border =
-    "col-span-6 flex flex-col justify-center items-center h-40 border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg";
+    "col-span-6 flex flex-col justify-center items-center h-36 md:h-40 border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg";
   const inputRef: any = useRef(null);
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -23,6 +26,18 @@ const ImageInputBox = ({
     setObj(event.dataTranfer.files);
   };
 
+  const handleUpload = (event: any) => {
+    const value = event.target.files;
+    setObj((prev) => {
+      const newObj =
+        index !== undefined
+          ? { [index]: { ...prev[index as keyof T], [name]: value } }
+          : { [name]: value };
+
+      return { ...prev, ...newObj };
+    });
+  };
+
   if (obj) {
     Array.from(obj).map((file: any, idx) => {
       if (
@@ -30,10 +45,8 @@ const ImageInputBox = ({
         file.type != "image/jpeg" &&
         file.type != "application/pdf"
       ) {
-        setObj(null);
         alert("Invalid file type!");
       } else if (idx > 0) {
-        setObj(null);
         alert("Please submit only 1 files.");
       }
     });
@@ -41,16 +54,16 @@ const ImageInputBox = ({
 
   if (obj)
     return (
-      <div className="grid grid-cols-1">
-        <div className="flex flex-col ustify-start items-start h-1 m-5">
+      <div className="grid grid-cols-1 px-4 py-2">
+        {/* <div className="justify-start m-5 flex h-1 flex-col items-start">
           <ul>
             <li className={pText}>{name}</li>
           </ul>
-        </div>
-        <div className="grid grid-cols-8">
+        </div> */}
+        <div className="grid grid-cols-5">
           <div></div>
           <div className={border}>
-            <div className="m-5 flex flex-col justify-center items-center">
+            <div className="m-5 flex flex-col justify-center text-black items-center">
               <ul>
                 {Array.from(obj).map((file: any, idx) => (
                   <li>{file.name}</li>
@@ -58,11 +71,26 @@ const ImageInputBox = ({
               </ul>
               <div className="py-2">
                 <button
+                  type="button"
                   className={
                     button +
                     "focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"
                   }
-                  onClick={() => setObj(null)}
+                  onClick={() => {
+                    setObj((prev) => {
+                      const newObj =
+                        index !== undefined
+                          ? {
+                              [index]: {
+                                ...prev[index as keyof T],
+                                [name]: null,
+                              },
+                            }
+                          : { [name]: null };
+
+                      return { ...prev, ...newObj };
+                    });
+                  }}
                 >
                   Cancel
                 </button>
@@ -74,14 +102,14 @@ const ImageInputBox = ({
     );
 
   return (
-    <div className="grid grid-cols-1">
-      {name && (
+    <div className={"grid grid-cols-1 px-4 py-2"}>
+      {/* {name && (
         <div className="flex flex-col justify-start items-start h-1 m-5">
-          <ul>
+        <ul>
             <li className={pText}>{name}</li>
           </ul>
         </div>
-      )}
+      )} */}
       {!obj && (
         <div className="">
           <div></div>
@@ -93,13 +121,12 @@ const ImageInputBox = ({
             <input
               type="file"
               accept=".jpg, .pdf, .png"
-              onInput={(event: any) => {
-                setObj(event.target.files);
-              }}
+              onInput={handleUpload}
               hidden
               ref={inputRef}
             />
             <button
+              type="button"
               className="font-bold text-4xl antialiased text-violet-400 hover:text-violet-600"
               onClick={() => {
                 inputRef.current.click();

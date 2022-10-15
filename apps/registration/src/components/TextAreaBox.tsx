@@ -1,31 +1,28 @@
 import { StateUpdater } from "preact/hooks";
 
-type option = {
-  label?: string | number;
-  value?: string | number;
-};
-
-const DropDown = <T,>({
-  obj,
-  setObj,
-  options,
-  name,
-  label,
-  required,
-  width,
-  index,
-}: {
-  obj?: string | number;
+export type TextAreaBoxProps<T> = {
+  obj: string | number;
   setObj: StateUpdater<T>;
   name: string;
   label?: string;
-  options: option[];
-  required?: boolean;
+  placeholder?: string;
   width?: string;
+  required?: boolean;
   index?: number;
-}) => {
+};
+
+const TextAreaBox = <T,>({
+  obj,
+  setObj,
+  name,
+  label,
+  placeholder,
+  width,
+  required,
+  index,
+}: TextAreaBoxProps<T>) => {
   const handleChange = (event: Event) => {
-    if (!(event.target instanceof HTMLSelectElement)) return;
+    if (!(event.target instanceof HTMLTextAreaElement)) return;
     const value = event.target.value;
 
     setObj((prev) => {
@@ -51,18 +48,16 @@ const DropDown = <T,>({
       ) : (
         <div />
       )}
-      <select
+      <textarea
+        type="text"
+        placeholder={placeholder}
         value={obj}
+        onInput={handleChange}
         required={required}
-        onChange={handleChange}
-        className="p-2 md:pl-2 md:p-1 relative block w-full appearance-none rounded-md border border-gray-300  pl-2 text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
-      >
-        {options.map((e: option) => (
-          <option value={e.value}>{e.label}</option>
-        ))}
-      </select>
+        className="p-2 md:pl-2 md:p-1 relative block h-32 w-full appearance-none resize-none rounded-md border border-gray-300  text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
+      />
     </div>
   );
 };
 
-export default DropDown;
+export default TextAreaBox;

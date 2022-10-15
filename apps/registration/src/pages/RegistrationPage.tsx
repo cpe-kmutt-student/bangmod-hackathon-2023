@@ -1,7 +1,9 @@
-import { TeamForm } from '@/components/TeamForm';
+import { RegistrationForm } from '@/components/RegistrationForm';
 
 export const RegistrationPage = () => {
   return (
-    <TeamForm />
+    <div className="h-full min-h-screen bg-[#5d298e]">
+      <RegistrationForm />
+    </div>
   );
 };
