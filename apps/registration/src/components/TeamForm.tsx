@@ -1,7 +1,7 @@
 import DropDown from "@/components/DropDown";
 import EmailInputbox from "@/components/EmailInputbox";
 import ImageInputBox from "@/components/ImageInputBox";
-import InputBox from "@/components/InputBox";
+import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
 import { StateUpdater } from "preact/hooks";
 

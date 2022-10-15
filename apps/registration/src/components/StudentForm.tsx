@@ -1,6 +1,6 @@
 import DropDown from "@/components/DropDown";
 import ImageInputBox from "@/components/ImageInputBox";
-import InputBox from "@/components/InputBox";
+import InputBox from "@/components/Inputbox";
 import TextAreaBox from "@/components/TextAreaBox";
 import { StateUpdater, useState } from "preact/hooks";
 
