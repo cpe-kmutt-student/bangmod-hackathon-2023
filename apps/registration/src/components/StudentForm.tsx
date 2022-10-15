@@ -74,7 +74,8 @@ type StudentFromProps = {
 export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
-      {/* <h1 className="      "> */}
+      <img className="w-64 absolute top-2/3 left-0 transform -translate-x-44 scale-75 opacity-70" src="flower.svg" alt="" />
+      <img className="w-64 absolute bottom-0 right-0 transform translate-x-40 opacity-70" src="flower.svg" alt="" />
 
       <h1 className="bg-white rounded-t-[20px] px-5 py-4 md:pl-6 text-2xl font-bold text-center md:text-left text-[#6c30a4]">
         รายละเอียดสมาชิกคนที่ {index + 1}

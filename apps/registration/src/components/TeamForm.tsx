@@ -36,6 +36,9 @@ type TeamFormProps = {
 export const TeamForm = ({ data, setData }: TeamFormProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
+      <img className="w-64 absolute top-0 right-0 transform translate-x-48 opacity-70" src="flower.svg" alt="" />
+      <img className="w-64 absolute bottom-0 left-0 transform -translate-x-44 translate-y-24 opacity-70" src="flower.svg" alt="" />
+
       <div className="text-white my-5 md:px-6 md:py-4">
         {/* first grid */}
         <div className="flex flex-col items-center justify-center  md:flex-row md:justify-between md:space-x-5">

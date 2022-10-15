@@ -33,8 +33,10 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <div className="flex h-full items-center justify-center">
-      <div className="m-5 flex w-full flex-col sm:w-5/6 md:w-4/5 lg:w-3/5">
+    <div className="relative flex h-full items-center justify-center">
+      <img className="absolute top-0 left-0 mt-4 w-24 md:w-32" src="logo.webp" alt="" />
+
+      <div className="flex w-full flex-col md:mx-12 z-20">
         <RegisterHeader />
 
         <form onSubmit={handleSubmit}>
@@ -57,9 +59,9 @@ export const RegistrationForm = () => {
 
 const RegisterButton = () => {
   return (
-    <div className="flex justify-center">
-      <button className="mt-5 flex h-12 w-2/3 items-center justify-center rounded-xl bg-black drop-shadow-lg  md:w-1/5">
-        <span className="font-bold text-white">ยืนยันการกรอกข้อมูล</span>
+    <div className="flex justify-center mb-32">
+      <button className="px-4 py-3 rounded-xl bg-black text-white drop-shadow-lg">
+        ยืนยันการกรอกข้อมูล
       </button>
     </div>
   );
@@ -67,7 +69,7 @@ const RegisterButton = () => {
 
 const RegisterHeader = () => {
   return (
-    <div className=" flex h-16 w-2/3 self-center rounded-[20px] bg-white bg-opacity-20 drop-shadow-lg md:w-2/5">
+    <div className="flex h-16 w-2/3 self-center rounded-[20px] mt-12 bg-white bg-opacity-20 drop-shadow-lg md:w-2/5">
       <div className="flex w-full flex-col items-center justify-center">
         <h1 className="text-2xl font-bold text-white">ลงทะเบียน</h1>
       </div>
