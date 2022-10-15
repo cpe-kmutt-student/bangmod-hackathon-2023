@@ -5,14 +5,14 @@ import { useEffect } from 'preact/hooks';
 
 export const Qualification = () => {
   const { setVisibleSection } = useNavbar();
-  const [isVisible, ref] = useInView<HTMLElement>();
+  const [isVisible, ref] = useInView<HTMLElement>({ threshold: 0.9 });
 
   useEffect(() => {
     isVisible && setVisibleSection('qualification');
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="qualification-section" className="h-full">
+    <section ref={ref} id="qualification-section" className="h-full py-12 lg:py-2">
       <div className="w-fit mx-auto mb-8 px-8 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
         คุณสมบัติผู้สมัคร
       </div>
