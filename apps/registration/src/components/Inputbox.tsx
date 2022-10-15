@@ -1,3 +1,4 @@
+import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater } from "preact/hooks";
 
 export type NewInputBoxProps<T> = {
@@ -24,15 +25,7 @@ const InputBox = <T,>({
   const handleChange = (event: Event) => {
     if (!(event.target instanceof HTMLInputElement)) return;
     const value = event.target.value;
-
-    setObj((prev) => {
-      const newObj =
-        index !== undefined
-          ? { [index]: { ...prev[index as keyof T], [name]: value } }
-          : { [name]: value };
-
-      return { ...prev, ...newObj };
-    });
+    setObj((prev) => setFormObject(prev, index, name, value));
   };
 
   return (

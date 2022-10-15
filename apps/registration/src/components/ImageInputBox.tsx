@@ -1,3 +1,4 @@
+import { setFormObject } from '@/utils/FormUtil';
 import { useRef } from "preact/compat";
 import { StateUpdater } from "preact/hooks";
 
@@ -28,14 +29,7 @@ const ImageInputBox = <T,>({
 
   const handleUpload = (event: any) => {
     const value = event.target.files;
-    setObj((prev) => {
-      const newObj =
-        index !== undefined
-          ? { [index]: { ...prev[index as keyof T], [name]: value } }
-          : { [name]: value };
-
-      return { ...prev, ...newObj };
-    });
+    setObj((prev) => setFormObject(prev, index, name, value));
   };
 
   if (obj) {
@@ -77,19 +71,7 @@ const ImageInputBox = <T,>({
                     "focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"
                   }
                   onClick={() => {
-                    setObj((prev) => {
-                      const newObj =
-                        index !== undefined
-                          ? {
-                              [index]: {
-                                ...prev[index as keyof T],
-                                [name]: null,
-                              },
-                            }
-                          : { [name]: null };
-
-                      return { ...prev, ...newObj };
-                    });
+                    setObj((prev) => setFormObject(prev, index, name, null));
                   }}
                 >
                   Cancel

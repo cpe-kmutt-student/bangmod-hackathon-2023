@@ -1,3 +1,4 @@
+import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater } from "preact/hooks";
 
 type option = {
@@ -27,15 +28,7 @@ const DropDown = <T,>({
   const handleChange = (event: Event) => {
     if (!(event.target instanceof HTMLSelectElement)) return;
     const value = event.target.value;
-
-    setObj((prev) => {
-      const newObj =
-        index !== undefined
-          ? { [index]: { ...prev[index as keyof T], [name]: value } }
-          : { [name]: value };
-
-      return { ...prev, ...newObj };
-    });
+    setObj((prev) => setFormObject(prev, index, name, value));
   };
 
   return (

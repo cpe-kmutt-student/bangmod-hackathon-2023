@@ -1,3 +1,4 @@
+import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater, useState } from "preact/hooks";
 
 const EmailInputbox = <T,>({
@@ -28,14 +29,7 @@ const EmailInputbox = <T,>({
     const email = event.target.value;
     if (reg.test(email) === false) setIsValid(true);
     else setIsValid(false);
-    setObj((prev) => {
-      const newObj =
-        index !== undefined
-          ? { [index]: { ...prev[index as keyof T], [name]: email } }
-          : { [name]: email };
-
-      return { ...prev, ...newObj };
-    });
+    setObj((prev) => setFormObject(prev, index, name, email));
   };
 
   return (

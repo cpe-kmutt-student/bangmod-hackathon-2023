@@ -14,7 +14,7 @@ export type RegistrationFormData = {
 export const RegistrationForm = () => {
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile>(defaultTeamForm);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
-    Array.from({ length: 3 }, () => defaultStudentFormData)
+    Array(3).fill(defaultStudentFormData)
   );
 
   const handleSubmit = (e: Event) => {
@@ -24,8 +24,8 @@ export const RegistrationForm = () => {
     const students = studentFormsData;
     const payload: RegistrationFormData = { team, students };
 
-    setTeamFormData(defaultTeamForm);
-    setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentFormData));
+    // setTeamFormData(defaultTeamForm);
+    // setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentFormData));
 
     // TODO: Send payload to backend
     console.log("submitted");
