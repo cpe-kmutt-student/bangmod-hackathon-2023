@@ -39,11 +39,11 @@ const DropDown = <T,>({
   };
 
   return (
-    <div className={`${width && width} mb-6 flex flex-col md:mb-0`}>
+    <div className={`${width && width} flex flex-col px-4 py-2 md:p-0`}>
       {label ? (
         <label
           for="default-input"
-          className="mb-1 block pl-2 tracking-wide text-white "
+          className="mb-1 block pl-2 tracking-wide text-white"
         >
           {label}
           {required ? <span className="text-[#ffdc19]">*</span> : <div />}
@@ -55,7 +55,7 @@ const DropDown = <T,>({
         value={obj}
         required={required}
         onChange={handleChange}
-        className="relative block w-full appearance-none rounded-md border border-gray-300 p-1 pl-2 text-black placeholder-gray-500 drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
+        className="p-2 md:pl-2 md:p-1 relative block w-full appearance-none rounded-md border border-gray-300  pl-2 text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
       >
         {options.map((e: option) => (
           <option value={e.value}>{e.label}</option>

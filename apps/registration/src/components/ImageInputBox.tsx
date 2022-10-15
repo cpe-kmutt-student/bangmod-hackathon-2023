@@ -16,7 +16,7 @@ const ImageInputBox = <T,>({
   const button =
     "p-2 m-2 text-white rounded-full border-solid focus:outline-none focus:ring";
   const border =
-    "col-span-6 flex flex-col justify-center items-center h-40 border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg";
+    "col-span-6 flex flex-col justify-center items-center h-36 md:h-40 border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg";
   const inputRef: any = useRef(null);
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -27,8 +27,6 @@ const ImageInputBox = <T,>({
   };
 
   const handleUpload = (event: any) => {
-    console.log("hi");
-    // setObj(event.target.files);
     const value = event.target.files;
     setObj((prev) => {
       const newObj =
@@ -56,16 +54,16 @@ const ImageInputBox = <T,>({
 
   if (obj)
     return (
-      <div className="grid grid-cols-1">
-        <div className="justify-start m-5 flex h-1 flex-col items-start">
+      <div className="grid grid-cols-1 px-4 py-2">
+        {/* <div className="justify-start m-5 flex h-1 flex-col items-start">
           <ul>
             <li className={pText}>{name}</li>
           </ul>
-        </div>
-        <div className="grid grid-cols-8">
+        </div> */}
+        <div className="grid grid-cols-5">
           <div></div>
           <div className={border}>
-            <div className="m-5 flex flex-col justify-center items-center">
+            <div className="m-5 flex flex-col justify-center text-black items-center">
               <ul>
                 {Array.from(obj).map((file: any, idx) => (
                   <li>{file.name}</li>
@@ -104,7 +102,7 @@ const ImageInputBox = <T,>({
     );
 
   return (
-    <div className="grid grid-cols-1">
+    <div className={"grid grid-cols-1 px-4 py-2"}>
       {/* {name && (
         <div className="flex flex-col justify-start items-start h-1 m-5">
         <ul>
