@@ -48,8 +48,8 @@ type TeamFormProps = {
 
 export const TeamForm = ({ data, setData }: TeamFormProps) => {
   return (
-    <div className="my-6 w-full rounded-[20px] bg-white bg-opacity-20 drop-shadow-lg">
-      <div className="px-6 py-6 md:space-y-3 md:py-9 md:px-12">
+    <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
+      <div className="text-white my-5 md:px-6 md:py-4">
         {/* first grid */}
         <div className="flex flex-col items-center justify-center  md:flex-row md:justify-between md:space-x-5">
           <InputBox
@@ -80,7 +80,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
               { label: "3", value: 3 },
             ]}
             required
-            width="w-full md:w-1/6"
+            width="w-full md:w-[25%]"
           />
         </div>
         {/* Sensei */}
@@ -88,7 +88,8 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
           อาจารย์ที่ปรึกษา
         </span>
         {/* Second grid */}
-        <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between ">
+        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+          {/* <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between "> */}
           <DropDown
             obj={data.prefixTH}
             setObj={setData}
@@ -100,7 +101,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
               { label: "นางสาว", value: "นางสาว" },
             ]}
             required
-            width="w-full md:w-2/12"
+            width="w-full md:w-[13%]"
           />
           <InputBox
             obj={data.nameTH}
@@ -109,7 +110,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="ชื่อ (ภาษาไทย)"
             placeholder="Name"
             required
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
           <InputBox
             obj={data.middleNameTH}
@@ -117,7 +118,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             name="middleNameTH"
             label="ชื่อกลาง (ภาษาไทย)"
             placeholder="Middle name"
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
           <InputBox
             obj={data.surnameTH}
@@ -126,11 +127,12 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="นามสกุล (ภาษาไทย)"
             placeholder="Surname"
             required
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
         </div>
         {/* Thrid grid */}
-        <div className="flex flex-col justify-center md:flex-row  md:justify-between ">
+        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+          {/* <div className="flex flex-col justify-center md:flex-row  md:justify-between "> */}
           <DropDown
             obj={data.prefixEN}
             setObj={setData}
@@ -142,7 +144,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
               { label: "Miss.", value: "Miss." },
             ]}
             required
-            width="w-full md:w-2/12"
+            width="w-full md:w-[13%]"
           />
           <InputBox
             obj={data.nameEN}
@@ -151,7 +153,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="Name"
             placeholder="Name"
             required
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
           <InputBox
             obj={data.middleNameEN}
@@ -159,7 +161,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             name="middleNameEN"
             label="Middle name"
             placeholder="Middle name"
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
           <InputBox
             obj={data.surnameEN}
@@ -168,20 +170,19 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="Surname"
             placeholder="Surname"
             required
-            width="w-full md:w-3/12"
+            width="w-full md:w-[27%]"
           />
         </div>
         {/* Fourth grid */}
-        <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between md:space-x-7">
+        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <EmailInputbox
-            // <NewInputBox
             obj={data.email}
             setObj={setData}
             name="email"
             label="Email"
             placeholder="Email"
             required
-            width="w-full md:w-2/6"
+            width="w-full md:w-[30%]"
           />
           <PhoneInput
             obj={data.phone}
@@ -190,7 +191,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="เบอร์โทรศัพท์"
             placeholder="Tel. number"
             required
-            width="w-full md:w-2/6"
+            width="w-full md:w-[25%]"
           />
           <InputBox
             obj={data.line}
@@ -199,11 +200,11 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             label="Line ID"
             placeholder="ID Line"
             required
-            width="w-full md:w-2/6"
+            width="w-full md:w-[41%]"
           />
         </div>
         {/* File system */}
-        <div className="flex flex-col justify-between space-y-2 pt-4 md:flex-row md:space-y-0">
+        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* Left side */}
           <div class="ml-2 md:w-1/2">
             <h1 className="text-sm font-bold text-white md:text-2xl">
