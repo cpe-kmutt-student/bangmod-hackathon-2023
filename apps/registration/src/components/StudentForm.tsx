@@ -2,6 +2,7 @@ import DropDown from "@/components/DropDown";
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import TextAreaBox from "@/components/TextAreaBox";
+import { StudentFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
 
 const LengthValidate = (str: string) => {
@@ -34,25 +35,7 @@ const InputFile = () => {
   );
 };
 
-export type StudentFormData = {
-  prefixTH: string;
-  nameTH: string;
-  middleNameTH: string;
-  surnameTH: string;
-  prefixEN: string;
-  nameEN: string;
-  middleNameEN: string;
-  surnameEN: string;
-  nicknameTH: string;
-  grade: string;
-  coolQuote: string;
-  email: string;
-  phone: string;
-  line: string;
-  preferFood: string;
-  allergyFood: string;
-  allergyDrug: string;
-  medicalProblem: string;
+export type StudentFormDataWithFile = StudentFormData & {
   selfImageAttachment: FileList | null;
   idCardAttachment: FileList | null;
   pp7Attachment: FileList | null;
@@ -83,8 +66,8 @@ export const defaultStudentFormData = {
 };
 
 type StudentFromProps = {
-  data: StudentFormData[];
-  setData: StateUpdater<StudentFormData[]>;
+  data: StudentFormDataWithFile[];
+  setData: StateUpdater<StudentFormDataWithFile[]>;
   index: number;
 };
 

@@ -3,23 +3,10 @@ import EmailInputbox from "@/components/EmailInputbox";
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
+import { TeamFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
 
-export type TeamFormData = {
-  teamName: string;
-  school: string;
-  amount: number;
-  prefixTH: string;
-  nameTH: string;
-  middleNameTH: string;
-  surnameTH: string;
-  prefixEN: string;
-  nameEN: string;
-  middleNameEN: string;
-  surnameEN: string;
-  email: string;
-  phone: string;
-  line: string;
+export type TeamFormDataWithFile = TeamFormData & {
   teacherAttachment: FileList | null;
 };
 
@@ -42,8 +29,8 @@ export const defaultTeamForm = {
 };
 
 type TeamFormProps = {
-  data: TeamFormData;
-  setData: StateUpdater<TeamFormData>;
+  data: TeamFormDataWithFile;
+  setData: StateUpdater<TeamFormDataWithFile>;
 };
 
 export const TeamForm = ({ data, setData }: TeamFormProps) => {

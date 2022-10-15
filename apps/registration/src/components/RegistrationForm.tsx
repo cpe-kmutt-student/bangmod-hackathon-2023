@@ -1,23 +1,28 @@
 import {
   defaultStudentFormData,
   StudentForm,
-  StudentFormData
+  StudentFormDataWithFile
 } from "@/components/StudentForm";
-import { defaultTeamForm, TeamForm, TeamFormData } from "@/components/TeamForm";
+import { defaultTeamForm, TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
 import { useState } from "preact/hooks";
 
+export type RegistrationFormData = {
+  students: StudentFormDataWithFile[],
+  team: TeamFormDataWithFile,
+};
+
 export const RegistrationForm = () => {
-  const [teamFormData, setTeamFormData] = useState<TeamFormData>(defaultTeamForm);
-  const [studentFormsData, setStudentFormsData] = useState<StudentFormData[]>(
+  const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile>(defaultTeamForm);
+  const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array.from({ length: 3 }, () => defaultStudentFormData)
   );
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
 
-    const teacher = teamFormData;
-    const student = studentFormsData;
-    const payload = { teacher, student };
+    const team = teamFormData;
+    const students = studentFormsData;
+    const payload: RegistrationFormData = { team, students };
 
     setTeamFormData(defaultTeamForm);
     setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentFormData));
