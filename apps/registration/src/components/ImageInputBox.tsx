@@ -42,7 +42,7 @@ const ImageInputBox = ({
   if (obj)
     return (
       <div className="grid grid-cols-1">
-        <div className="flex flex-col ustify-start items-start h-1 m-5">
+        <div className="justify-start m-5 flex h-1 flex-col items-start">
           <ul>
             <li className={pText}>{name}</li>
           </ul>
@@ -50,7 +50,7 @@ const ImageInputBox = ({
         <div className="grid grid-cols-8">
           <div></div>
           <div className={border}>
-            <div className="m-5 flex flex-col justify-center items-center">
+          <div className="m-5 flex flex-col justify-center items-center">
               <ul>
                 {Array.from(obj).map((file: any, idx) => (
                   <li>{file.name}</li>
@@ -58,6 +58,7 @@ const ImageInputBox = ({
               </ul>
               <div className="py-2">
                 <button
+                  type="button"
                   className={
                     button +
                     "focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"
@@ -77,7 +78,7 @@ const ImageInputBox = ({
     <div className="grid grid-cols-1">
       {name && (
         <div className="flex flex-col justify-start items-start h-1 m-5">
-          <ul>
+        <ul>
             <li className={pText}>{name}</li>
           </ul>
         </div>
@@ -100,6 +101,7 @@ const ImageInputBox = ({
               ref={inputRef}
             />
             <button
+              type="button"
               className="font-bold text-4xl antialiased text-violet-400 hover:text-violet-600"
               onClick={() => {
                 inputRef.current.click();
