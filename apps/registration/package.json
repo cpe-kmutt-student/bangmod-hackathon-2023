@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "api-schema": "*",
+    "axios": "^1.1.2",
     "react-router-dom": "6",
     "vite-preact-ts": "*"
   },

@@ -1,1 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@300;400;600;700&display=swap');
+
 @import "tailwind/custom";
+
+html {
+  scroll-behavior: smooth;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /></svg>");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 0.95em 0.95rem;
+}

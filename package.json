@@ -22,11 +22,10 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "rimraf": "^3.0.2",
-    "turbo": "latest"
+    "turbo": "1.5.5"
   },
   "engines": {
     "npm": "please-use-yarn",
     "node": ">=16.0.0"
-  },
-  "packageManager": "^yarn@1.22.0"
+  }
 }

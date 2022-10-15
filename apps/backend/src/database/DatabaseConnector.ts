@@ -5,11 +5,11 @@ export class DatabaseConnector {
   private readonly prisma = new PrismaClient();
 
   public async connect(): Promise<void> {
-    this.prisma.$connect();
+    await this.prisma.$connect();
   }
 
   public async disconnect(): Promise<void> {
-    this.prisma.$disconnect();
+    await this.prisma.$disconnect();
   }
 
   public getClient(): PrismaClient {
