@@ -1,129 +1,288 @@
+import DropDown from "@/components/DropDown";
+import ImageInputBox from "@/components/ImageInputBox";
+import InputBox from "@/components/InputBox";
+import TextAreaBox from "@/components/TextAreaBox";
+import { StateUpdater, useState } from "preact/hooks";
 
-const OnePersonForm = ({ 
-    no
-  } : {
-    no: number
-  }) => {
-    return (
-      <div className="bg-[#FFFFFF20] drop-shadow-lg rounded-[20px]">
-        <h1 className='bg-white rounded-t-[20px] px-5 py-4 text-lg'>รายละเอียดสมาชิกคนที่ {no}</h1>
+export type StudentForm = {
+  prefixTH: string;
+  nameTH: string;
+  middleNameTH: string;
+  surnameTH: string;
+  prefixEN: string;
+  nameEN: string;
+  middleNameEN: string;
+  surnameEN: string;
+  nicknameTH: string;
+  grade: string;
+  coolQuote: string;
+  email: string;
+  phone: string;
+  line: string;
+  preferFood: string;
+  allergyFood: string;
+  allergyDrug: string;
+  medicalProblem: string;
+};
 
-        <form action="" className='my-5 px-6 py-4 text-white'>
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[13%]'>
-              <span htmlFor="" className='pl-2 mb-1'>คำนำหน้า</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='คำนำหน้า' />
-            </div>
-            <div className='flex flex-col w-[27%]'>
-              <span htmlFor="" className='pl-2 mb-1'>ชื่อจริง(ภาษาไทย)</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='ชื่อจริง' />
-            </div>
-            <div className='flex flex-col w-[27%] '>
-              <span htmlFor="" className='pl-2 mb-1'>ชื่อกลาง(ภาษาไทย)</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='ชื่อกลาง' />
-            </div>
-            <div className='flex flex-col w-[27%]'>
-              <span htmlFor="" className='pl-2 mb-1'>นามสกุล(ภาษาไทย)</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='นามสกุล' />
-            </div>
-          </div>
+export const defaultStudentForm = {
+  prefixTH: "",
+  nameTH: "",
+  middleNameTH: "",
+  surnameTH: "",
+  prefixEN: "",
+  nameEN: "",
+  middleNameEN: "",
+  surnameEN: "",
+  nicknameTH: "",
+  grade: "",
+  coolQuote: "",
+  email: "",
+  phone: "",
+  line: "",
+  preferFood: "",
+  allergyFood: "",
+  allergyDrug: "",
+  medicalProblem: "",
+};
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[13%]'>
-              <span htmlFor="" className='pl-2 mb-1'>Prefix</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Prefix' />
-            </div>
-            <div className='flex flex-col w-[27%]'>
-              <span htmlFor="" className='pl-2 mb-1'>Firstname</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Firstname' />
-            </div>
-            <div className='flex flex-col w-[27%] '>
-              <span htmlFor="" className='pl-2 mb-1'>Middle Name</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Middle Name' />
-            </div>
-            <div className='flex flex-col w-[27%]'>
-              <span htmlFor="" className='pl-2 mb-1'>Surname</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Surname' />
-            </div>
-          </div>
+type StudentFromProps = {
+  data: StudentForm[];
+  setData: StateUpdater<StudentForm[]>;
+  index: number;
+};
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[25%]'>
-              <span htmlFor="" className='pl-2 mb-1'>ชื่อเล่น(ภาษาไทย)</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Nickname' />
-            </div>
-            <div className='flex flex-col w-[20%]'>
-              <span htmlFor="" className='pl-2 mb-1'>ระดับชั้น</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Grade' />
-            </div>
-            <div className='flex flex-col w-[51%] '>
-              <span htmlFor="" className='pl-2 mb-1'>คำคมประจำใจ</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Cool Qoute' />
-            </div>
-          </div>
+export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
+  const [file, setFile] = useState<FileList | null>(null);
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[30%]'>
-              <span htmlFor="" className='pl-2 mb-1'>Email</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Email' />
-            </div>
-            <div className='flex flex-col w-[25%]'>
-              <span htmlFor="" className='pl-2 mb-1'>เบอร์โทรศัพท์</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Tel number' />
-            </div>
-            <div className='flex flex-col w-[41%] '>
-              <span htmlFor="" className='pl-2 mb-1'>ID LINE</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='ID LINE' />
-            </div>
-          </div>
+  return (
+    <div className="my-6 w-full rounded-[20px] bg-white bg-opacity-20 drop-shadow-lg">
+      <h1 className="rounded-t-[20px] bg-white px-5 py-4 pl-6 text-2xl font-bold text-[#6c30a4]">
+        รายละเอียดสมาชิกคนที่ {index + 1}
+      </h1>
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[49%]'>
-              <span htmlFor="" className='pl-2 mb-1'>ประเภทอาหาร</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='เช่น ฮาลาล มังสวิรัติ' />
-            </div>
-          </div>
+      <div action="" className="my-5  px-6 py-4">
+        <div className="flex flex-wrap justify-between pb-4">
+          <DropDown
+            obj={data[index].prefixTH}
+            setObj={setData}
+            name="prefixTH"
+            label="คำนำหน้า"
+            options={[
+              { label: "นาย", value: "นาย" },
+              { label: "นาง", value: "นาง" },
+              { label: "นางสาว", value: "นางสาว" },
+            ]}
+            required
+            width="w-full md:w-[13%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].nameTH}
+            setObj={setData}
+            name="nameTH"
+            label="ชื่อจริง(ภาษาไทย)"
+            placeholder="ชื่อจริง"
+            required
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].middleNameTH}
+            setObj={setData}
+            name="middleNameTH"
+            label="ชื่อกลาง(ภาษาไทย)"
+            placeholder="ชื่อกลาง"
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].surnameTH}
+            setObj={setData}
+            name="surnameTH"
+            label="นามสกุล(ภาษาไทย)"
+            placeholder="นามสกุล"
+            required
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+        </div>
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[49%]'>
-              <span htmlFor="" className='pl-2 mb-1'>อาหารที่แพ้</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Food allergy' />
-            </div>
-            <div className='flex flex-col w-[49%]'>
-              <span htmlFor="" className='pl-2 mb-1'>ยาที่แพ้</span>
-              <input type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md' placeholder='Drugs allergy' />
-            </div>
-          </div>
+        <div className="flex flex-wrap justify-between pb-4">
+          <DropDown
+            obj={data[index].prefixEN}
+            setObj={setData}
+            name="prefixEN"
+            label="Prefix"
+            options={[
+              { label: "Mr.", value: "Mr." },
+              { label: "Mrs.", value: "Mrs." },
+              { label: "Miss.", value: "Miss." },
+            ]}
+            required
+            width="w-full md:w-[13%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].nameEN}
+            setObj={setData}
+            name="nameEN"
+            label="Firstname"
+            placeholder="Firstname"
+            required
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].middleNameEN}
+            setObj={setData}
+            name="middleNameEN"
+            label="Middle Name"
+            placeholder="Middle Name"
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].surnameEN}
+            setObj={setData}
+            name="surnameEN"
+            label="Surname"
+            placeholder="Surname"
+            required
+            width="w-full md:w-[27%]"
+            index={index}
+          />
+        </div>
 
-          <div className='flex flex-wrap justify-between pb-4'>
-            <div className='flex flex-col w-[100%]'>
-              <span htmlFor="" className='pl-2 mb-1'>โรคประจำตัวและวิธีประถมพยาบาลเบื้องต้น</span>
-              <textarea type="text" className='text-black pl-2 p-1 rounded-md drop-shadow-md resize-none' placeholder='Medical problems and first-aid' />
-            </div>
-          </div>
-        
-          <h1 className='pl-2 text-lg'>แนบไฟล์เอกสาร</h1>
-            <h2 className='pl-4 py-4'>1. รูปนักเรียนขนาด 1.5นิ้ว</h2>
-            <button className='text-[#B597D1] text-[40px] rounded-md drop-shadow-md bg-white border-2 border-dashed border-[#9F6FCE] w-[50%] min-w-[450px] mx-[25%] min-h-[150px]'>+</button>
-            <h2 className='pl-4 py-4'>2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย</h2>
-            <button className='text-[#B597D1] text-[40px] rounded-md drop-shadow-md bg-white border-2 border-dashed border-[#9F6FCE] w-[50%] min-w-[450px] mx-[25%] min-h-[150px]'>+</button>
+        <div className="flex flex-wrap justify-between pb-4">
+          <InputBox
+            obj={data[index].nicknameTH}
+            setObj={setData}
+            name="nicknameTH"
+            label="ชื่อเล่น(ภาษาไทย)"
+            placeholder="Nickname"
+            required
+            width="w-full md:w-[25%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].grade}
+            setObj={setData}
+            name="grade"
+            label="ระดับชั้น"
+            placeholder="Grade"
+            required
+            width="w-full md:w-[20%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].coolQuote}
+            setObj={setData}
+            name="coolQuote"
+            label="คำคมประจำใจ"
+            placeholder="Cool Quote"
+            width="w-full md:w-[51%]"
+            index={index}
+          />
+        </div>
 
-            <h2 className='pl-4 py-4'>3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง</h2>
-            <button className='text-[#B597D1] text-[40px] rounded-md drop-shadow-md bg-white border-2 border-dashed border-[#9F6FCE] w-[50%] min-w-[450px] mx-[25%] min-h-[150px] mb-5'>+</button>
+        <div className="flex flex-wrap justify-between pb-4">
+          <InputBox
+            obj={data[index].email}
+            setObj={setData}
+            name="email"
+            label="Email"
+            placeholder="Email"
+            required
+            width="w-full md:w-[30%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].phone}
+            setObj={setData}
+            name="phone"
+            label="เบอร์โทรศัพท์"
+            placeholder="Tel number"
+            required
+            width="w-full md:w-[25%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].line}
+            setObj={setData}
+            name="line"
+            label="ID LINE"
+            placeholder="ID LINE"
+            required
+            width="w-full md:w-[41%]"
+            index={index}
+          />
+        </div>
 
-        </form>
+        <div className="flex flex-wrap justify-between pb-4">
+          <InputBox
+            obj={data[index].preferFood}
+            setObj={setData}
+            name="preferFood"
+            label="ประเภทอาหาร"
+            placeholder="เช่น ฮาลาล มังสวิรัติ"
+            width="w-full md:w-[49%]"
+            index={index}
+          />
+        </div>
+
+        <div className="flex flex-wrap justify-between pb-4">
+          <InputBox
+            obj={data[index].allergyFood}
+            setObj={setData}
+            name="allergyFood"
+            label="อาหารที่แพ้"
+            placeholder="Food allergy"
+            width="w-full md:w-[49%]"
+            index={index}
+          />
+          <InputBox
+            obj={data[index].allergyDrug}
+            setObj={setData}
+            name="allergyDrug"
+            label="ยาที่แพ้"
+            placeholder="Drugs allergy"
+            width="w-full md:w-[49%]"
+            index={index}
+          />
+        </div>
+        <TextAreaBox
+          obj={data[index].medicalProblem}
+          setObj={setData}
+          name="medicalProblem"
+          label="โรคประจำตัวและวิธีประถมพยาบาลเบื้องต้น"
+          placeholder="Medical problems and first-aid"
+          width="w-full"
+          index={index}
+        />
+
+        {/* TODO: Handle submit attachment */}
+        <h1 className="pl-2 text-sm font-bold text-white md:text-2xl">
+          {" "}
+          แนบไฟล์เอกสาร{" "}
+        </h1>
+        <h2 className="py-4 pl-4 font-bold text-white">
+          {" "}
+          1. รูปนักเรียนขนาด 1.5นิ้ว{" "}
+        </h2>
+        <ImageInputBox obj={file} setObj={setFile} />
+        <h2 className="py-4 pl-4 font-bold text-white">
+          2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
+          หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
+        </h2>
+        <ImageInputBox obj={file} setObj={setFile} />
+        <div>
+          <h2 className="py-4 pl-4 font-bold text-white">
+            3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
+          </h2>
+          <ImageInputBox obj={file} setObj={setFile} />
+        </div>
       </div>
-    );
-}
-
-export const StudentsForms = () => {
-  return(
-    <div className="container min-w-[780px] max-w-[1000px] bg-[#5D298E]">
-      <OnePersonForm no={1}/>
-      <OnePersonForm no={2}/>
-      <OnePersonForm no={3}/>
-      {/* <AdvisorForms/> */}
     </div>
-    
   );
 };
