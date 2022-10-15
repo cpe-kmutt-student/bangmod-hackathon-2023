@@ -2,7 +2,7 @@ import DropDown from "@/components/DropDown";
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import TextAreaBox from "@/components/TextAreaBox";
-import { StateUpdater, useState } from "preact/hooks";
+import { StateUpdater } from "preact/hooks";
 
 export type StudentForm = {
   prefixTH: string;
@@ -23,6 +23,9 @@ export type StudentForm = {
   allergyFood: string;
   allergyDrug: string;
   medicalProblem: string;
+  selfImageAttachment: FileList | null;
+  idCardAttachment: FileList | null;
+  pp7Attachment: FileList | null;
 };
 
 export const defaultStudentForm = {
@@ -44,6 +47,9 @@ export const defaultStudentForm = {
   allergyFood: "",
   allergyDrug: "",
   medicalProblem: "",
+  selfImageAttachment: null,
+  idCardAttachment: null,
+  pp7Attachment: null,
 };
 
 type StudentFromProps = {
@@ -53,8 +59,6 @@ type StudentFromProps = {
 };
 
 export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
-  const [file, setFile] = useState<FileList | null>(null);
-
   return (
     <div className="my-6 w-full rounded-[20px] bg-white bg-opacity-20 drop-shadow-lg">
       <h1 className="rounded-t-[20px] bg-white px-5 py-4 pl-6 text-2xl font-bold text-[#6c30a4]">
@@ -261,7 +265,6 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           index={index}
         />
 
-        {/* TODO: Handle submit attachment */}
         <h1 className="pl-2 text-sm font-bold text-white md:text-2xl">
           {" "}
           แนบไฟล์เอกสาร{" "}
@@ -270,17 +273,32 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           {" "}
           1. รูปนักเรียนขนาด 1.5นิ้ว{" "}
         </h2>
-        <ImageInputBox obj={file} setObj={setFile} />
+        <ImageInputBox
+          obj={data[index].selfImageAttachment}
+          setObj={setData}
+          name="selfImageAttachment"
+          index={index}
+        />
         <h2 className="py-4 pl-4 font-bold text-white">
           2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
           หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
         </h2>
-        <ImageInputBox obj={file} setObj={setFile} />
+        <ImageInputBox
+          obj={data[index].idCardAttachment}
+          setObj={setData}
+          name="idCardAttachment"
+          index={index}
+        />
         <div>
           <h2 className="py-4 pl-4 font-bold text-white">
             3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
           </h2>
-          <ImageInputBox obj={file} setObj={setFile} />
+          <ImageInputBox
+            obj={data[index].pp7Attachment}
+            setObj={setData}
+            name="pp7Attachment"
+            index={index}
+          />
         </div>
       </div>
     </div>

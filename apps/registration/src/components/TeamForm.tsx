@@ -215,10 +215,10 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
           </div>
           {/* Right side */}
           <div class="relative h-40 md:w-1/2">
-            {/* TODO: Handle submit attachment */}
             <ImageInputBox
+              name="teacherAttachment"
               obj={data.teacherAttachment}
-              setObj={data.teacherAttachment}
+              setObj={setData}
             />
           </div>
         </div>
