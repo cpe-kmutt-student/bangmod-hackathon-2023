@@ -36,6 +36,10 @@ type TeamFormProps = {
 export const TeamForm = ({ data, setData }: TeamFormProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
+      <img className="absolute z-10 top-0 left-0 transform -translate-x-40 -translate-y-12 w-48 blur-md" src="cloud.webp" alt="" />
+      <img className="absolute z-10 top-0 right-0 transform translate-x-12 -translate-y-20 w-36" src="cloud.webp" alt="" />
+      <img className="absolute z-10 top-0 right-0 transform translate-x-24 -translate-y-28 w-28 blur-sm" src="cloud.webp" alt="" />
+      
       <img className="w-64 absolute top-0 right-0 transform translate-x-48 opacity-70" src="flower.svg" alt="" />
       <img className="w-64 absolute bottom-0 left-0 transform -translate-x-44 translate-y-24 opacity-70" src="flower.svg" alt="" />
 

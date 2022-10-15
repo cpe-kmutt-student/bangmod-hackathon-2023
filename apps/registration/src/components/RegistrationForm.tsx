@@ -70,6 +70,8 @@ const RegisterButton = () => {
 const RegisterHeader = () => {
   return (
     <div className="flex h-16 w-2/3 self-center rounded-[20px] mt-12 bg-white bg-opacity-20 drop-shadow-lg md:w-2/5">
+      <img className="hidden md:block absolute z-10 top-0 left-0 transform -translate-x-12 w-28 blur-[2px]" src="cloud.webp" alt="" />
+
       <div className="flex w-full flex-col items-center justify-center">
         <h1 className="text-2xl font-bold text-white">ลงทะเบียน</h1>
       </div>
