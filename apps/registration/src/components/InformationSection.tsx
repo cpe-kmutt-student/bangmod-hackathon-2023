@@ -11,7 +11,7 @@ const InformationSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="information-section" className="flex flex-col md:flex-row justify-center items-center md:space-x-8 text-white py-12 lg:py-2">
+    <section ref={ref} id="information-section" className="flex flex-col md:flex-row justify-center items-center md:space-x-8 text-white py-12 lg:py-24">
       <div className="md:hidden w-fit mb-8 px-16 py-4 text-xl font-bold bg-yellow-600 rounded-xl">
         รายละเอียด
       </div>

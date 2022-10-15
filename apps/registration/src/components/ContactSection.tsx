@@ -11,7 +11,7 @@ export const ContactSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="contact-section" className="h-full py-24">
+    <section ref={ref} id="contact-section" className="h-full py-24 pb-52">
       <div>
         <div className="py-4 text-6xl text-center text-white font-bold mb-12">
           <h1>NEED HELPS?</h1>

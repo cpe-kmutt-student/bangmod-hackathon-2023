@@ -28,7 +28,7 @@ export const HomePage = () => {
             transform md:translate-y-[5.9rem]
           "
         >
-          <div className="w-full container space-y-24 py-24">
+          <div className="w-full container space-y-48 py-24">
             <InformationSection />
             <Qualification />
             <Reward />
