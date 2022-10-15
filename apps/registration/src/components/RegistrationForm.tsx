@@ -3,11 +3,11 @@ import {
   StudentForm,
   StudentFormData
 } from "@/components/StudentForm";
-import { defaultTeamForm, TeamForm } from "@/components/TeamForm";
+import { defaultTeamForm, TeamForm, TeamFormData } from "@/components/TeamForm";
 import { useState } from "preact/hooks";
 
 export const RegistrationForm = () => {
-  const [teamFormData, setTeamFormData] = useState<TeamForm>(defaultTeamForm);
+  const [teamFormData, setTeamFormData] = useState<TeamFormData>(defaultTeamForm);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormData[]>(
     Array.from({ length: 3 }, () => defaultStudentFormData)
   );
