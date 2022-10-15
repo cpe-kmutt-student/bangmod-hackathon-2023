@@ -1,41 +1,47 @@
 import Card from "@/components/Card";
+import { useNavbar } from '@/contexts/NavbarContext';
+import useInView from '@/hooks/useInView';
+import { useEffect } from 'preact/hooks';
 
 export const Reward = () => {
+  const { setVisibleSection } = useNavbar();
+  const [isVisible, ref] = useInView<HTMLElement>();
+
+  useEffect(() => {
+    isVisible && setVisibleSection('reward');
+  }, [isVisible]);
+
   return (
-    <>
-      <div className="p-20 grid sm:grid-cols-1 md:grid-cols-2 md:gap-4 lg:gap-4 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8 -mb-16">
-
-        <div className="md:col-start-1 md:col-end-3 lg:col-start-4 lg:col-end-4 max-w-full mb-2">
-          <span className="px-4 py-4 bg-[#DB9116] rounded-3xl text-2xl block text-white font-bold text-center shadow-xl">
-            รางวัล{" "}
-          </span>
-
-        </div>
+    <section ref={ref} id="reward-section" className="h-full py-12 lg:py-24">
+      <div className="w-fit mx-auto mb-8 px-16 py-4 bg-yellow-600 rounded-xl text-2xl text-white font-bold shadow-xl">
+        รางวัล
+      </div>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-8">
         <Card
-          img="https://cdn-icons-png.flaticon.com/512/1157/1157014.png"
+          img="reward/champion.webp"
           title="รางวัลชนะเลิศ"
           desc1="30,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="https://cdn-icons-png.flaticon.com/512/1157/1157014.png"
+          img="reward/first-medal.webp"
           title="รางวัลรองชนะเลิศอันดับหนึ่ง"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="https://cdn-icons-png.flaticon.com/512/1157/1157014.png"
+          img="reward/second-medal.webp"
           title="รางวัลรองชนะเลิศอันดับสอง"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
         <Card
-          img="https://cdn-icons-png.flaticon.com/512/1157/1157014.png"
+          img="reward/bronze-medal.webp"
           title="รางวัลชมเชย"
           desc1="15,000 บาท"
           desc2="พร้อมโล่ประกาศเกียรติคุณ"
         />
       </div>
-    </>
+    </section>
   );
 };

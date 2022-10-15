@@ -7,7 +7,7 @@ Monorepo for Bangmod Hackthon 2023 projects using [Turborepo](https://turborepo.
 - **`/apps`** Subprojects included frontend and backend
   - `/backend` All backend services ([Springpress](https://github.com/vectier/springpress))
   - `/dashboard` Question dashbord ([Preact](https://preactjs.com/))
-  - `/registration` Registration platform ([Preact](https://preactjs.com/))
+  - `/register` Registration platform ([Preact](https://preactjs.com/))
 - **`/shared`** Shared packages used by `/apps`
   - `/tailwind` [Tailwind CSS](https://tailwindcss.com/) config and common stylesheets
   - `/vite-preact-ts` [Vite](https://vitejs.dev/) & [TypeScript](https://www.typescriptlang.org/) base config
