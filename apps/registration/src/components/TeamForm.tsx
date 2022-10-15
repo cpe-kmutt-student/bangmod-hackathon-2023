@@ -5,7 +5,7 @@ import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
 import { StateUpdater } from "preact/hooks";
 
-export type TeamForm = {
+export type TeamFormData = {
   teamName: string;
   school: string;
   amount: number;
@@ -42,8 +42,8 @@ export const defaultTeamForm = {
 };
 
 type TeamFormProps = {
-  data: TeamForm;
-  setData: StateUpdater<TeamForm>;
+  data: TeamFormData;
+  setData: StateUpdater<TeamFormData>;
 };
 
 export const TeamForm = ({ data, setData }: TeamFormProps) => {
