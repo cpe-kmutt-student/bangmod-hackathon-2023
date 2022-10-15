@@ -17,7 +17,7 @@ export const ContactSection = () => {
           <h1>NEED HELPS?</h1>
         </div>
 
-        <div className="flex flex-row justify-center space-x-24">
+        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-24">
           <div className="flex flex-row space-x-4">
             <div className="bg-gray-300 rounded-full p-3">
               <img className="w-18 h-18" src="fb-icon.webp" alt="" />
