@@ -1,11 +1,15 @@
-import { defaultStudentForm, StudentForm } from "@/components/StudentForm";
+import {
+  defaultStudentFormData,
+  StudentForm,
+  StudentFormData
+} from "@/components/StudentForm";
 import { defaultTeamForm, TeamForm } from "@/components/TeamForm";
 import { useState } from "preact/hooks";
 
 export const RegistrationForm = () => {
   const [teamFormData, setTeamFormData] = useState<TeamForm>(defaultTeamForm);
-  const [studentFormsData, setStudentFormsData] = useState<StudentForm[]>(
-    Array.from({ length: 3 }, () => defaultStudentForm)
+  const [studentFormsData, setStudentFormsData] = useState<StudentFormData[]>(
+    Array.from({ length: 3 }, () => defaultStudentFormData)
   );
 
   const handleSubmit = (e: Event) => {
@@ -16,7 +20,7 @@ export const RegistrationForm = () => {
     const payload = { teacher, student };
 
     setTeamFormData(defaultTeamForm);
-    setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentForm));
+    setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentFormData));
 
     // TODO: Send payload to backend
     console.log("submitted");
@@ -26,8 +30,6 @@ export const RegistrationForm = () => {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="m-5 flex w-full flex-col sm:w-5/6 md:w-4/5 lg:w-3/5">
-
-      {/* <div className="m-5 flex w-full flex-col sm:w-4/5 md:w-3/5"> */}
         <RegisterHeader />
 
         <form onSubmit={handleSubmit}>
