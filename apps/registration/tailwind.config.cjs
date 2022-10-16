@@ -1,5 +1,6 @@
 const tailwindConfig = require('tailwind');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const forms = require("@tailwindcss/forms")
 
 const config = {
   presets: [tailwindConfig],
@@ -11,6 +12,9 @@ const config = {
       }
     }
   },
+  plugins: [
+    forms
+  ],
   future: {
     hoverOnlyWhenSupported: true,
   },
