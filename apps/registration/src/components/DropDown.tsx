@@ -1,6 +1,6 @@
+import '@/assets/css/dropDownStyle.css';
 import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater } from "preact/hooks";
-import './dropDownStyle.css';
 type option = {
   label?: string | number;
   value?: string | number;

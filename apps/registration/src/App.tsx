@@ -6,15 +6,15 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 export const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+    <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+      <AuthProvider>
         <Routes>
             <Route path="/" element={<NavbarProvider><HomePage /></NavbarProvider>} />
           <Route path="/register" element={<RegistrationPage />} />
           <Route path="*" element={<Navigate to="/" />} />        
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

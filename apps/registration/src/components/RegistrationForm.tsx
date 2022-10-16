@@ -34,8 +34,6 @@ export const RegistrationForm = () => {
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      <img className="absolute top-0 left-0 mt-4 w-24 md:w-32" src="logo.webp" alt="" />
-
       <div className="flex w-full flex-col md:mx-12 z-20">
         <RegisterHeader />
 
