@@ -58,7 +58,7 @@ export const RegistrationForm = () => {
 const RegisterButton = () => {
   return (
     <div className="flex justify-center mb-32">
-      <button className="px-4 py-3 rounded-xl bg-black text-white drop-shadow-lg">
+      <button className="px-4 py-3 rounded-xl bg-black hover:bg-gray-900 text-white drop-shadow-lg">
         ยืนยันการกรอกข้อมูล
       </button>
     </div>
