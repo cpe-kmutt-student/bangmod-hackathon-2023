@@ -1,6 +1,7 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { useNavbar } from '@/contexts/NavbarContext';
 import { useState } from 'preact/hooks';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const NavElement = ({
   text,
@@ -20,14 +21,25 @@ export const NavElement = ({
 };
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, login } = useAuth();
   const { visibleSection } = useNavbar();
   const [navbar, setNavbar] = useState(false);
+
+  const navigateTologin = () => {
+    if (user) {
+      navigate('/register');
+    } else {
+      localStorage.setItem('login', 'true');
+      login();
+    }
+  };
 
   return (
     <div className="fixed w-full h-16 md:h-30 z-50">
       <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-between items-center z-10 px-5">
         <span className="p-2 rounded-md w-10" />
-        <a href="/register" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto"   /></a>
+        <a href="/register" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
         <button
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
@@ -85,12 +97,12 @@ export const Navbar = () => {
             text="ติดต่อสอบถาม"
             to="#contact-section"
           />
-          <NavLink
-            to="/register"
+          <button
             className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
+            onClick={navigateTologin}
           >
             สมัคร
-          </NavLink>
+          </button>
         </nav>
       </div>
       {
@@ -121,12 +133,12 @@ export const Navbar = () => {
                 text="ติดต่อสอบถาม"
                 to="#contact-section"
               />
-              <NavLink
-                to="/register"
+              <button
                 className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
+                onClick={navigateTologin}
               >
                 สมัคร
-              </NavLink>
+              </button>
             </nav>
           </div>
         )
