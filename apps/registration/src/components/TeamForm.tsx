@@ -51,7 +51,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="teamName"
             label="ชื่อทีม"
-            placeholder="Teams name"
+            placeholder="ชื่อทีม"
             required
             width="w-full md:w-3/6"
           />
@@ -60,7 +60,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="school"
             label="โรงเรียน"
-            placeholder="School name"
+            placeholder="โรงเรียน"
             required
             width="w-full md:w-2/6"
           />
@@ -101,8 +101,8 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             obj={data.nameTH}
             setObj={setData}
             name="nameTH"
-            label="ชื่อ (ภาษาไทย)"
-            placeholder="Name"
+            label="ชื่อจริง (ภาษาไทย)"
+            placeholder="ชื่อจริง"
             required
             width="w-full md:w-[27%]"
           />
@@ -111,7 +111,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="middleNameTH"
             label="ชื่อกลาง (ภาษาไทย)"
-            placeholder="Middle name"
+            placeholder="ชื่อกลาง"
             width="w-full md:w-[27%]"
           />
           <InputBox
@@ -119,7 +119,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="surnameTH"
             label="นามสกุล (ภาษาไทย)"
-            placeholder="Surname"
+            placeholder="นามสกุล"
             required
             width="w-full md:w-[27%]"
           />
@@ -144,7 +144,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             obj={data.nameEN}
             setObj={setData}
             name="nameEN"
-            label="Name"
+            label="ชื่อจริง (ภาษาอังกฤษ)"
             placeholder="Name"
             required
             width="w-full md:w-[27%]"
@@ -153,7 +153,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             obj={data.middleNameEN}
             setObj={setData}
             name="middleNameEN"
-            label="Middle name"
+            label="ชื่อกลาง (ภาษาอังกฤษ)"
             placeholder="Middle name"
             width="w-full md:w-[27%]"
           />
@@ -161,7 +161,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             obj={data.surnameEN}
             setObj={setData}
             name="surnameEN"
-            label="Surname"
+            label="นามสกุล (ภาษาอังกฤษ)"
             placeholder="Surname"
             required
             width="w-full md:w-[27%]"
@@ -173,8 +173,8 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             obj={data.email}
             setObj={setData}
             name="email"
-            label="Email"
-            placeholder="Email"
+            label="E-mail"
+            placeholder="E-mail"
             required
             width="w-full md:w-[30%]"
           />
@@ -183,7 +183,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="phone"
             label="เบอร์โทรศัพท์"
-            placeholder="Tel. number"
+            placeholder="เบอร์โทรศัพท์"
             required
             width="w-full md:w-[25%]"
           />
@@ -192,21 +192,25 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             setObj={setData}
             name="line"
             label="Line ID"
-            placeholder="ID Line"
+            placeholder="Line ID"
             required
             width="w-full md:w-[41%]"
           />
         </div>
         {/* File system */}
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+        <div className="flex md:pb-4 py-2 flex-col md:flex-row md:justify-between">
           {/* Left side */}
-          <div class="ml-2 md:w-1/2">
-            <h1 className="text-sm font-bold text-white md:text-2xl">
+          <div class="px-4 md:px-0 ml-2 md:w-1/2">
+            <h1 className="text-white md:text-2xl font-bold">
               แนบไฟล์เอกสาร
             </h1>
-            <span className="text-sm  font-bold text-white">
+            <span className="text-white">
               1. หนังสือรับรองของอาจารย์ที่ปรึกษาตัวจริง
             </span>
+            <span className="text-[#ffdc19]">
+              *
+            </span>
+
           </div>
           {/* Right side */}
           <div class="relative md:w-1/2">
