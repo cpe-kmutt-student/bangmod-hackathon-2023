@@ -22,16 +22,16 @@ const UpperHorizontalTimeline = () => {
         header="การแข่งขันรอบคัดเลือก (Online)"
         small
         display="20 Dec 2022"
-        startTime="20 Dec 2022"
-        endTime=""
+        startTime="20 Dec 2022 00:00:00 GMT+0700"
+        endTime="20 Dec 2022 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
       <Card
         header="การแข่งขันรอบ Semi Final และรอบชิงชนะเลิศ (On-Site)" 
         small
         display="19 Jan 2023"
-        startTime="19 Jan 2023"
-        endTime=""
+        startTime="19 Jan 2023 00:00:00 GMT+0700"
+        endTime="19 Jan 2023 23:59:59 GMT+0700"
       />
     </div>
   );
@@ -43,25 +43,25 @@ const LowerHorizontalTimeline = () => {
       <div className="col-span-5" />
       <Card
         header="ปิดรับสมัคร"
-        display="28 Nov 2022"
+        display="29 Nov 2022"
         startTime="29 Nov 2022 00:00:00 GMT+0700"
-        endTime="19 Dec 2022 00:00:00 GMT+0700"
+        endTime="19 Dec 2022 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
       <Card
         header="ประกาศผลผู้ผ่านการคัดเลือก"
         small
         display="21 Dec 2022"
-        startTime="21 Dec 2022"
-        endTime=""
+        startTime="21 Dec 2022 00:00:00 GMT+0700"
+        endTime="18 Jan 2023 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
       <Card
         header="ประกาศผลผู้ผ่านการคัดเลือกรอบ Semi Final และชิงชนะเลิศ"
         small
         display="19 Jan 2023"
-        startTime="19 Jan 2023"
-        endTime=""
+        startTime="19 Jan 2023 00:00:00 GMT+0700"
+        endTime="19 Jan 2023 23:59:59 GMT+0700"
       />
     </div>
   );
@@ -80,7 +80,7 @@ const Card = ({
   endTime: string,
   small?: boolean,
 }) => {
-  const isCurrentEvent = false; // TODO: WTF TIME ALGO
+  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
 
   return (
     <div className="flex flex-col col-span-5 bg-white h-24 pt-2 px-2 -mx-3 rounded-xl">
@@ -101,33 +101,33 @@ const HorizontalMainLine = () => {
     <div className="grid grid-cols-28 items-center">
       <HorizontalLine />
       <StopPoint
-        startTime="24 Oct 2022"
-        endTime="24 Oct 2022"
+        startTime="24 Oct 2022 00:00:00 GMT+0700"
+        endTime="28 Nov 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="28 Nov 2022"
-        endTime="24 Oct 2022"
+        startTime="29 Nov 2022 00:00:00 GMT+0700"
+        endTime="19 Dec 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="20 Dec 2022"
-        endTime="24 Oct 2022"
+        startTime="20 Dec 2022 00:00:00 GMT+0700"
+        endTime="20 Dec 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="21 Dev 2022"
-        endTime="24 Oct 2022"
+        startTime="21 Dec 2022 00:00:00 GMT+0700"
+        endTime="18 Jan 2023 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="19 Jan 2023"
-        endTime="24 Oct 2022"
+        startTime="19 Jan 2023 00:00:00 GMT+0700"
+        endTime="19 Jan 2023 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="19 Jan 2023"
-        endTime="24 Oct 2022"
+        startTime="19 Jan 2023 00:00:00 GMT+0700"
+        endTime="19 Jan 2023 23:59:59 GMT+0700"
       />
       <HorizontalLine />
     </div>
@@ -147,7 +147,7 @@ const StopPoint = ({
   startTime: string,
   endTime: string,
 }) => {
-  const isCurrentEvent = false; // TODO: WTF TIME ALGO
+  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
   
   return (
     <div className="col-span-1 mx-auto flex-none w-4 h-4 rounded-full bg-white">
