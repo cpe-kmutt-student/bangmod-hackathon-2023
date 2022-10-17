@@ -9,7 +9,8 @@ export const TimeLineCard = ({
   startTime: string;
   endTime: string;
 }) => {
-  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
+  const currentTime = new Date()
+  const isCurrentEvent = new Date(startTime) <= currentTime && currentTime <= new Date(endTime);
 
   return (
     <div className="flex w-full justify-center items-center">

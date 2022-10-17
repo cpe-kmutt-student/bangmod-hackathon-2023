@@ -5,7 +5,8 @@ export const TimeLinePoint = ({
   startTime: string,
   endTime: string,
 }) => {
-  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
+  const currentTime = new Date()
+  const isCurrentEvent = new Date(startTime) <= currentTime && currentTime <= new Date(endTime);
 
   return (
     <div className="w-5 h-5 rounded-full bg-white relative flex items-center justify-center">

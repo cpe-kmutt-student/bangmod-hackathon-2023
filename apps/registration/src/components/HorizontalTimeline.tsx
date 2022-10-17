@@ -80,7 +80,8 @@ const Card = ({
   endTime: string,
   small?: boolean,
 }) => {
-  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
+  const currentTime = new Date()
+  const isCurrentEvent = new Date(startTime) <= currentTime && currentTime <= new Date(endTime);
 
   return (
     <div className="flex flex-col col-span-5 bg-white h-24 pt-2 px-2 -mx-3 rounded-xl">
@@ -147,7 +148,8 @@ const StopPoint = ({
   startTime: string,
   endTime: string,
 }) => {
-  const isCurrentEvent = new Date(startTime) <= new Date() && new Date() <= new Date(endTime);
+  const currentTime = new Date()
+  const isCurrentEvent = new Date(startTime) <= currentTime && currentTime <= new Date(endTime);
   
   return (
     <div className="col-span-1 mx-auto flex-none w-4 h-4 rounded-full bg-white">
