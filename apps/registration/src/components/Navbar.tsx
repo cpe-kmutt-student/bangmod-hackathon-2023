@@ -73,7 +73,7 @@ export const Navbar = () => {
           <NavElement
             className={visibleSection === 'timeline' ? 'bg-white text-black' : ''}
             text="ไทม์ไลน์"
-            to="#"
+            to="#timeline-section"
           />
           <NavElement
             className={visibleSection === 'scope' ? 'bg-white text-black' : ''}
@@ -111,7 +111,7 @@ export const Navbar = () => {
               />
               <NavElement
                 text="ไทม์ไลน์"
-                to="#"
+                to="#timeline-section"
               />
               <NavElement
                 text="ขอบเขตเนื้อหา"
