@@ -1,6 +1,8 @@
 import DropDown from "@/components/DropDown";
+import EmailInputbox from '@/components/EmailInputbox';
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
+import PhoneInput from '@/components/PhoneInput';
 import TextAreaBox from "@/components/TextAreaBox";
 import { StudentFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
@@ -213,7 +215,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
         </div>
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <InputBox
+          <EmailInputbox
             obj={data[index].email}
             setObj={setData}
             name="email"
@@ -224,7 +226,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
 
-          <InputBox
+          <PhoneInput
             obj={data[index].phone}
             setObj={setData}
             name="phone"
@@ -234,6 +236,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             required
             index={index}
           />
+
           <InputBox
             obj={data[index].line}
             setObj={setData}

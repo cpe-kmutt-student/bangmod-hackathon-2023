@@ -3,7 +3,7 @@ import { StateUpdater } from "preact/hooks";
 
 export type NewInputBoxProps<T> = {
   obj: string | number;
-  setObj: StateUpdater<T>;
+  setObj: StateUpdater<T[]>;
   name: string;
   label?: string;
   placeholder?: string;
@@ -20,7 +20,7 @@ const InputBox = <T,>({
   placeholder,
   width,
   required,
-  index,
+  index = 0,
 }: NewInputBoxProps<T>) => {
   const handleChange = (event: Event) => {
     if (!(event.target instanceof HTMLInputElement)) return;

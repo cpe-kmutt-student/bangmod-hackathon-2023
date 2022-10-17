@@ -10,7 +10,7 @@ export type TeamFormDataWithFile = TeamFormData & {
   teacherAttachment: FileList | null;
 };
 
-export const defaultTeamForm = {
+export const defaultTeamForm = [{
   teamName: "",
   school: "",
   amount: 0,
@@ -26,11 +26,11 @@ export const defaultTeamForm = {
   phone: "",
   line: "",
   teacherAttachment: null,
-};
+}];
 
 type TeamFormProps = {
   data: TeamFormDataWithFile;
-  setData: StateUpdater<TeamFormDataWithFile>;
+  setData: StateUpdater<TeamFormDataWithFile[]>;
 };
 
 export const TeamForm = ({ data, setData }: TeamFormProps) => {
@@ -209,7 +209,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             </span>
           </div>
           {/* Right side */}
-          <div class="relative h-40 md:w-1/2">
+          <div class="relative md:w-1/2">
             <ImageInputBox
               name="teacherAttachment"
               obj={data.teacherAttachment}

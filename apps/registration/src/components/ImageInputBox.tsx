@@ -1,105 +1,95 @@
 import { setFormObject } from '@/utils/FormUtil';
-import { useRef } from "preact/compat";
-import { StateUpdater } from "preact/hooks";
+import { StateUpdater, useRef, useState } from "preact/hooks";
+
+const MAX_DISPLAY_FILE_SIZE = 10;
+const MAX_FILE_SIZE_MIB = 1_048_576 * MAX_DISPLAY_FILE_SIZE;
 
 const ImageInputBox = <T,>({
   obj,
   setObj,
   name,
-  index,
+  index = 0,
 }: {
   obj: FileList | null;
-  setObj: StateUpdater<T>;
+  setObj: StateUpdater<T[]>;
   name: string;
   index?: number;
 }) => {
-  const pText = "px-4 text-violet-900 antialiased text-lg";
-  const button =
-    "p-2 m-2 text-white rounded-full border-solid focus:outline-none focus:ring";
-  const border =
-    "col-span-6 flex flex-col justify-center items-center h-36 md:h-40 border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg";
   const inputRef: any = useRef(null);
+  const [error, setError] = useState<String | null>();
+
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
   };
+  
   const handleDrop = (event: any) => {
     event.preventDefault();
-    setObj(event.dataTranfer.files);
+    const files = event.dataTransfer.files;
+    const error = validFiles(files);
+    if (error) {
+      setError(error);
+    } else {
+      setError(null);
+      setObj((prev) => setFormObject(prev, index, name, files));
+    }
   };
 
   const handleUpload = (event: any) => {
-    const value = event.target.files;
-    setObj((prev) => setFormObject(prev, index, name, value));
+    const files = event.target.files;
+    const error = validFiles(files);
+    if (error) {
+      setError(error);
+    } else {
+      setError(null);
+      setObj((prev) => setFormObject(prev, index, name, files));
+    }
   };
 
-  if (obj) {
-    Array.from(obj).map((file: any, idx) => {
-      if (
-        file.type != "image/png" &&
-        file.type != "image/jpeg" &&
-        file.type != "application/pdf"
-      ) {
-        alert("Invalid file type!");
-      } else if (idx > 0) {
-        alert("Please submit only 1 files.");
-      }
-    });
-  }
+  const validFiles = (files: FileList): String | null => {
+    if (files.length !== 1) {
+      return 'Please upload only 1 file';
+    }
 
-  if (obj)
-    return (
-      <div className="grid grid-cols-1 px-4 py-2">
-        {/* <div className="justify-start m-5 flex h-1 flex-col items-start">
-          <ul>
-            <li className={pText}>{name}</li>
-          </ul>
-        </div> */}
-        <div className="grid grid-cols-5">
-          <div></div>
-          <div className={border}>
-            <div className="m-5 flex flex-col justify-center text-black items-center">
-              <ul>
-                {Array.from(obj).map((file: any, idx) => (
-                  <li>{file.name}</li>
-                ))}
-              </ul>
-              <div className="py-2">
-                <button
-                  type="button"
-                  className={
-                    button +
-                    "focus:ring-red-300 bg-gray-500 hover:bg-red-500 active:bg-red-400"
-                  }
-                  onClick={() => {
-                    setObj((prev) => setFormObject(prev, index, name, null));
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    const file = files.item(0)!;
+
+    if (file.size > MAX_FILE_SIZE_MIB) {
+      return `File size must be smaller than ${MAX_DISPLAY_FILE_SIZE} MiB`;
+    }
+    
+    if (!['image/png', 'image/jpeg', 'application/pdf'].includes(file.type)) {
+      return 'File type must be jpg, png, pdf'
+    }
+
+    return null;
+  };
 
   return (
-    <div className={"grid grid-cols-1 px-4 py-2"}>
-      {/* {name && (
-        <div className="flex flex-col justify-start items-start h-1 m-5">
-        <ul>
-            <li className={pText}>{name}</li>
-          </ul>
-        </div>
-      )} */}
-      {!obj && (
-        <div className="">
-          <div></div>
-          <div
-            className={border}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-          >
+    <div className="h-32 flex flex-col p-4">
+      <div
+        className="h-full flex border-dashed rounded-2xl border-2 border-violet-500  hover:border-violet-600 bg-white drop-shadow-lg"
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        {obj
+          ?
+          <div className="w-full flex flex-col justify-center items-center space-y-2">
+            <ul>
+              {Array.from(obj).map((file: File) => (
+                <li className="text-black text-sm">{file.name}</li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              className="text-white w-fit px-4 py-2 text-xs rounded-lg focus:ring-red-300 bg-red-500 hover:bg-red-500/60 active:bg-red-400"
+              onClick={() => {
+                setObj((prev) => setFormObject(prev, index, name, null));
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+          :
+          <>
             <input
               type="file"
               accept=".jpg, .pdf, .png"
@@ -109,16 +99,20 @@ const ImageInputBox = <T,>({
             />
             <button
               type="button"
-              className="font-bold text-4xl antialiased text-violet-400 hover:text-violet-600"
-              onClick={() => {
-                inputRef.current.click();
-              }}
+              className="m-auto font-bold text-4xl antialiased text-violet-400 hover:text-violet-600"
+              onClick={() => inputRef.current.click()}
             >
               +
             </button>
-          </div>
+          </>
+        }
+      </div>
+
+      {error && 
+        <div className="w-fit px-2 py-1 mx-auto text-red-600 bg-red-200 font-semibold text-xs text-center rounded-md mt-2">
+          ❌ {error}
         </div>
-      )}
+      }
     </div>
   );
 };

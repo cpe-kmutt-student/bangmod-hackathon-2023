@@ -14,10 +14,10 @@ const DropDown = <T,>({
   label,
   required,
   width,
-  index,
+  index = 0,
 }: {
   obj?: string | number;
-  setObj: StateUpdater<T>;
+  setObj: StateUpdater<T[]>;
   name: string;
   label?: string;
   options: option[];

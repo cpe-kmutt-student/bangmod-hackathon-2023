@@ -3,7 +3,7 @@ import { StateUpdater } from "preact/hooks";
 
 export type TextAreaBoxProps<T> = {
   obj: string | number;
-  setObj: StateUpdater<T>;
+  setObj: StateUpdater<T[]>;
   name: string;
   label?: string;
   placeholder?: string;
@@ -20,7 +20,7 @@ const TextAreaBox = <T,>({
   placeholder,
   width,
   required,
-  index,
+  index = 0,
 }: TextAreaBoxProps<T>) => {
   const handleChange = (event: Event) => {
     if (!(event.target instanceof HTMLTextAreaElement)) return;

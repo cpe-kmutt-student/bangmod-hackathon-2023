@@ -49,7 +49,7 @@ export const Navbar = () => {
 
       <div className="static hidden md:flex justify-center items-center mx-4 my-2">
         <a
-          href="/register"
+          href="/"
           className="h-20"
         >
           <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" />

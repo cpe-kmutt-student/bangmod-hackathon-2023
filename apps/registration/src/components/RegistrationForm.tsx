@@ -8,11 +8,11 @@ import { useState } from "preact/hooks";
 
 export type RegistrationFormData = {
   students: StudentFormDataWithFile[],
-  team: TeamFormDataWithFile,
+  team: TeamFormDataWithFile[],
 };
 
 export const RegistrationForm = () => {
-  const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile>(defaultTeamForm);
+  const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>(defaultTeamForm);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array(3).fill(defaultStudentFormData)
   );
@@ -38,9 +38,9 @@ export const RegistrationForm = () => {
         <RegisterHeader />
 
         <form onSubmit={handleSubmit}>
-          <TeamForm data={teamFormData} setData={setTeamFormData} />
+          <TeamForm data={teamFormData[0]} setData={setTeamFormData} />
 
-          {Array.from(Array(Number(teamFormData.amount)).keys()).map((i) => (
+          {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm
               data={studentFormsData}
               setData={setStudentFormsData}
