@@ -7,7 +7,10 @@ const config = {
     extend: {
       fontFamily: {
         sans:['"Baloo 2"', 'Noto Sans Thai', ...defaultTheme.fontFamily.sans]
-      }
+      },
+      gridTemplateColumns: {
+        '28': 'repeat(28, minmax(0, 1fr))'
+      },
     }
   },
   future: {

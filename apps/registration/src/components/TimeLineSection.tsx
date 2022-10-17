@@ -1,19 +1,32 @@
+import { HorizontalTimeline } from '@/components/HorizontalTimeline';
 import { TimeLineCard } from "@/components/TimeLineCard";
 import { TimeLinePoint } from "@/components/TimeLinePoint";
+import { useNavbar } from '@/contexts/NavbarContext';
+import useInView from '@/hooks/useInView';
+import { useEffect } from 'preact/hooks';
+
 export const TimeLineSection = () => {
+  const { setVisibleSection } = useNavbar();
+  const [isVisible, ref] = useInView<HTMLElement>();
+
+  useEffect(() => {
+    isVisible && setVisibleSection('timeline');
+  }, [isVisible]);
+
   return (
-    <section className="h-full space-y-10">
+    <section ref={ref} id="timeline-section" className="h-full py-12 lg:py-24">
       <div className="w-fit mx-auto mb-8 px-8  py-4 bg-yellow-600 rounded-xl text-base lg:text-2xl text-white font-bold shadow-xl text-center">
         ไทม์ไลน์
       </div>
 
-      <div className="relative h-full w-full lg:grid lg:grid-cols-10 place-items-center">
-        {/* Line Start */}
+      <div className="hidden sm:flex flex-col space-y-2">
+        <HorizontalTimeline />
+      </div>
+
+      <div className="sm:hidden relative h-full w-full place-items-center">
         <div className="absolute h-full w-full flex items-center justify-center">
           <div className="bg-white w-2 h-full lg:w-full lg:h-3 rounded-xl"></div>
         </div>
-        {/* Line End */}
-        {/* TimeLine Start */}
 
         <div className="grid grid-cols-9 lg:grid-rows-5  lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2">

@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Qualification } from "@/components/Qualification";
 import { Reward } from "@/components/Reward";
 import { ScopeSection } from "@/components/ScopeSection";
-import { TimeLineSection } from "@/components/TimeLineSection";
+import { TimeLineSection } from '@/components/TimeLineSection';
 
 export const HomePage = () => {
   return (
