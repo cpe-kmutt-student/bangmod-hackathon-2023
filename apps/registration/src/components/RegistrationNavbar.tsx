@@ -4,7 +4,7 @@ export const RegistrationNavbar = () => {
   const { user, logout } = useAuth();
 
   return (
-    <nav className="flex flex-row justify-between items-center px-4 md:px-24 py-2 bg-[#6a3f93]">
+    <nav className="sticky flex flex-row justify-between items-center px-4 md:px-24 py-2 bg-[#6a3f93] z-50">
       <a href="/">
         <img className="w-16 h-16" src="logo.webp" alt="" />
       </a>
