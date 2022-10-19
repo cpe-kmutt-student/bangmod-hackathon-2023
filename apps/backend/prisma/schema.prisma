@@ -7,32 +7,8 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model Auth {
-  email      String   @id
-  sessionId  String   @unique
-  name       String
-  picture    String
-  expiryDate DateTime
-  File       File[]
-}
-
-model File {
-  id           Int      @id @default(autoincrement())
-  owner        Auth     @relation(fields: [ownerId], references: [email])
-  ownerId      String
-  originalName String
-  fileKey      String
-  uploadDate   DateTime
-}
 
 // -------- Personal Information --------
-
-model Academic {
-  id          Int           @id @default(autoincrement())
-  name        String
-  participant Participant[]
-  Team        Team[]
-}
 
 model Team {
   id          Int           @id @default(autoincrement())
@@ -49,7 +25,6 @@ model Participant {
   team        Team     @relation(fields: [teamId], references: [id])
   teamId      Int
   isAdvisor   Boolean
-  Academic    Academic @relation(fields: [academicId], references: [id])
   academicId  Int
   result      Result[]
 }
