@@ -39,44 +39,37 @@ export type FileGetApiSchema = CreateApiSchema<{
 // For Registration form data types
 
 export type StudentFormData = {
-  prefixTH: string;
-  nameTH: string;
-  middleNameTH: string;
-  surnameTH: string;
-  prefixEN: string;
-  nameEN: string;
-  middleNameEN: string;
-  surnameEN: string;
-  nicknameTH: string;
-  grade: string;
-  coolQuote: string;
-  email: string;
-  phone: string;
-  line: string;
-  preferFood: string;
-  allergyFood: string;
-  allergyDrug: string;
-  medicalProblem: string;
+  prefixTh: string | null;
+  firstnameTh: string | null;
+  middleNameTh: string | null;
+  surnameTh: string | null;
+  prefixEn: string | null;
+  firstnameEn: string | null;
+  middleNameEn: string | null;
+  surnameEn: string | null;
+  nickname: string | null;
+  grade: string | null;
+  quote: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  lineId: string | null;
+  foodType: string | null;
+  foodAllergy: string | null;
+  drugAllergy: string | null;
+  disease: string | null;
 };
 
+export type AdvisorFormData = Pick<StudentFormData, "prefixTh" | "firstnameTh" | "middleNameTh" | "surnameTh" | "prefixEn" | "firstnameEn" | "middleNameEn" | "surnameEn" | "email" | "phoneNumber" | "lineId">;
+
 export type TeamFormData = {
-  teamName: string;
-  school: string;
-  amount: number;
-  prefixTH: string;
-  nameTH: string;
-  middleNameTH: string;
-  surnameTH: string;
-  prefixEN: string;
-  nameEN: string;
-  middleNameEN: string;
-  surnameEN: string;
-  email: string;
-  phone: string;
-  line: string;
+  name: string | null;
+  school: string | null;
+  amount: number | null;
+  isComplete: boolean | null;
 };
 
 export type RegistrationFormData = {
   students: StudentFormData[],
+  advisor: AdvisorFormData,
   team: TeamFormData,
 };

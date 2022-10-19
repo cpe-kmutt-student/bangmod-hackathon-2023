@@ -7,41 +7,92 @@ datasource db {
   url      = env("DB_URL")
 }
 
+model Auth {
+  email      String   @id
+  sessionId  String   @unique
+  name       String
+  picture    String
+  expiryDate DateTime
+  team       Team?
+}
+
+model File {
+  id            Int           @id @default(autoincrement())
+  participant   Participant   @relation(fields: [participantId], references: [id])
+  participantId Int
+  originalName  String
+  fileKey       String
+  fileType      String
+  uploadDate    DateTime      @default(now())
+  fileHistories FileHistory[]
+  question      Question?     @relation("QuestionFile")
+  testCase      Question?     @relation("TestCaseFile")
+}
+
+model FileHistory {
+  id         Int      @id @default(autoincrement())
+  file       File     @relation(fields: [fileId], references: [id])
+  fileId     Int
+  fileKey    String
+  uploadDate DateTime @default(now())
+}
 
 // -------- Personal Information --------
 
 model Team {
   id          Int           @id @default(autoincrement())
-  academic    Academic      @relation(fields: [academicId], references: [id])
-  academicId  Int
+  auth        Auth?         @relation(fields: [email], references: [email])
+  email       String?       @unique
+  name        String?
+  school      String?
+  isComplete  Boolean?      @default(false)
   Participant Participant[]
 }
 
 model Participant {
-  id          Int      @id @default(autoincrement())
-  fullName    String
-  email       String
-  phoneNumber String
-  team        Team     @relation(fields: [teamId], references: [id])
-  teamId      Int
-  isAdvisor   Boolean
-  academicId  Int
-  result      Result[]
+  id           Int      @id @default(autoincrement())
+  team         Team?    @relation(fields: [teamId], references: [id])
+  teamId       Int?
+  prefixTh     String?
+  firstnameTh  String?
+  middleNameTh String?
+  surnameTh    String?
+  prefixEn     String?
+  firstnameEn  String?
+  middleNameEn String?
+  surnameEn    String?
+  email        String?  @unique
+  phoneNumber  String?
+  lineId       String?
+  isAdvisor    Boolean? @default(false)
+  nickname     String?
+  grade        String?
+  quote        String?
+  foodType     String?
+  foodAllergy  String?
+  drugAllergy  String?
+  disease      String?
+  files        File[]
+  results      Result[]
 }
 
 // -------- Grading --------
 
 model Question {
-  id           Int    @id @default(autoincrement())
-  questionPath String
-  inputPath    String
-  testCasePath String
+  id             Int      @id @default(autoincrement())
+  questionFile   File     @relation("QuestionFile", fields: [questionFileId], references: [id])
+  questionFileId Int      @unique
+  testCaseFile   File     @relation("TestCaseFile", fields: [testCaseFileId], references: [id])
+  testCaseFileId Int      @unique
+  results        Result[]
 }
 
 model Result {
-  id          Int         @id @default(autoincrement())
-  submitter   Participant @relation(fields: [submitterId], references: [id])
-  submitterId Int
-  score       Decimal
-  timestamp   DateTime
+  id            Int         @id @default(autoincrement())
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId Int
+  question      Question    @relation(fields: [questionId], references: [id])
+  questionId    Int
+  score         Int
+  timestamp     DateTime    @default(now())
 }

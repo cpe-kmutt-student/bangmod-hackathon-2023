@@ -1,5 +1,4 @@
-import { OAuthUser } from '@/utils/Types';
-import { PrismaClient } from '@prisma/client';
+import { File, PrismaClient } from '@prisma/client';
 
 export class FileRepository {
   
@@ -9,16 +8,36 @@ export class FileRepository {
     this.database = database;
   }
 
-  public async remember(
-    user: OAuthUser, originalName: string, fileKey: string, uploadDate: Date
-  ) {
-    await this.database.file.create({
+  public async remember(participantId: number, originalName: string, fileKey: string, fileType: string, uploadDate: Date) {
+    const newFile = await this.database.file.create({
       data: {
-        ownerId: user.email,
-        originalName: originalName,
         fileKey: fileKey,
+        fileType: fileType,
+        originalName: originalName,
         uploadDate: uploadDate,
-      },
+        participantId: participantId
+      }
+    });
+
+    this.createFileHistory(newFile);
+  }
+
+  public async updateFileById(id: number, data: Partial<File>) {
+    const updateFile = await this.database.file.update({
+      where: { id: id },
+      data: data
+    });
+
+    this.createFileHistory(updateFile);
+  }
+
+  public async createFileHistory(file: File) {
+    await this.database.fileHistory.create({
+      data: {
+        fileKey: file.fileKey,
+        uploadDate: file.uploadDate,
+        fileId: file.id
+      }
     });
   }
 
@@ -28,9 +47,15 @@ export class FileRepository {
     });
   }
 
-  public async getFilesByOwner(user: OAuthUser) {
+  public async getFileByParticipantId(id: number) {
     return this.database.file.findMany({
-      where: { ownerId: user.email },
+      where: { participantId: id }
+    });
+  }
+
+  public async deleteFileById(id: number) {
+    this.database.file.delete({
+      where: {id: id}
     });
   }
 
