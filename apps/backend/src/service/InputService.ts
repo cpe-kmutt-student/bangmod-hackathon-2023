@@ -3,6 +3,12 @@ import { TeamRepository } from '@/database/repository/TeamRepository';
 import { Participant, Team } from '@prisma/client';
 import { AdvisorFormData, RegistrationFormData, StudentFormData, TeamFormData } from 'api-schema';
 
+type PartialRegisForm = {
+  students: Partial<StudentFormData>[],
+  team: Partial<TeamFormData>,
+  advisor: Partial<AdvisorFormData>
+}
+
 export class InputService {
 
   private readonly participantRepository: ParticipantRepository
@@ -11,50 +17,50 @@ export class InputService {
   private readonly template: RegistrationFormData = {
     students: [
       {
-        drugAllergy: "",
-        quote: "",
+        drugAllergy: null,
+        quote: null,
         foodAllergy: "",
-        email: "abc@mail.com",
-        grade: "M5",
-        lineId: "",
+        email: "shinnapatjr@gmail.com",
+        grade: "Sophomore",
+        lineId: "shinnapat_krabphom",
         disease: "",
-        middleNameEn: "",
+        middleNameEn: null,
         middleNameTh: "",
-        firstnameEn: "",
-        firstnameTh: "",
-        nickname: "",
-        phoneNumber: "",
-        foodType: "",
-        prefixEn: "",
-        prefixTh: "",
-        surnameEn: "",
-        surnameTh: ""
+        firstnameEn: "Shinnapat",
+        firstnameTh: "ชินพรรธน์",
+        nickname: "เปปเปอร์",
+        phoneNumber: "0875908288",
+        foodType: "อะไรก็ได้",
+        prefixEn: "Mr.",
+        prefixTh: "นาย",
+        surnameEn: "Koparamestrisin",
+        surnameTh: "โกปาราเมศไตรสิน",
       },
       {
         drugAllergy: "",
         quote: "",
         foodAllergy: "",
-        email: "abc@mail.com",
-        grade: "M5",
+        email: "shin_gg@hotmail.com",
+        grade: "",
         lineId: "",
         disease: "",
         middleNameEn: "",
-        middleNameTh: "",
-        firstnameEn: "",
-        firstnameTh: "",
-        nickname: "",
-        phoneNumber: "",
-        foodType: "",
-        prefixEn: "",
-        prefixTh: "",
-        surnameEn: "",
-        surnameTh: ""
+        middleNameTh: null,
+        firstnameEn: "PPHamster",
+        firstnameTh: "พีพีแฮมสเตอร์",
+        nickname: "พีพี",
+        phoneNumber: "0812345678",
+        foodType: "บาร์บีก้อน",
+        prefixEn: "Mr.",
+        prefixTh: "นาย",
+        surnameEn: "Incursio",
+        surnameTh: "อินครูซิโอ้"
       }, {
         drugAllergy: "",
         quote: "",
         foodAllergy: "",
-        email: "abc@mail.com",
-        grade: "M5",
+        email: "",
+        grade: "",
         lineId: "",
         disease: "",
         middleNameEn: "",
@@ -71,21 +77,21 @@ export class InputService {
       },
     ],
     team: {
-      amount: 3,
-      school: "",
-      name: "",
-      isComplete: false
+      amount: 0,
+      school: "KMUTT",
+      name: "Made In Abyss",
+      isComplete: false,
     },
     advisor: {
-      email: "abc@mail.com",
+      email: "",
       lineId: "",
       middleNameEn: "",
       middleNameTh: "",
       firstnameEn: "",
       firstnameTh: "",
       phoneNumber: "",
-      prefixEn: "",
-      prefixTh: "",
+      prefixEn: null,
+      prefixTh: null,
       surnameEn: "",
       surnameTh: ""
     }
@@ -99,112 +105,70 @@ export class InputService {
     this.teamRepository = teamRepository;
   }
 
-  private isNotNullAndNotEmpty(data: any): boolean {
-    if (data && data !== "") return true;
-    return false;
+  private filterNull(object: StudentFormData | AdvisorFormData | TeamFormData | Participant | Team) {
+    const dataFilter = Object.fromEntries(Object.entries(object).filter(([key, value]) => value));
+    return dataFilter;
   }
 
   private validDefault(data: any): boolean {
-    if (this.isNotNullAndNotEmpty(data) && typeof (data) !== "string") return false;
-    return true;
+    return typeof (data) === "string";
   }
 
   private validEmail(data: any): boolean {
     const emailTest = /^[^@]+@\w+(\.\w+)+\w$/
-    if (this.isNotNullAndNotEmpty(data) && (typeof (data) !== "string" || !emailTest.test(data))) return false;
-    return true;
+    return typeof (data) === "string" && emailTest.test(data)
   }
 
   private validPrefixEn(data: any): boolean {
-    if (this.isNotNullAndNotEmpty(data) && (typeof (data) !== "string" || !["Mr.", "Mrs.", "Miss."].includes(data))) return false;
-    return true;
+    return typeof (data) === "string" && ["Mr.", "Mrs.", "Miss."].includes(data);
   }
 
   private validPrefixTh(data: any): boolean {
-    if (this.isNotNullAndNotEmpty(data) && (typeof (data) !== "string" || !["นาย", "นางสาว", "นาง"].includes(data))) return false;
-    return true;
+    return typeof (data) === "string" && ["นาย", "นางสาว", "นาง"].includes(data);
   }
 
   private validPhone(data: any): boolean {
-    if (this.isNotNullAndNotEmpty(data) && (typeof (data) !== "string" || data.length !== 10)) return false;
-    return true;
+    return typeof (data) === "string" && data.length === 10;
   }
 
   private validInput(registrationFormData: any): boolean {
     const { students, team, advisor } = registrationFormData;
+
     if (!students || !team || !advisor) return false;
 
     // Validate team
-    if (team.amount && +team.amount !== 0 && +team.amount !== 2 && +team.amount !== 3) return false;
 
-    if (!this.validDefault(team.school)) return false;
-
-    if (!this.validDefault(team.name)) return false;
+    for (let key in team) {
+      if (key === 'amount' && +team[key] !== 2 && +team[key] !== 3) return false;
+      if (key === 'isComplete' && typeof (team[key]) !== 'boolean') return false;
+      if (['school', 'name'].includes(key) && !this.validDefault(team[key])) return false;
+    }
 
     // Validate advisor
 
-    if (!this.validEmail(advisor.email)) return false;
-
-    if (!this.validDefault(advisor.lineId)) return false;
-
-    if (!this.validDefault(advisor.middleNameEn)) return false;
-
-    if (!this.validDefault(advisor.middleNameTh)) return false;
-
-    if (!this.validDefault(advisor.firstnameEn)) return false;
-
-    if (!this.validDefault(advisor.firstnameTh)) return false;
-
-    if (!this.validPhone(advisor.phoneNumber)) return false;
-
-    if (!this.validPrefixEn(advisor.prefixEn)) return false;
-
-    if (!this.validPrefixTh(advisor.prefixTh)) return false;
-
-    if (!this.validDefault(advisor.surnameEn)) return false;
-
-    if (!this.validDefault(advisor.surnameTh)) return false;
-
+    for (let key in advisor) {
+      if (key === 'email' && !this.validEmail(advisor[key])) return false;
+      else if (key === 'phoneNumber' && !this.validPhone(advisor[key])) return false;
+      else if (key === 'prefixEn' && !this.validPrefixEn(advisor[key])) return false;
+      else if (key === 'prefixTh' && !this.validPrefixTh(advisor[key])) return false;
+      else {
+        if (!this.validDefault(advisor[key])) return false;
+      }
+    }
 
     // Validate students
-    if (students.length < 2 && students.length > 3) return false;
+    if (students.length < 0 && students.length > 3) return false;
 
-    for (let i = 0; i < students.length; i++) {
-      if (!this.validDefault(students[i].drugAllergy)) return false;
-
-      if (!this.validDefault(students[i].foodAllergy)) return false;
-
-      if (!this.validDefault(students[i].quote)) return false;
-
-      if (!this.validEmail(students[i].email)) return false;
-
-      if (!this.validDefault(students[i].grade)) return false;
-
-      if (!this.validDefault(students[i].lineId)) return false;
-
-      if (!this.validDefault(students[i].disease)) return false;
-
-      if (!this.validDefault(students[i].middleNameEn)) return false;
-
-      if (!this.validDefault(students[i].middleNameTh)) return false;
-
-      if (!this.validDefault(students[i].firstnameEn)) return false;
-
-      if (!this.validDefault(students[i].firstnameTh)) return false;
-
-      if (!this.validDefault(students[i].nickname)) return false;
-
-      if (!this.validPhone(students[i].phoneNumber)) return false;
-
-      if (!this.validDefault(students[i].foodType)) return false;
-
-      if (!this.validPrefixEn(students[i].prefixEn)) return false;
-
-      if (!this.validPrefixTh(students[i].prefixTh)) return false;
-
-      if (!this.validDefault(students[i].surnameEn)) return false;
-
-      if (!this.validDefault(students[i].surnameTh)) return false;
+    for (let student of students) {
+      for (let key in student) {
+        if (key === 'email' && !this.validEmail(student[key])) return false;
+        else if (key === 'phoneNumber' && !this.validPhone(student[key])) return false;
+        else if (key === 'prefixEn' && !this.validPrefixEn(student[key])) return false;
+        else if (key === 'prefixTh' && !this.validPrefixTh(student[key])) return false;
+        else {
+          if (!this.validDefault(student[key])) return false;
+        }
+      }
     }
 
     return true;
@@ -248,73 +212,106 @@ export class InputService {
     return true;
   }
 
-
-
   public async getInputByEmail(email: string): Promise<RegistrationFormData | null> {
     const team = await this.teamRepository.getTeamByEmail(email);
-    console.log(this.validInput(this.template));
+
+    const teamFilter = this.filterNull(this.template.team);
+    const adviFilter = this.filterNull(this.template.advisor);
+
+    const studentsFilter: Partial<StudentFormData>[] = []
+    for (let i = 0; i < this.template.students.length; i++) {
+      studentsFilter.push(this.filterNull(this.template.students[i]));
+    }
+
+    const all: PartialRegisForm = {
+      team: teamFilter,
+      advisor: adviFilter,
+      students: studentsFilter
+    }
+
+    //! Testing database with url http://localhost:3000/input/get
+
+    console.log(all);
+
+    console.log(this.validInput(all));
+
+    const partialTeamData: Partial<Team> = { ...all.team };
+
+    if(!partialTeamData.name || !partialTeamData.school) return null;
+
+    const teamId = await this.saveTeamByEmail(email, partialTeamData)
+
+    await this.saveStudents(teamId, all.students);
+
+    //!
+
+
     if (!team) return null;
 
     const students = await this.participantRepository.getStudentsDataByTeamId(team.id);
 
     const advisor = await this.participantRepository.getAdvisorDataByTeamId(team.id);
 
-    const studentsFormData: StudentFormData[] = [...students]; //TODO : Why isAdvisor in Participant can contain in StudentFormData.
+    const studentsFormData: StudentFormData[] = [...students];
 
-    const teamFormData: TeamFormData = {...team, amount: students.length};
-    
-    const advisorFormData: AdvisorFormData = {
-      lineId: advisor?.lineId || null,
-      email: advisor?.email || null,
-      middleNameEn: advisor?.middleNameEn || null,
-      middleNameTh: advisor?.middleNameTh || null,
-      firstnameEn: advisor?.firstnameEn || null,
-      firstnameTh: advisor?.firstnameTh || null,
-      phoneNumber: advisor?.phoneNumber || null,
-      prefixEn: advisor?.prefixEn || null,
-      prefixTh: advisor?.prefixTh || null,
-      surnameEn: advisor?.surnameEn || null,
-      surnameTh: advisor?.surnameTh || null,
+    const teamFormData: TeamFormData = { ...team, amount: students.length };
+
+    let advisorFormData: AdvisorFormData;
+
+    if (advisor) {
+      advisorFormData = { ...advisor };
+    }
+    else {
+      advisorFormData = {
+        email: null,
+        firstnameEn: null,
+        firstnameTh: null,
+        lineId: null,
+        middleNameEn: null,
+        middleNameTh: null,
+        phoneNumber: null,
+        prefixEn: null,
+        prefixTh: null,
+        surnameEn: null,
+        surnameTh: null,
+      };
     }
 
     return { students: studentsFormData, team: teamFormData, advisor: advisorFormData };
   }
 
   public async saveInputByEmail(email: string, registrationFormData: RegistrationFormData): Promise<void> {
+
+    const dataToSave: Partial<RegistrationFormData> = Object.fromEntries(Object.entries(registrationFormData).filter(([key, value]) => value));
+
     if (!this.validInput(registrationFormData)) return;
 
-    const { students, team } = registrationFormData;
-
-  }
-
-  private async saveTeamByEmail(email: string, team: TeamFormData): Promise<void> {
-    const dataToSave: Partial<Team> = {};
-
-    if (team.name) dataToSave.name = team.name;
-    if (team.school) dataToSave.school = team.school;
-    if (team.isComplete !== null) dataToSave.isComplete = team.isComplete;
+    const { students, team, advisor } = registrationFormData;
 
     const searchTeam = await this.teamRepository.getTeamByEmail(email);
 
-    if (searchTeam) await this.teamRepository.updateTeamByEmail(email, dataToSave);
-    else await this.teamRepository.createTeamByEmail(email, dataToSave);
+  }
+
+  private async saveTeamByEmail(email: string, team: Partial<TeamFormData>): Promise<number> {
+
+    if (!!team.amount) {
+      delete team.amount;
+    }
+
+    const dataToSave: Partial<Team> = { ...team };
+
+    const searchTeam = await this.teamRepository.getTeamByEmail(email);
+
+    if (searchTeam) {
+      const updateTeam = await this.teamRepository.updateTeamByEmail(email, dataToSave);
+      return updateTeam.id;
+    }
+
+    const createTeam = await this.teamRepository.createTeamByEmail(email, dataToSave);
+    return createTeam.id;
   }
 
   private async saveAdvisorByTeamId(teamId: number, advisor: AdvisorFormData): Promise<void> {
-    // const dataToSave: Partial<Participant> = {};
-
-    // if (advisor.prefixTh) dataToSave.prefixTh = advisor.prefixTh;
-    // if (advisor.firstnameTh) dataToSave.firstnameTh = advisor.firstnameTh;
-    // if (advisor.middleNameTh) dataToSave.middleNameTh = advisor.surnameTh;
-    // if (advisor.surnameTh) dataToSave.surnameTh = advisor.surnameTh;
-    // if (advisor.prefixEn) dataToSave.prefixEn = advisor.prefixEn;
-    // if (advisor.firstnameEn) dataToSave.firstnameEn = advisor.firstnameEn;
-    // if (advisor.middleNameEn) dataToSave.middleNameEn = advisor.middleNameEn;
-    // if (advisor.surnameEn) dataToSave.surnameEn = advisor.surnameEn;
-    // if (advisor.email) dataToSave.email = advisor.email;
-    // if (advisor.phoneNumber) dataToSave.phoneNumber = advisor.phoneNumber;
-    // if (advisor.lineId) dataToSave.lineId = advisor.lineId;
-    // dataToSave.isAdvisor = true;
 
     const dataToSave: Partial<Participant> = Object.fromEntries(Object.entries(advisor).filter(([key, value]) => value));
 
@@ -324,41 +321,21 @@ export class InputService {
     else await this.participantRepository.createAdvisor(dataToSave, teamId);
   }
 
-  private async saveStudents(teamId: number, students: StudentFormData[]): Promise<void> {
+  private async saveStudents(teamId: number, students: Partial<StudentFormData>[]): Promise<void> {
 
     const participants = await this.participantRepository.getStudentsDataByTeamId(teamId);
 
-    for(let i=0; i<students.length; i++) {
-      const dataToSave: Partial<Participant> = Object.fromEntries(Object.entries(students[i]).filter(([key, value]) => value));
+    // Never have students in database
+    if (participants.length === 0) {
 
-      
+      const dataStudents: Partial<Participant>[] = students.filter((dataStudent) => Object.keys(dataStudent).length !== 0);
+
+      dataStudents.forEach((dataStudent) => dataStudent.teamId = teamId);
+
+      return await this.participantRepository.createStudents(dataStudents);
     }
-    // for (let i = 0; i < students.length; i++) {
-    //   const dataToSave: Partial<Participant> = {};
-    //   const infoToSave: Partial<ParticipantInformation> = {};
-    //   const student = students[i];
 
-    //   if (student.prefixTh) dataToSave.prefixTh = student.prefixTh;
-    //   if (student.firstnameTh) dataToSave.firstnameTh = student.firstnameTh;
-    //   if (student.middleNameTh) dataToSave.middleNameTh = student.middleNameTh;
-    //   if (student.surnameTh) dataToSave.surnameTh = student.surnameTh;
-    //   if (student.prefixEn) dataToSave.prefixEn = student.prefixEn;
-    //   if (student.firstnameEn) dataToSave.firstnameEn = student.firstnameEn;
-    //   if (student.middleNameEn) dataToSave.middleNameEn = student.middleNameEn;
-    //   if (student.surnameEn) dataToSave.surnameEn = student.surnameEn;
-    //   if (student.email) dataToSave.email = student.email;
-    //   if (student.phoneNumber) dataToSave.phoneNumber = student.phoneNumber;
-    //   if (student.lineId) dataToSave.lineId = student.lineId;
-
-    //   if (student.nickname) infoToSave.nickname = student.nickname;
-    //   if (student.grade) infoToSave.grade = student.grade;
-    //   if (student.quote) infoToSave.quote = student.quote;
-    //   if (student.foodType) infoToSave.foodType = student.foodType;
-    //   if (student.foodAllergy) infoToSave.foodAllergy = student.foodAllergy;
-    //   if (student.drugAllergy) infoToSave.drugAllergy = student.drugAllergy;
-    //   if (student.disease) infoToSave.disease = student.disease;
-
-    // }
+    
 
   }
 

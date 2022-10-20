@@ -40,7 +40,7 @@ export class ParticipantRepository {
     });
   }
 
-  public async getStudentsDataByTeamId(id: number) {
+  public async getStudentsDataByTeamId(id: number): Promise<Participant[]> {
     return this.database.participant.findMany({
       where: { teamId: id, isAdvisor: false },
       orderBy: { id: 'asc' }
