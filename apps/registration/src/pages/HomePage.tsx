@@ -26,7 +26,7 @@ export const HomePage = () => {
         <div
           className="
             relative bg-gradient-to-b from-[#3E245D] via-[#B04F9C] to-[#40245E] z-30
-            transform md:translate-y-[5.9rem]
+            md:mt-[5.75rem]
           "
         >
           <div className="w-full container space-y-48 py-24">
