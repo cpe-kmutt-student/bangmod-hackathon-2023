@@ -29,6 +29,17 @@ export class TeamRepository {
     });
   }
 
+  public async getTeamIntoFormByEmail(email: string) {
+    return this.database.team.findUnique({
+      where: { email: email },
+      select: {
+        isComplete: true,
+        name: true,
+        school: true,
+      }
+    });
+  }
+
   public async updateTeamById(id: number, data: Partial<Team>): Promise<Team> {
     return this.database.team.update({
       where: { id: id },

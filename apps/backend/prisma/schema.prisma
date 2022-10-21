@@ -22,7 +22,7 @@ model File {
   participantId Int
   originalName  String
   fileKey       String
-  fileType      String
+  fileType      Int
   uploadDate    DateTime      @default(now())
   fileHistories FileHistory[]
   question      Question?     @relation("QuestionFile")
@@ -42,7 +42,7 @@ model FileHistory {
 model Team {
   id          Int           @id @default(autoincrement())
   auth        Auth?         @relation(fields: [email], references: [email])
-  email       String?       @unique
+  email       String?        @unique
   name        String?
   school      String?
   isComplete  Boolean?      @default(false)
@@ -61,7 +61,7 @@ model Participant {
   firstnameEn  String?
   middleNameEn String?
   surnameEn    String?
-  email        String?  @unique
+  email        String?
   phoneNumber  String?
   lineId       String?
   isAdvisor    Boolean? @default(false)

@@ -34,12 +34,6 @@ export class ParticipantRepository {
     });
   }
 
-  public async getParticipantDataByEmail(email: string): Promise<Participant | null> {
-    return await this.database.participant.findFirst({
-      where: { email: email }
-    });
-  }
-
   public async getStudentsDataByTeamId(id: number): Promise<Participant[]> {
     return this.database.participant.findMany({
       where: { teamId: id, isAdvisor: false },
@@ -53,10 +47,61 @@ export class ParticipantRepository {
     });
   }
 
+  public async getStudentsDataIntoFormByTeamId(id: number) {
+    return this.database.participant.findMany({
+      where: { teamId: id, isAdvisor: false },
+      select: {
+        disease: true,
+        drugAllergy: true,
+        email: true,
+        firstnameEn: true,
+        firstnameTh: true,
+        foodAllergy: true,
+        foodType: true,
+        grade: true,
+        lineId: true,
+        middleNameEn: true,
+        middleNameTh: true,
+        nickname: true,
+        phoneNumber: true,
+        prefixEn: true,
+        prefixTh: true,
+        quote: true,
+        surnameEn: true,
+        surnameTh: true,
+      }
+    });
+  }
+
+  public async getAdvisorDataIntoFormByTeamId(id: number) {
+    return this.database.participant.findFirst({
+      where: { teamId: id, isAdvisor: true },
+      select: {
+        email: true,
+        firstnameEn: true,
+        firstnameTh: true,
+        lineId: true,
+        middleNameEn: true,
+        middleNameTh: true,
+        phoneNumber: true,
+        prefixEn: true,
+        prefixTh: true,
+        surnameEn: true,
+        surnameTh: true,
+      }
+    });
+  }
+
   public async updateParticipantById(id: number, data: Partial<Participant>): Promise<void> {
     await this.database.participant.update({
       where: { id: id },
       data: data
+    });
+  }
+
+  public async deleteParticipantById(id: number): Promise<void> {
+    await this.database.participant.delete({
+      where: { id: id }
     });
   }
 }

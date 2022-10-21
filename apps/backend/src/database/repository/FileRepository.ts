@@ -1,4 +1,12 @@
+import { OAuthUser } from '@/utils/Types';
 import { File, PrismaClient } from '@prisma/client';
+
+export enum FileType {
+  ADVISOR_DOCUMENT = 0,
+  STUDENT_IMAGE,
+  STUDENT_ID,
+  STUDENT_PORPHOR_JED, // I don't know how to pronoun this XD
+}
 
 export class FileRepository {
   
@@ -8,18 +16,30 @@ export class FileRepository {
     this.database = database;
   }
 
-  public async remember(participantId: number, originalName: string, fileKey: string, fileType: string, uploadDate: Date) {
+  public async remember(
+    user: OAuthUser,
+    originalName: string,
+    fileKey: string,
+    fileType: FileType,
+    uploadDate: Date,
+  ) {
+    const email = user.email;
+    const participant = await this.database.participant.findUnique({
+      where: { email: email }
+    });
+
+    if (!participant) return;
+
     const newFile = await this.database.file.create({
       data: {
         fileKey: fileKey,
         fileType: fileType,
         originalName: originalName,
         uploadDate: uploadDate,
-        participantId: participantId
+        participantId: participant.id,
       }
     });
-
-    this.createFileHistory(newFile);
+    await this.createFileHistory(newFile);
   }
 
   public async updateFileById(id: number, data: Partial<File>) {
@@ -27,8 +47,7 @@ export class FileRepository {
       where: { id: id },
       data: data
     });
-
-    this.createFileHistory(updateFile);
+    await this.createFileHistory(updateFile);
   }
 
   public async createFileHistory(file: File) {
@@ -36,7 +55,7 @@ export class FileRepository {
       data: {
         fileKey: file.fileKey,
         uploadDate: file.uploadDate,
-        fileId: file.id
+        fileId: file.id,
       }
     });
   }
@@ -55,7 +74,7 @@ export class FileRepository {
 
   public async deleteFileById(id: number) {
     this.database.file.delete({
-      where: {id: id}
+      where: { id: id }
     });
   }
 

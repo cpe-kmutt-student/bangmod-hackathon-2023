@@ -1,101 +1,18 @@
 import { ParticipantRepository } from '@/database/repository/ParticipantRepository';
 import { TeamRepository } from '@/database/repository/TeamRepository';
 import { Participant, Team } from '@prisma/client';
-import { AdvisorFormData, RegistrationFormData, StudentFormData, TeamFormData } from 'api-schema';
+import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from 'api-schema';
 
-type PartialRegisForm = {
+export type PartialRegisForm = {
   students: Partial<StudentFormData>[],
   team: Partial<TeamFormData>,
-  advisor: Partial<AdvisorFormData>
+  advisor: Partial<AdvisorFormData>,
 }
 
 export class InputService {
 
   private readonly participantRepository: ParticipantRepository
   private readonly teamRepository: TeamRepository
-
-  private readonly template: RegistrationFormData = {
-    students: [
-      {
-        drugAllergy: null,
-        quote: null,
-        foodAllergy: "",
-        email: "shinnapatjr@gmail.com",
-        grade: "Sophomore",
-        lineId: "shinnapat_krabphom",
-        disease: "",
-        middleNameEn: null,
-        middleNameTh: "",
-        firstnameEn: "Shinnapat",
-        firstnameTh: "ชินพรรธน์",
-        nickname: "เปปเปอร์",
-        phoneNumber: "0875908288",
-        foodType: "อะไรก็ได้",
-        prefixEn: "Mr.",
-        prefixTh: "นาย",
-        surnameEn: "Koparamestrisin",
-        surnameTh: "โกปาราเมศไตรสิน",
-      },
-      {
-        drugAllergy: "",
-        quote: "",
-        foodAllergy: "",
-        email: "shin_gg@hotmail.com",
-        grade: "",
-        lineId: "",
-        disease: "",
-        middleNameEn: "",
-        middleNameTh: null,
-        firstnameEn: "PPHamster",
-        firstnameTh: "พีพีแฮมสเตอร์",
-        nickname: "พีพี",
-        phoneNumber: "0812345678",
-        foodType: "บาร์บีก้อน",
-        prefixEn: "Mr.",
-        prefixTh: "นาย",
-        surnameEn: "Incursio",
-        surnameTh: "อินครูซิโอ้"
-      }, {
-        drugAllergy: "",
-        quote: "",
-        foodAllergy: "",
-        email: "",
-        grade: "",
-        lineId: "",
-        disease: "",
-        middleNameEn: "",
-        middleNameTh: "",
-        firstnameEn: "",
-        firstnameTh: "",
-        nickname: "",
-        phoneNumber: "",
-        foodType: "",
-        prefixEn: "",
-        prefixTh: "",
-        surnameEn: "",
-        surnameTh: ""
-      },
-    ],
-    team: {
-      amount: 0,
-      school: "KMUTT",
-      name: "Made In Abyss",
-      isComplete: false,
-    },
-    advisor: {
-      email: "",
-      lineId: "",
-      middleNameEn: "",
-      middleNameTh: "",
-      firstnameEn: "",
-      firstnameTh: "",
-      phoneNumber: "",
-      prefixEn: null,
-      prefixTh: null,
-      surnameEn: "",
-      surnameTh: ""
-    }
-  }
 
   public constructor(
     participantRepository: ParticipantRepository,
@@ -105,9 +22,10 @@ export class InputService {
     this.teamRepository = teamRepository;
   }
 
-  private filterNull(object: StudentFormData | AdvisorFormData | TeamFormData | Participant | Team) {
-    const dataFilter = Object.fromEntries(Object.entries(object).filter(([key, value]) => value));
-    return dataFilter;
+  private excludeEmpty<T extends Object>(object: T): Partial<T> {
+    return Object.fromEntries(Object.entries(object).filter(([key, value]) => {
+      return value !== null && value !== undefined && value !== '';
+    })) as Partial<T>;
   }
 
   private validDefault(data: any): boolean {
@@ -131,79 +49,67 @@ export class InputService {
     return typeof (data) === "string" && data.length === 10;
   }
 
-  private validInput(registrationFormData: any): boolean {
-    const { students, team, advisor } = registrationFormData;
+  private validParticipant(participant: any): boolean {
+    for (let key in participant) {
+      if (key === 'email' && !this.validEmail(participant[key])) return false;
+      else if (key === 'phoneNumber' && !this.validPhone(participant[key])) return false;
+      else if (key === 'prefixEn' && !this.validPrefixEn(participant[key])) return false;
+      else if (key === 'prefixTh' && !this.validPrefixTh(participant[key])) return false;
+      else {
+        if (!this.validDefault(participant[key])) return false;
+      }
+    }
+    return true;
+  }
 
+  private validInput(data: PartialRegisForm): boolean {
+    if (!this.validKey(data)) return false;
+
+    const { students, team, advisor } = data;
     if (!students || !team || !advisor) return false;
 
-    // Validate team
+    if (team.amount !== 2 && team.amount !== 3) return false;
+    if (typeof team.isComplete !== 'boolean') return false;
+    if (!this.validDefault(team.school) || !this.validDefault(team.name)) return false;
 
-    for (let key in team) {
-      if (key === 'amount' && +team[key] !== 2 && +team[key] !== 3) return false;
-      if (key === 'isComplete' && typeof (team[key]) !== 'boolean') return false;
-      if (['school', 'name'].includes(key) && !this.validDefault(team[key])) return false;
-    }
+    this.validParticipant(advisor);
 
-    // Validate advisor
-
-    for (let key in advisor) {
-      if (key === 'email' && !this.validEmail(advisor[key])) return false;
-      else if (key === 'phoneNumber' && !this.validPhone(advisor[key])) return false;
-      else if (key === 'prefixEn' && !this.validPrefixEn(advisor[key])) return false;
-      else if (key === 'prefixTh' && !this.validPrefixTh(advisor[key])) return false;
-      else {
-        if (!this.validDefault(advisor[key])) return false;
-      }
-    }
-
-    // Validate students
     if (students.length < 0 && students.length > 3) return false;
-
-    for (let student of students) {
-      for (let key in student) {
-        if (key === 'email' && !this.validEmail(student[key])) return false;
-        else if (key === 'phoneNumber' && !this.validPhone(student[key])) return false;
-        else if (key === 'prefixEn' && !this.validPrefixEn(student[key])) return false;
-        else if (key === 'prefixTh' && !this.validPrefixTh(student[key])) return false;
-        else {
-          if (!this.validDefault(student[key])) return false;
-        }
-      }
-    }
+    const isSomeStudentsInvalid = students.some((student) => !this.validParticipant(student));
+    if (isSomeStudentsInvalid) return false;
 
     return true;
   }
 
-  private validKey(registrationFormData: any): boolean {
+  private validKey(data: any): boolean {
+    if (!data || typeof data !== 'object') return false;
 
-    if (!registrationFormData) return false;
+    const hasInvalidKey = Object
+      .keys(data)
+      .some((key) => !['students', 'team', 'advisor'].includes(key));
+    if (hasInvalidKey) return false;
 
-    for (let key in registrationFormData) {
-      if (!['students', 'team', 'advisor'].includes(key)) return false;
-    }
-
-    const { students, team, advisor } = registrationFormData;
+    const { students, team, advisor } = data;
 
     if (team) {
-      const teamKey = Object.keys(this.template.team);
+      const teamKey = Object.keys(RegistrationFormDataTemplate.team);
       for (let key in team) {
         if (!teamKey.includes(key)) return false
       }
     }
 
     if (advisor) {
-      const advisorKey = Object.keys(this.template.advisor);
+      const advisorKey = Object.keys(RegistrationFormDataTemplate.advisor);
       for (let key in advisor) {
         if (!advisorKey.includes(key)) return false
       }
     }
 
-    if (!!students && Array.isArray(students) && students.length > 0) {
-
+    if (Array.isArray(students) && students.length > 0) {
       if (students.length < 1 || students.length > 3) return false;
-      const studentKey = Object.keys(this.template.students[0]);
-      for (let i = 0; i < students.length; i++) {
-        for (let key in students[i]) {
+      const studentKey = Object.keys(RegistrationFormDataTemplate.students[0]);
+      for (let student of students) {
+        for (let key in student) {
           if (!studentKey.includes(key)) return false;
         }
       }
@@ -212,56 +118,55 @@ export class InputService {
     return true;
   }
 
+  private haveAllKeyAndNotNull(registrationFormData: any): boolean {
+    if (!registrationFormData) return false;
+
+    for (let key in registrationFormData) {
+      if (!['students', 'team', 'advisor'].includes(key)) return false;
+    }
+
+    const { students, team, advisor } = registrationFormData;
+
+    if (!students || !team || !advisor) return false;
+
+    for (let key in RegistrationFormDataTemplate.team) {
+      if (key !== 'isComplete') {
+        if (!team[key]) return false;
+      } else {
+        if (typeof (team[key]) !== 'boolean') return false;
+      }
+    }
+
+    for (let key in RegistrationFormDataTemplate.advisor) {
+      if (!advisor[key]) return false;
+    }
+
+    if (!Array.isArray(students) || students.length < 2 || students.length > 3) return false;
+
+    for (let student of students) {
+      for (let key in RegistrationFormDataTemplate.students[0]) {
+        if (!student[key]) return false;
+      }
+    }
+
+    return true
+  }
+
   public async getInputByEmail(email: string): Promise<RegistrationFormData | null> {
     const team = await this.teamRepository.getTeamByEmail(email);
-
-    const teamFilter = this.filterNull(this.template.team);
-    const adviFilter = this.filterNull(this.template.advisor);
-
-    const studentsFilter: Partial<StudentFormData>[] = []
-    for (let i = 0; i < this.template.students.length; i++) {
-      studentsFilter.push(this.filterNull(this.template.students[i]));
-    }
-
-    const all: PartialRegisForm = {
-      team: teamFilter,
-      advisor: adviFilter,
-      students: studentsFilter
-    }
-
-    //! Testing database with url http://localhost:3000/input/get
-
-    console.log(all);
-
-    console.log(this.validInput(all));
-
-    const partialTeamData: Partial<Team> = { ...all.team };
-
-    if(!partialTeamData.name || !partialTeamData.school) return null;
-
-    const teamId = await this.saveTeamByEmail(email, partialTeamData)
-
-    await this.saveStudents(teamId, all.students);
-
-    //!
-
-
     if (!team) return null;
 
-    const students = await this.participantRepository.getStudentsDataByTeamId(team.id);
+    const getTeamForm = await this.teamRepository.getTeamIntoFormByEmail(email);
+    if (!getTeamForm) return null;
 
-    const advisor = await this.participantRepository.getAdvisorDataByTeamId(team.id);
-
-    const studentsFormData: StudentFormData[] = [...students];
-
-    const teamFormData: TeamFormData = { ...team, amount: students.length };
+    const students = await this.participantRepository.getStudentsDataIntoFormByTeamId(team.id);
+    const advisor = await this.participantRepository.getAdvisorDataIntoFormByTeamId(team.id);
+    const teamFormData = { ...getTeamForm, amount: students.length };
 
     let advisorFormData: AdvisorFormData;
-
     if (advisor) {
       advisorFormData = { ...advisor };
-    }
-    else {
+    } else {
       advisorFormData = {
         email: null,
         firstnameEn: null,
@@ -277,29 +182,45 @@ export class InputService {
       };
     }
 
-    return { students: studentsFormData, team: teamFormData, advisor: advisorFormData };
+    return { students: students, team: teamFormData, advisor: advisorFormData };
   }
 
-  public async saveInputByEmail(email: string, registrationFormData: RegistrationFormData): Promise<void> {
-
-    const dataToSave: Partial<RegistrationFormData> = Object.fromEntries(Object.entries(registrationFormData).filter(([key, value]) => value));
-
-    if (!this.validInput(registrationFormData)) return;
-
+  public async saveInputByEmail(
+    email: string, registrationFormData: RegistrationFormData,
+  ): Promise<PartialRegisForm | null> {
     const { students, team, advisor } = registrationFormData;
 
-    const searchTeam = await this.teamRepository.getTeamByEmail(email);
+    if (!students && !team && !advisor) {
+      throw Error('No data provided');
+    }
 
+    const partialTeam = this.excludeEmpty(team);
+    const partialAdvisor = this.excludeEmpty(advisor);
+    const partialStudents: Partial<StudentFormData>[] = []
+
+    students.forEach((student) => {
+      partialStudents.push(this.excludeEmpty(student));
+    });
+
+    const registerForm: PartialRegisForm = {
+      team: partialTeam,
+      advisor: partialAdvisor,
+      students: partialStudents
+    }
+
+    if (!this.validInput(registerForm)) return null;
+    if (partialTeam.isComplete && !this.haveAllKeyAndNotNull(registerForm)) return null;
+    if (!partialTeam.name && !partialTeam.school) return null;
+
+    const teamId = await this.saveTeamByEmail(email, partialTeam);
+    await this.saveStudentsByTeamId(teamId, partialStudents);
+    await this.saveAdvisorByTeamId(teamId, partialAdvisor);
+    return registerForm;
   }
 
   private async saveTeamByEmail(email: string, team: Partial<TeamFormData>): Promise<number> {
-
-    if (!!team.amount) {
-      delete team.amount;
-    }
-
+    if (!!team.amount) delete team.amount;
     const dataToSave: Partial<Team> = { ...team };
-
     const searchTeam = await this.teamRepository.getTeamByEmail(email);
 
     if (searchTeam) {
@@ -311,32 +232,43 @@ export class InputService {
     return createTeam.id;
   }
 
-  private async saveAdvisorByTeamId(teamId: number, advisor: AdvisorFormData): Promise<void> {
-
-    const dataToSave: Partial<Participant> = Object.fromEntries(Object.entries(advisor).filter(([key, value]) => value));
-
+  private async saveAdvisorByTeamId(teamId: number, advisor: Partial<AdvisorFormData>): Promise<void> {
     const participant = await this.participantRepository.getAdvisorDataByTeamId(teamId);
+    const dataToSave: Partial<Participant> = { ...advisor };
 
+    if (Object.keys(dataToSave).length === 0) return;
     if (participant) await this.participantRepository.updateParticipantById(participant.id, dataToSave);
     else await this.participantRepository.createAdvisor(dataToSave, teamId);
   }
 
-  private async saveStudents(teamId: number, students: Partial<StudentFormData>[]): Promise<void> {
-
+  private async saveStudentsByTeamId(teamId: number, students: Partial<StudentFormData>[]): Promise<void> {
     const participants = await this.participantRepository.getStudentsDataByTeamId(teamId);
+    const dataStudents: Partial<Participant>[] = students.filter((dataStudent) => Object.keys(dataStudent).length !== 0);
 
     // Never have students in database
     if (participants.length === 0) {
-
-      const dataStudents: Partial<Participant>[] = students.filter((dataStudent) => Object.keys(dataStudent).length !== 0);
-
       dataStudents.forEach((dataStudent) => dataStudent.teamId = teamId);
-
-      return await this.participantRepository.createStudents(dataStudents);
+      await this.participantRepository.createStudents(dataStudents);
+    } else if (participants.length === dataStudents.length) {
+      for (let i = 0; i < dataStudents.length; i++) {
+        await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
+      }
+    } else if (participants.length > dataStudents.length) {
+      for (let i = participants.length - 1; i >= dataStudents.length; i--) {
+        await this.participantRepository.deleteParticipantById(participants[i].id);
+      }
+      for (let i = 0; i < dataStudents.length; i++) {
+        await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
+      }
+    } else {
+      // Case dataStudent.length > database.length
+      for (let i = 0; i < participants.length; i++) {
+        await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
+      }
+      for (let i = participants.length; i < dataStudents.length; i++) {
+        await this.participantRepository.createStudent(dataStudents[i], teamId);
+      }
     }
-
-    
-
   }
 
 }

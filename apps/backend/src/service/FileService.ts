@@ -1,4 +1,4 @@
-import { FileRepository } from '@/database/repository/FileRepository';
+import { FileRepository, FileType } from '@/database/repository/FileRepository';
 import { SeaweedClient } from '@/utils/seaweedfs/SeaweedClient';
 import { SeaweedStorageEngine } from '@/utils/seaweedfs/SeaweedStorageEngine';
 import { OAuthUser } from '@/utils/Types';
@@ -56,8 +56,20 @@ export class FileService {
     return this.sourceCodeUpload.single(fileName);
   }
 
-  public async rememberFile(user: OAuthUser, file: File): Promise<void> {
-    await this.fileRepository.remember(user, file.originalname, file.filename, new Date());
+  public async rememberFile(user: OAuthUser, file: File, fileType: FileType): Promise<boolean> {
+    if (!Object.values(FileType).includes(fileType)) {
+      return false;
+    }
+
+    await this.fileRepository.remember(
+      user,
+      file.originalname,
+      file.filename,
+      fileType,
+      new Date(),
+    );
+
+    return true;
   }
 
   public isFileOwner(user: OAuthUser, hash: string): boolean {
