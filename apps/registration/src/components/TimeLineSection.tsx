@@ -1,16 +1,16 @@
-import { HorizontalTimeline } from '@/components/HorizontalTimeline';
+import { HorizontalTimeline } from "@/components/HorizontalTimeline";
 import { TimeLineCard } from "@/components/TimeLineCard";
 import { TimeLinePoint } from "@/components/TimeLinePoint";
-import { useNavbar } from '@/contexts/NavbarContext';
-import useInView from '@/hooks/useInView';
-import { useEffect } from 'preact/hooks';
+import { useNavbar } from "@/contexts/NavbarContext";
+import useInView from "@/hooks/useInView";
+import { useEffect } from "preact/hooks";
 
 export const TimeLineSection = () => {
   const { setVisibleSection } = useNavbar();
   const [isVisible, ref] = useInView<HTMLElement>();
 
   useEffect(() => {
-    isVisible && setVisibleSection('timeline');
+    isVisible && setVisibleSection("timeline");
   }, [isVisible]);
 
   return (
@@ -30,10 +30,18 @@ export const TimeLineSection = () => {
 
         <div className="grid grid-cols-9 lg:grid-rows-5  lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
-            <TimeLineCard title="เปิดรับสมัคร" date="24 Oct 2022" />
+            <TimeLineCard
+              title="เปิดรับสมัคร"
+              display="24 Oct 2022"
+              startTime="24 Oct 2022 00:00:00 GMT+0700"
+              endTime="28 Nov 2022 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-1 place-self-center items-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="24 Oct 2022 00:00:00 GMT+0700"
+              endTime="28 Nov 2022 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
         </div>
@@ -41,10 +49,18 @@ export const TimeLineSection = () => {
         <div className="grid grid-cols-9 lg:grid-rows-5  lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="29 Nov 2022 00:00:00 GMT+0700"
+              endTime="19 Dec 2022 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
-            <TimeLineCard title="ปิดรับสมัคร" date="28 Nov 2022" />
+            <TimeLineCard
+              title="ปิดรับสมัคร"
+              display="29 Nov 2022"
+              startTime="29 Nov 2022 00:00:00 GMT+0700"
+              endTime="19 Dec 2022 23:59:59 GMT+0700"
+            />
           </div>
         </div>
 
@@ -52,11 +68,16 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="การแข่งขันรอบคัดเลือก(Online)"
-              date="20 Dec 2022"
+              display="20 Dec 2022"
+              startTime="20 Dec 2022 00:00:00 GMT+0700"
+              endTime="20 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="20 Dec 2022 00:00:00 GMT+0700"
+              endTime="20 Dec 2022 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
         </div>
@@ -64,12 +85,17 @@ export const TimeLineSection = () => {
         <div className="grid grid-cols-9 lg:grid-rows-5 lg:col-span-2 lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="21 Dec 2022 00:00:00 GMT+0700"
+              endTime="18 Jan 2023 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ประกาศผลผู้ที่ผ่านการคัดเลือกรอบแรก"
-              date="21 Dec 2022"
+              display="21 Dec 2022"
+              startTime="21 Dec 2022 00:00:00 GMT+0700"
+              endTime="18 Jan 2023 23:59:59 GMT+0700"
             />
           </div>
         </div>
@@ -78,11 +104,16 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="การแข่งขันรอบ Semi Final และรอบชิงชนะเลิศ (On-site)"
-              date="19 Jan 2023"
+              display="19 Jan 2023"
+              startTime="19 Jan 2023 00:00:00 GMT+0700"
+              endTime="19 Jan 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="19 Jan 2023 00:00:00 GMT+0700"
+              endTime="19 Jan 2023 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none  lg:row-span-2"></div>
         </div>
@@ -90,12 +121,17 @@ export const TimeLineSection = () => {
         <div className="grid grid-cols-9 lg:grid-rows-5 lg:col-span-2  lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
-            <TimeLinePoint />
+            <TimeLinePoint
+              startTime="19 Jan 2023 00:00:00 GMT+0700"
+              endTime="19 Jan 2023 23:59:59 GMT+0700"
+            />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ประกาศผลผู้ผ่านการคัดเลือกรอบ Semi Final และชิงชนะเลิศ"
-              date="19 Jan 2023"
+              display="19 Jan 2023"
+              startTime="19 Jan 2023 00:00:00 GMT+0700"
+              endTime="19 Jan 2023 23:59:59 GMT+0700"
             />
           </div>
         </div>
