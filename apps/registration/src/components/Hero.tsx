@@ -35,16 +35,43 @@ export const Hero = () => {
       <div
         ref={logo}
         className="
-          w-full h-full absolute transform translate-y-48 2xl:-translate-y-36 2xl:flex 2xl:justify-center
+          z-20 w-full h-full absolute transform translate-y-48 2xl:-translate-y-36 2xl:flex 2xl:justify-center
           lg:z-20
-          xl:z-30
+          xl:z-40
         "
       >
         <img className="w-2/3 md:w-2/5 2xl:w-1/3 m-auto" src="logo.webp" alt="" />
       </div>
-
+      <div className="absolute w-full h-screen">
+        <div className="relative w-full h-full z-0 flex justify-center items-end">
+          <img
+            id="khoomBack1"
+            className="absolute khoam scale-[2] md:scale-100"
+            src="KHOOM-Back.svg"
+            alt=""
+          />
+          <img
+            id="khoomBack2"
+            className="absolute khoam scale-[2] md:scale-100"
+            src="KHOOM-Back.svg"
+            alt=""
+          />
+          <img
+            id="khoomMid"
+            className="absolute khoam scale-[1.5] md:scale-100"
+            src="KHOOM-Front.svg"
+            alt=""
+          />
+          <img
+            id="khoomFront"
+            className="absolute khoam scale-[1.5] md:scale-100"
+            src="KHOOM-Front1.svg"
+            alt=""
+          />
+        </div>
+      </div>
       <div className="absolute w-full bottom-0
-        transform scale-[2.0] -translate-y-32
+        transform scale-[2.0] -translate-y-32 z-10
         md:scale-[1.5] md:-translate-y-24
         lg:scale-[1.0] lg:-translate-y-2
       ">

@@ -1,4 +1,5 @@
 import DropDown from "@/components/DropDown";
+import EmailInputbox from '@/components/EmailInputbox';
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import TextAreaBox from "@/components/TextAreaBox";
@@ -149,7 +150,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].firstnameEn}
             setObj={setData}
             name="firstnameEn"
-            label="Firstname"
+            label="ชื่อจริง (ภาษาอังกฤษ)"
             placeholder="Firstname"
             width="w-full md:w-[27%]"
             required
@@ -160,7 +161,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].middleNameEn}
             setObj={setData}
             name="middleNameEn"
-            label="Middle Name"
+            label="ชื่อกลาง (ภาษาอังกฤษ)"
             placeholder="Middle Name"
             width="w-full md:w-[27%]"
             required={false}
@@ -171,7 +172,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].surnameEn}
             setObj={setData}
             name="surnameEn"
-            label="Surname"
+            label="นามสกุล (ภาษาอังกฤษ)"
             placeholder="Surname"
             width="w-full md:w-[27%]"
             required
@@ -184,7 +185,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].nickname}
             setObj={setData}
             name="nickname"
-            label="ชื่อเล่น(ภาษาไทย)"
+            label="ชื่อเล่น (ภาษาไทย)"
             placeholder="Nickname"
             width="w-full md:w-[25%]"
             required
@@ -195,7 +196,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             setObj={setData}
             name="grade"
             label="ระดับชั้น"
-            placeholder="Grade"
+            placeholder="ระดับชั้น"
             width="w-full md:w-[20%]"
             required
             index={index}
@@ -205,7 +206,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             setObj={setData}
             name="quote"
             label="คำคมประจำใจ"
-            placeholder="Cool Qoute"
+            placeholder="คำคมประจำใจ"
             width="w-full md:w-[51%]"
             required
             index={index}
@@ -213,12 +214,12 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
         </div>
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <InputBox
+          <EmailInputbox
             obj={data[index].email}
             setObj={setData}
             name="email"
-            label="Email"
-            placeholder="Email"
+            label="E-mail"
+            placeholder="E-mail"
             width="w-full md:w-[30%]"
             required
             index={index}
@@ -229,7 +230,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             setObj={setData}
             name="phoneNumber"
             label="เบอร์โทรศัพท์"
-            placeholder="Tel number"
+            placeholder="เบอร์โทรศัพท์"
             width="w-full md:w-[25%]"
             required
             index={index}
@@ -238,8 +239,8 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].lineId}
             setObj={setData}
             name="lineId"
-            label="ID LINE"
-            placeholder="ID LINE"
+            label="LINE ID"
+            placeholder="LINE ID"
             width="w-full md:w-[41%]"
             required
             index={index}
@@ -265,7 +266,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             setObj={setData}
             name="foodAllergy"
             label="อาหารที่แพ้"
-            placeholder="Food allergy"
+            placeholder="อาหารที่แพ้"
             width="w-full md:w-[49%]"
             required={false}
             index={index}
@@ -276,7 +277,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             setObj={setData}
             name="drugAllergy"
             label="ยาที่แพ้"
-            placeholder="Drugs allergy"
+            placeholder="ยาที่แพ้"
             width="w-full md:w-[49%]"
             required={false}
             index={index}
@@ -288,17 +289,22 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             obj={data[index].disease}
             setObj={setData}
             name="disease"
-            label="โรคประจำตัวและวิธีประถมพยาบาลเบื้องต้น"
-            placeholder="Medical problems and first-aid"
+            label="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
+            placeholder="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
             width="w-full"
             required={false}
             index={index}
           />
         </div>
 
-        <h1 className="pl-6 pt-2 md:pl-2 text-lg">แนบไฟล์เอกสาร</h1>
-        <h2 className="pl-6 pr-4 md:pl-4 md:pr-0 py-4">
+        <h1 className="text-white pt-2 pl-6 md:pl-0 md:text-2xl font-bold">
+          แนบไฟล์เอกสาร
+        </h1>
+        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
           1. รูปนักเรียนขนาด 1.5นิ้ว
+          <span className="text-[#ffdc19]">
+                *
+          </span>
         </h2>
         <ImageInputBox
           obj={data[index].selfImageAttachment || null}
@@ -306,9 +312,12 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           name="selfImageAttachment"
           index={index}
         />
-        <h2 className="pl-6 pr-4 md:pl-4 md:pr-0 py-4">
+        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
           2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
           หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
+          <span className="text-[#ffdc19]">
+                *
+          </span>
         </h2>
         <ImageInputBox
           obj={data[index].idCardAttachment || null}
@@ -316,8 +325,11 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           name="idCardAttachment"
           index={index}
         />
-        <h2 className="pl-6 pr-4 md:pl-4 md:pr-0 py-4">
+        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
           3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
+          <span className="text-[#ffdc19]">
+                *
+          </span>
         </h2>
         {/* <InputFile /> */}
         <ImageInputBox

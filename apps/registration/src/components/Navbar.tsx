@@ -1,6 +1,8 @@
+
+import { useAuth } from '@/contexts/AuthContext';
 import { useNavbar } from '@/contexts/NavbarContext';
 import { useState } from 'preact/hooks';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const NavElement = ({
   text,
@@ -20,14 +22,25 @@ export const NavElement = ({
 };
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, login } = useAuth();
   const { visibleSection } = useNavbar();
   const [navbar, setNavbar] = useState(false);
+
+  const navigateTologin = () => {
+    if (user) {
+      navigate('/register');
+    } else {
+      localStorage.setItem('login', 'true');
+      login();
+    }
+  };
 
   return (
     <div className="fixed w-full h-16 md:h-30 z-50">
       <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-between items-center z-10 px-5">
         <span className="p-2 rounded-md w-10" />
-        <a href="/register" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto"   /></a>
+        <a href="/" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
         <button
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
@@ -49,7 +62,7 @@ export const Navbar = () => {
 
       <div className="static hidden md:flex justify-center items-center mx-4 my-2">
         <a
-          href="/register"
+          href="/"
           className="h-20"
         >
           <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" />
@@ -73,7 +86,7 @@ export const Navbar = () => {
           <NavElement
             className={visibleSection === 'timeline' ? 'bg-white text-black' : ''}
             text="ไทม์ไลน์"
-            to="#"
+            to="#timeline-section"
           />
           <NavElement
             className={visibleSection === 'scope' ? 'bg-white text-black' : ''}
@@ -85,12 +98,13 @@ export const Navbar = () => {
             text="ติดต่อสอบถาม"
             to="#contact-section"
           />
-          <NavLink
-            to="/register"
+          <button
             className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
+            // onClick={navigateTologin}
+            disabled
           >
-            สมัคร
-          </NavLink>
+            ยังไม่เปิดรับสมัคร
+          </button>
         </nav>
       </div>
       {
@@ -111,7 +125,7 @@ export const Navbar = () => {
               />
               <NavElement
                 text="ไทม์ไลน์"
-                to="#"
+                to="#timeline-section"
               />
               <NavElement
                 text="ขอบเขตเนื้อหา"
@@ -121,12 +135,13 @@ export const Navbar = () => {
                 text="ติดต่อสอบถาม"
                 to="#contact-section"
               />
-              <NavLink
-                to="/register"
+              <button
                 className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
+                // onClick={navigateTologin}
+                disabled
               >
-                สมัคร
-              </NavLink>
+                ยังไม่เปิดรับสมัคร
+              </button>
             </nav>
           </div>
         )

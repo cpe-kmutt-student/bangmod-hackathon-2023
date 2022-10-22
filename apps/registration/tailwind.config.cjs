@@ -1,6 +1,5 @@
 const tailwindConfig = require('tailwind');
 const defaultTheme = require('tailwindcss/defaultTheme');
-const forms = require("@tailwindcss/forms")
 
 const config = {
   presets: [tailwindConfig],
@@ -9,12 +8,12 @@ const config = {
     extend: {
       fontFamily: {
         sans:['"Baloo 2"', 'Noto Sans Thai', ...defaultTheme.fontFamily.sans]
-      }
+      },
+      gridTemplateColumns: {
+        '28': 'repeat(28, minmax(0, 1fr))'
+      },
     }
   },
-  plugins: [
-    forms
-  ],
   future: {
     hoverOnlyWhenSupported: true,
   },

@@ -10,7 +10,7 @@ export type TeamFormDataWithFile = TeamFormData & {
   teacherAttachment: FileList | null;
 };
 
-export const defaultAdvisorData: AdvisorFormData = {
+export const defaultAdvisorData: AdvisorFormData[] = [{
   prefixTh: "",
   firstnameTh: "",
   middleNameTh: "",
@@ -22,23 +22,23 @@ export const defaultAdvisorData: AdvisorFormData = {
   email: "",
   phoneNumber: "",
   lineId: "",
-}
+}]
 
-export const defaultTeamForm: TeamFormDataWithFile = {
+export const defaultTeamForm: TeamFormDataWithFile[] = [{
   name: "",
   school: "",
   amount: 0,
   isComplete: false,
   teacherAttachment: null,
-};
+}];
 
 
 
 type TeamFormProps = {
-  data: TeamFormDataWithFile;
-  setData: StateUpdater<TeamFormDataWithFile>;
-  advisor: AdvisorFormData,
-  setAdvisor: StateUpdater<AdvisorFormData>;
+  data: TeamFormDataWithFile[];
+  setData: StateUpdater<TeamFormDataWithFile[]>;
+  advisor: AdvisorFormData[],
+  setAdvisor: StateUpdater<AdvisorFormData[]>;
 };
 
 export const TeamForm = ({
@@ -60,25 +60,25 @@ export const TeamForm = ({
         {/* first grid */}
         <div className="flex flex-col items-center justify-center  md:flex-row md:justify-between md:space-x-5">
           <InputBox
-            obj={data.name}
+            obj={data[0].name}
             setObj={setData}
             name="name"
             label="ชื่อทีม"
-            placeholder="Teams name"
+            placeholder="ชื่อทีม"
             required
             width="w-full md:w-3/6"
           />
           <InputBox
-            obj={data.school}
+            obj={data[0].school}
             setObj={setData}
             name="school"
             label="โรงเรียน"
-            placeholder="School name"
+            placeholder="โรงเรียน"
             required
             width="w-full md:w-2/6"
           />
           <DropDown
-            obj={data.amount}
+            obj={data[0].amount}
             setObj={setData}
             name="amount"
             label="จำนวนสมาชิก"
@@ -98,7 +98,7 @@ export const TeamForm = ({
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={advisor.prefixTh}
+            obj={advisor[0].prefixTh}
             setObj={setAdvisor}
             name="prefixTh"
             label="คำนำหน้า"
@@ -111,28 +111,28 @@ export const TeamForm = ({
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={advisor.firstnameTh}
+            obj={advisor[0].firstnameTh}
             setObj={setAdvisor}
             name="firstnameTh"
-            label="ชื่อ (ภาษาไทย)"
-            placeholder="Name"
+            label="ชื่อจริง (ภาษาไทย)"
+            placeholder="ชื่อจริง"
             required
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={advisor.middleNameTh}
+            obj={advisor[0].middleNameTh}
             setObj={setAdvisor}
             name="middleNameTh"
             label="ชื่อกลาง (ภาษาไทย)"
-            placeholder="Middle name"
+            placeholder="ชื่อกลาง"
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={advisor.surnameTh}
+            obj={advisor[0].surnameTh}
             setObj={setAdvisor}
             name="surnameTh"
             label="นามสกุล (ภาษาไทย)"
-            placeholder="Surname"
+            placeholder="นามสกุล"
             required
             width="w-full md:w-[27%]"
           />
@@ -141,7 +141,7 @@ export const TeamForm = ({
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={advisor.prefixEn}
+            obj={advisor[0].prefixEn}
             setObj={setAdvisor}
             name="prefixEn"
             label="Prefix"
@@ -154,27 +154,27 @@ export const TeamForm = ({
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={advisor.firstnameEn}
+            obj={advisor[0].firstnameEn}
             setObj={setAdvisor}
             name="firstnameEn"
-            label="Name"
+            label="ชื่อจริง (ภาษาอังกฤษ)"
             placeholder="Name"
             required
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={advisor.middleNameEn}
+            obj={advisor[0].middleNameEn}
             setObj={setAdvisor}
             name="middleNameEn"
-            label="Middle name"
+            label="ชื่อกลาง (ภาษาอังกฤษ)"
             placeholder="Middle name"
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={advisor.surnameEn}
+            obj={advisor[0].surnameEn}
             setObj={setAdvisor}
             name="surnameEn"
-            label="Surname"
+            label="นามสกุล (ภาษาอังกฤษ)"
             placeholder="Surname"
             required
             width="w-full md:w-[27%]"
@@ -183,49 +183,53 @@ export const TeamForm = ({
         {/* Fourth grid */}
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <EmailInputbox
-            obj={advisor.email}
+            obj={advisor[0].email}
             setObj={setAdvisor}
             name="email"
-            label="Email"
-            placeholder="Email"
+            label="E-mail"
+            placeholder="E-mail"
             required
             width="w-full md:w-[30%]"
           />
           <PhoneInput
-            obj={advisor.phoneNumber}
+            obj={advisor[0].phoneNumber}
             setObj={setAdvisor}
             name="phoneNumber"
             label="เบอร์โทรศัพท์"
-            placeholder="Tel. number"
+            placeholder="เบอร์โทรศัพท์"
             required
             width="w-full md:w-[25%]"
           />
           <InputBox
-            obj={advisor.lineId}
+            obj={advisor[0].lineId}
             setObj={setAdvisor}
             name="lineId"
             label="Line ID"
-            placeholder="ID Line"
+            placeholder="Line ID"
             required
             width="w-full md:w-[41%]"
           />
         </div>
         {/* File system */}
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+        <div className="flex md:pb-4 py-2 flex-col md:flex-row md:justify-between">
           {/* Left side */}
-          <div class="ml-2 md:w-1/2">
-            <h1 className="text-sm font-bold text-white md:text-2xl">
+          <div class="px-4 md:px-0 ml-2 md:w-1/2">
+            <h1 className="text-white md:text-2xl font-bold">
               แนบไฟล์เอกสาร
             </h1>
-            <span className="text-sm  font-bold text-white">
+            <span className="text-white">
               1. หนังสือรับรองของอาจารย์ที่ปรึกษาตัวจริง
             </span>
+            <span className="text-[#ffdc19]">
+              *
+            </span>
+
           </div>
           {/* Right side */}
-          <div class="relative h-40 md:w-1/2">
+          <div class="relative md:w-1/2">
             <ImageInputBox
               name="teacherAttachment"
-              obj={data.teacherAttachment}
+              obj={data[0].teacherAttachment}
               setObj={setData}
             />
           </div>
