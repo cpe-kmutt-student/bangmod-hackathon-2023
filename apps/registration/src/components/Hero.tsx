@@ -37,7 +37,7 @@ export const Hero = () => {
         className="
           z-20 w-full h-full absolute transform translate-y-48 2xl:-translate-y-36 2xl:flex 2xl:justify-center
           lg:z-20
-          xl:z-30
+          xl:z-40
         "
       >
         <img className="w-2/3 md:w-2/5 2xl:w-1/3 m-auto" src="logo.webp" alt="" />
@@ -71,7 +71,7 @@ export const Hero = () => {
         </div>
       </div>
       <div className="absolute w-full bottom-0
-        transform scale-[2.0] -translate-y-32 z-20
+        transform scale-[2.0] -translate-y-32 z-10
         md:scale-[1.5] md:-translate-y-24
         lg:scale-[1.0] lg:-translate-y-2
       ">
