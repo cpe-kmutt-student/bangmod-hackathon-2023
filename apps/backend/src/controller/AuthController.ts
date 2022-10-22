@@ -1,4 +1,5 @@
 import { AuthService } from '@/service/AuthService';
+import { InputService } from '@/service/InputService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
 import { AuthGetAuthApiSchema, AuthGetCallbackApiSchema, AuthGetMeApiSchema } from 'api-schema';
 import { BadRequestException, Controller, ControllerMapping, Methods, Request, Response, RouteMapping } from 'springpress';
@@ -7,10 +8,12 @@ import { BadRequestException, Controller, ControllerMapping, Methods, Request, R
 export class AuthController extends Controller {
 
   private readonly authService: AuthService;
+  private readonly inputService: InputService;
 
-  public constructor(authService: AuthService) {
+  public constructor(authService: AuthService, inputService: InputService) {
     super();
     this.authService = authService;
+    this.inputService = inputService;
   }
 
   @RouteMapping('/', Methods.GET)
@@ -27,6 +30,7 @@ export class AuthController extends Controller {
     try {
       const user = await this.authService.getOAuthUser(code.toString());
       await this.authService.setSessionFromOAuth(res, user);
+      await this.inputService.createTeamIfNotPresent(user.email);
       res.redirect(process.env.FRONTEND_URL);
     } catch (error: Error | unknown) {
       const message = (error instanceof Error) ? error.message : 'Invalid user authentication';

@@ -8,8 +8,24 @@ export class UserRepository {
     this.database = database;
   }
 
-  public async getFullName(id: string): Promise<void> {
+  public async getFullNameEn(id: number): Promise<String> {
+    const participant = await this.database.participant.findFirst({
+      where: { id: id }
+    });
+    let fullName = `${participant?.firstnameEn}`;
+    if(!!participant?.middleNameEn) fullName += ` ${participant?.middleNameEn}`;
+    fullName += ` ${participant?.surnameEn}`;
+    return fullName;
+  }
 
+  public async getFullNameTh(id: number): Promise<String> {
+    const participant = await this.database.participant.findFirst({
+      where: { id: id }
+    });
+    let fullName = `${participant?.firstnameTh}`;
+    if(!!participant?.middleNameTh) fullName += ` ${participant?.middleNameTh}`;
+    fullName += ` ${participant?.surnameTh}`;
+    return fullName;
   }
   
 };

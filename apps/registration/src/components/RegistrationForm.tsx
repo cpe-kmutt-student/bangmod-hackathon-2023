@@ -3,7 +3,9 @@ import {
   StudentForm,
   StudentFormDataWithFile
 } from "@/components/StudentForm";
-import { defaultTeamForm, TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
+import { defaultAdvisorData, defaultTeamForm, TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
+import { fetch } from '@/utils/Fetch';
+import { AdvisorFormData } from 'api-schema';
 import { useState } from "preact/hooks";
 
 export type RegistrationFormData = {
@@ -13,6 +15,7 @@ export type RegistrationFormData = {
 
 export const RegistrationForm = () => {
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>(defaultTeamForm);
+  const [advisorFormData, setAdvisorFormData] = useState<AdvisorFormData[]>(defaultAdvisorData);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array(3).fill(defaultStudentFormData)
   );
@@ -20,16 +23,25 @@ export const RegistrationForm = () => {
   const handleSubmit = (e: Event) => {
     e.preventDefault();
 
-    const team = teamFormData;
-    const students = studentFormsData;
-    const payload: RegistrationFormData = { team, students };
+    const team = teamFormData[0];
+    const students = studentFormsData
+      .slice(0, team.amount || 2)
+      .map((student) => {
+        delete student.idCardAttachment;
+        delete student.pp7Attachment;
+        return student;
+      });
+    const advisor = advisorFormData;
+    const payload = { team, students, advisor };
 
-    // setTeamFormData(defaultTeamForm);
-    // setStudentFormsData(Array.from({ length: 3 }, () => defaultStudentFormData));
+    // TODO: upload files
 
-    // TODO: Send payload to backend
-    console.log("submitted");
-    console.log(payload);
+    fetch
+      .post('/input/save', payload)
+      .then((response) => {
+        // TODO: after save
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -38,7 +50,12 @@ export const RegistrationForm = () => {
         <RegisterHeader />
 
         <form onSubmit={handleSubmit}>
-          <TeamForm data={teamFormData[0]} setData={setTeamFormData} />
+          <TeamForm
+            data={teamFormData}
+            setData={setTeamFormData}
+            advisor={advisorFormData}
+            setAdvisor={setAdvisorFormData}
+          />
 
           {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm

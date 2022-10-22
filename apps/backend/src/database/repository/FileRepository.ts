@@ -1,5 +1,12 @@
 import { OAuthUser } from '@/utils/Types';
-import { PrismaClient } from '@prisma/client';
+import { File, PrismaClient } from '@prisma/client';
+
+export enum FileType {
+  ADVISOR_DOCUMENT = 0,
+  STUDENT_IMAGE,
+  STUDENT_ID,
+  STUDENT_PORPHOR_JED, // I don't know how to pronoun this XD
+}
 
 export class FileRepository {
   
@@ -10,15 +17,52 @@ export class FileRepository {
   }
 
   public async remember(
-    user: OAuthUser, originalName: string, fileKey: string, uploadDate: Date
+    user: OAuthUser,
+    originalName: string,
+    fileKey: string,
+    fileType: FileType,
+    uploadDate: Date,
   ) {
-    await this.database.file.create({
+    const email = user.email;
+    const team = await this.database.team.findUnique({
+      where: { email: email }
+    });
+
+    if(!team) return;
+
+    const participant = await this.database.participant.findFirst({
+      where: { email: email, teamId: team.id }
+    });
+
+    if (!participant) return;
+
+    const newFile = await this.database.file.create({
       data: {
-        ownerId: user.email,
-        originalName: originalName,
         fileKey: fileKey,
+        fileType: fileType,
+        originalName: originalName,
         uploadDate: uploadDate,
-      },
+        participantId: participant.id,
+      }
+    });
+    await this.createFileHistory(newFile);
+  }
+
+  public async updateFileById(id: number, data: Partial<File>) {
+    const updateFile = await this.database.file.update({
+      where: { id: id },
+      data: data
+    });
+    await this.createFileHistory(updateFile);
+  }
+
+  public async createFileHistory(file: File) {
+    await this.database.fileHistory.create({
+      data: {
+        fileKey: file.fileKey,
+        uploadDate: file.uploadDate,
+        fileId: file.id,
+      }
     });
   }
 
@@ -28,9 +72,15 @@ export class FileRepository {
     });
   }
 
-  public async getFilesByOwner(user: OAuthUser) {
+  public async getFileByParticipantId(id: number) {
     return this.database.file.findMany({
-      where: { ownerId: user.email },
+      where: { participantId: id }
+    });
+  }
+
+  public async deleteFileById(id: number) {
+    this.database.file.delete({
+      where: { id: id }
     });
   }
 

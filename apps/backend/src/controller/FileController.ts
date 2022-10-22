@@ -1,7 +1,7 @@
 import { FileService } from '@/service/FileService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
-import { AllowFile, FileType } from '@/utils/decorator/FileDecorator';
-import { FileGetApiSchema } from 'api-schema';
+import { AccpetedFileType, AllowFile } from '@/utils/decorator/FileDecorator';
+import { FileGetApiSchema, FilePostApiSchema } from 'api-schema';
 import http from 'http';
 import { BadRequestException, Controller, ControllerMapping, Methods, NotFoundException, Request, Response, RouteMapping, UnauthorizedException } from 'springpress';
 
@@ -16,20 +16,28 @@ export class FileController extends Controller {
   }
 
   @RequireAuth()
-  @AllowFile(FileType.DOCUMENT, false)
+  @AllowFile(AccpetedFileType.DOCUMENT, false)
   @RouteMapping('/document', Methods.POST)
-  private async uploadRegistrationDocument(req: Request, res: Response) {
+  private async uploadRegistrationDocument(req: Request<FilePostApiSchema>, res: Response) {
     if (!req.file) throw new BadRequestException('No provided file');
-    await this.fileService.rememberFile(req.session!, req.file);
+    if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
+
+    const fileType = Number.parseInt(req.query.type);
+    await this.fileService.rememberFile(req.session!, req.file, fileType);
+
     res.status(200).json({ success: true });
   }
 
   @RequireAuth()
-  @AllowFile(FileType.SOURCECODE, false)
+  @AllowFile(AccpetedFileType.SOURCECODE, false)
   @RouteMapping('/sourcecode', Methods.POST)
-  private async uploadSourceCode(req: Request, res: Response) {
+  private async uploadSourceCode(req: Request<FilePostApiSchema>, res: Response) {
     if (!req.file) throw new BadRequestException('No provided file');
-    await this.fileService.rememberFile(req.session!, req.file);
+    if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
+
+    const fileType = Number.parseInt(req.query.type);
+    await this.fileService.rememberFile(req.session!, req.file, fileType);
+
     res.status(200).json({ success: true });
   }
 

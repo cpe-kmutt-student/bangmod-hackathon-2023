@@ -14,7 +14,7 @@ const PhoneInput = <T,>({
   name: string;
   label?: string;
   placeholder: string;
-  obj: string | number;
+  obj: string | number | null;
   setObj: StateUpdater<T[]>;
   required?: boolean;
   width?: string;
@@ -48,7 +48,7 @@ const PhoneInput = <T,>({
           type="text"
           name={name}
           placeholder={placeholder}
-          value={obj}
+          value={obj || ''}
           onInput={handleChange}
           className="p-2 md:pl-2 md:p-1 relative block w-full appearance-none rounded-md border border-gray-300  pl-2 text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
           required={required}
