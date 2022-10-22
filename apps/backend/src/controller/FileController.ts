@@ -22,10 +22,15 @@ export class FileController extends Controller {
     if (!req.file) throw new BadRequestException('No provided file');
     if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
 
+    const session = req.session!;
     const fileType = Number.parseInt(req.query.type);
-    await this.fileService.rememberFile(req.session!, req.file, fileType);
 
-    res.status(200).json({ success: true });
+    const hashedEmail = this.fileService.getHashedEmail(session.email);
+    const fileId = await this.fileService.rememberFile(session, req.file, fileType);
+
+    if (!fileId) throw new BadRequestException('Cannot upload this file');
+
+    res.status(200).json({ url: `/file/storage/${hashedEmail}/${fileId}/${req.file.originalname}` });
   }
 
   @RequireAuth()
@@ -35,10 +40,15 @@ export class FileController extends Controller {
     if (!req.file) throw new BadRequestException('No provided file');
     if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
 
+    const session = req.session!;
     const fileType = Number.parseInt(req.query.type);
-    await this.fileService.rememberFile(req.session!, req.file, fileType);
 
-    res.status(200).json({ success: true });
+    const hashedEmail = this.fileService.getHashedEmail(session.email);
+    const fileId = await this.fileService.rememberFile(session, req.file, fileType);
+
+    if (!fileId) throw new BadRequestException('Cannot upload this file');
+
+    res.status(200).json({ url: `/file/storage/${hashedEmail}/${fileId}/${req.file.originalname}` });
   }
 
   @RequireAuth()

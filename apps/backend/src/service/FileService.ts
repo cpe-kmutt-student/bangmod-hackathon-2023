@@ -56,12 +56,12 @@ export class FileService {
     return this.sourceCodeUpload.single(fileName);
   }
 
-  public async rememberFile(user: OAuthUser, file: File, fileType: FileType): Promise<boolean> {
+  public async rememberFile(user: OAuthUser, file: File, fileType: FileType): Promise<number | null> {
     if (!Object.values(FileType).includes(fileType)) {
-      return false;
+      return null;
     }
 
-    await this.fileRepository.remember(
+    const fileId = await this.fileRepository.remember(
       user,
       file.originalname,
       file.filename,
@@ -69,11 +69,15 @@ export class FileService {
       new Date(),
     );
 
-    return true;
+    return fileId ? fileId : null;
+  }
+
+  public getHashedEmail(email: string): string {
+    return crypto.createHash('sha256').update(email).digest('hex').slice(0, 22);
   }
 
   public isFileOwner(user: OAuthUser, hash: string): boolean {
-    const hashedEmail = crypto.createHash('sha256').update(user.email).digest('hex').slice(0, 22);
+    const hashedEmail = this.getHashedEmail(user.email);
     return hash === hashedEmail;
   }
 
