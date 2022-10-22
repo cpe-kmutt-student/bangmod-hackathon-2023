@@ -36,9 +36,9 @@ const InputFile = () => {
 };
 
 export type StudentFormDataWithFile = StudentFormData & {
-  selfImageAttachment: FileList | null;
-  idCardAttachment: FileList | null;
-  pp7Attachment: FileList | null;
+  selfImageAttachment?: FileList | null;
+  idCardAttachment?: FileList | null;
+  pp7Attachment?: FileList | null;
 };
 
 export const defaultStudentFormData: StudentFormDataWithFile = {
@@ -301,7 +301,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           1. รูปนักเรียนขนาด 1.5นิ้ว
         </h2>
         <ImageInputBox
-          obj={data[index].selfImageAttachment}
+          obj={data[index].selfImageAttachment || null}
           setObj={setData}
           name="selfImageAttachment"
           index={index}
@@ -311,7 +311,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
         </h2>
         <ImageInputBox
-          obj={data[index].idCardAttachment}
+          obj={data[index].idCardAttachment || null}
           setObj={setData}
           name="idCardAttachment"
           index={index}
@@ -321,7 +321,7 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
         </h2>
         {/* <InputFile /> */}
         <ImageInputBox
-          obj={data[index].pp7Attachment}
+          obj={data[index].pp7Attachment || null}
           setObj={setData}
           name="pp7Attachment"
           index={index}

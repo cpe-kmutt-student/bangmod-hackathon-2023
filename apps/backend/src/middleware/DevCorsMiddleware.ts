@@ -12,6 +12,7 @@ export class DevCorsMiddleware extends Middleware {
       if (req.headers.origin && DevCorsMiddleware.DEV_ORIGINS.includes(req.headers.origin)) {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
       }
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
       res.header('Access-Control-Allow-Credentials', 'true');
       next();
     };

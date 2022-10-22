@@ -7,7 +7,6 @@ import { AdvisorFormData, TeamFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
 
 export type TeamFormDataWithFile = TeamFormData & {
-  advisor: AdvisorFormData;
   teacherAttachment: FileList | null;
 };
 
@@ -31,7 +30,6 @@ export const defaultTeamForm: TeamFormDataWithFile = {
   amount: 0,
   isComplete: false,
   teacherAttachment: null,
-  advisor: defaultAdvisorData,
 };
 
 
@@ -39,9 +37,16 @@ export const defaultTeamForm: TeamFormDataWithFile = {
 type TeamFormProps = {
   data: TeamFormDataWithFile;
   setData: StateUpdater<TeamFormDataWithFile>;
+  advisor: AdvisorFormData,
+  setAdvisor: StateUpdater<AdvisorFormData>;
 };
 
-export const TeamForm = ({ data, setData }: TeamFormProps) => {
+export const TeamForm = ({
+  data,
+  setData,
+  advisor,
+  setAdvisor,
+}: TeamFormProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
       <img className="absolute z-10 top-0 left-0 transform -translate-x-40 -translate-y-12 w-48 blur-md" src="cloud.webp" alt="" />
@@ -57,7 +62,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
           <InputBox
             obj={data.name}
             setObj={setData}
-            name="teamName"
+            name="name"
             label="ชื่อทีม"
             placeholder="Teams name"
             required
@@ -93,9 +98,9 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={data.advisor.prefixTh}
-            setObj={setData}
-            name="prefixTH"
+            obj={advisor.prefixTh}
+            setObj={setAdvisor}
+            name="prefixTh"
             label="คำนำหน้า"
             options={[
               { label: "นาย", value: "นาย" },
@@ -106,26 +111,26 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={data.advisor.firstnameTh}
-            setObj={setData}
-            name="nameTH"
+            obj={advisor.firstnameTh}
+            setObj={setAdvisor}
+            name="firstnameTh"
             label="ชื่อ (ภาษาไทย)"
             placeholder="Name"
             required
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.advisor.middleNameTh}
-            setObj={setData}
-            name="middleNameTH"
+            obj={advisor.middleNameTh}
+            setObj={setAdvisor}
+            name="middleNameTh"
             label="ชื่อกลาง (ภาษาไทย)"
             placeholder="Middle name"
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.advisor.surnameTh}
-            setObj={setData}
-            name="surnameTH"
+            obj={advisor.surnameTh}
+            setObj={setAdvisor}
+            name="surnameTh"
             label="นามสกุล (ภาษาไทย)"
             placeholder="Surname"
             required
@@ -136,9 +141,9 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={data.advisor.prefixEn}
-            setObj={setData}
-            name="prefixEN"
+            obj={advisor.prefixEn}
+            setObj={setAdvisor}
+            name="prefixEn"
             label="Prefix"
             options={[
               { label: "Mr.", value: "Mr." },
@@ -149,26 +154,26 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={data.advisor.firstnameEn}
-            setObj={setData}
-            name="nameEN"
+            obj={advisor.firstnameEn}
+            setObj={setAdvisor}
+            name="firstnameEn"
             label="Name"
             placeholder="Name"
             required
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.advisor.middleNameEn}
-            setObj={setData}
-            name="middleNameEN"
+            obj={advisor.middleNameEn}
+            setObj={setAdvisor}
+            name="middleNameEn"
             label="Middle name"
             placeholder="Middle name"
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.advisor.surnameEn}
-            setObj={setData}
-            name="surnameEN"
+            obj={advisor.surnameEn}
+            setObj={setAdvisor}
+            name="surnameEn"
             label="Surname"
             placeholder="Surname"
             required
@@ -178,8 +183,8 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         {/* Fourth grid */}
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <EmailInputbox
-            obj={data.advisor.email}
-            setObj={setData}
+            obj={advisor.email}
+            setObj={setAdvisor}
             name="email"
             label="Email"
             placeholder="Email"
@@ -187,18 +192,18 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[30%]"
           />
           <PhoneInput
-            obj={data.advisor.phoneNumber}
-            setObj={setData}
-            name="phone"
+            obj={advisor.phoneNumber}
+            setObj={setAdvisor}
+            name="phoneNumber"
             label="เบอร์โทรศัพท์"
             placeholder="Tel. number"
             required
             width="w-full md:w-[25%]"
           />
           <InputBox
-            obj={data.advisor.lineId}
-            setObj={setData}
-            name="line"
+            obj={advisor.lineId}
+            setObj={setAdvisor}
+            name="lineId"
             label="Line ID"
             placeholder="ID Line"
             required

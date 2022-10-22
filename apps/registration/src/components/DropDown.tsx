@@ -16,7 +16,7 @@ const DropDown = <T,>({
   width,
   index,
 }: {
-  obj?: string | number;
+  obj?: string | number | null;
   setObj: StateUpdater<T>;
   name: string;
   label?: string;

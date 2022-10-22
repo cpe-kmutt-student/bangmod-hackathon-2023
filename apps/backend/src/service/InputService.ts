@@ -68,17 +68,18 @@ export class InputService {
     const { students, team, advisor } = data;
     if (!students || !team || !advisor) return false;
 
+    if (!team.amount) return false;
+    team.amount = Number.parseInt(team.amount.toString());
+
     if (team.amount && (team.amount !== 2 && team.amount !== 3)) return false;
     if (!!team.isComplete && typeof team.isComplete !== 'boolean') return false;
     if(team.school && !this.validDefault(team.school)) return false;
     if(team.name && !this.validDefault(team.name)) return false;
 
     this.validParticipant(advisor);
-
     if (students.length < 0 && students.length > 3) return false;
     const isSomeStudentsInvalid = students.some((student) => !this.validParticipant(student));
     if (isSomeStudentsInvalid) return false;
-
     return true;
   }
 
