@@ -30,7 +30,7 @@ export class AuthController extends Controller {
     try {
       const user = await this.authService.getOAuthUser(code.toString());
       await this.authService.setSessionFromOAuth(res, user);
-      const team = await this.inputService.
+      await this.inputService.createTeamIfNotPresent(user.email);
       res.redirect(process.env.FRONTEND_URL);
     } catch (error: Error | unknown) {
       const message = (error instanceof Error) ? error.message : 'Invalid user authentication';
