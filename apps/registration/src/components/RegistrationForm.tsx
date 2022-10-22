@@ -15,7 +15,7 @@ export type RegistrationFormData = {
 
 export const RegistrationForm = () => {
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>(defaultTeamForm);
-  const [advisorFormData, setAdvisorFormData] = useState<AdvisorFormData>(defaultAdvisorData);
+  const [advisorFormData, setAdvisorFormData] = useState<AdvisorFormData[]>(defaultAdvisorData);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array(3).fill(defaultStudentFormData)
   );
@@ -51,7 +51,7 @@ export const RegistrationForm = () => {
 
         <form onSubmit={handleSubmit}>
           <TeamForm
-            data={teamFormData[0]}
+            data={teamFormData}
             setData={setTeamFormData}
             advisor={advisorFormData}
             setAdvisor={setAdvisorFormData}
