@@ -72,13 +72,13 @@ export const RegistrationForm = () => {
         const copiedStudent = { ...student };
         delete copiedStudent.idCardAttachment;
         delete copiedStudent.pp7Attachment;
+        delete copiedStudent.selfImageAttachment;
         return copiedStudent;
       });
 
     const advisor = advisorFormData[0];
     const payload = { team, students, advisor };
 
-    // TODO: upload files
 
     fetch
       .post('/input/save', payload)
