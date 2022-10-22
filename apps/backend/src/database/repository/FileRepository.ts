@@ -31,7 +31,7 @@ export class FileRepository {
     if(!team) return;
 
     const participant = await this.database.participant.findFirst({
-      where: { email: email, teamId: team.id }
+      where: { teamId: team.id }
     });
 
     if (!participant) return;
@@ -45,7 +45,9 @@ export class FileRepository {
         participantId: participant.id,
       }
     });
+
     await this.createFileHistory(newFile);
+    return newFile.id;
   }
 
   public async updateFileById(id: number, data: Partial<File>) {
