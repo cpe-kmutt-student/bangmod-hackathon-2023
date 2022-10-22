@@ -234,6 +234,7 @@ export const TeamForm = ({
             <ImageInputBox
               name="teacherAttachment"
               obj={data[0].teacherAttachment || null}
+              attachmentType={0}
               setObj={setData}
             />
           </div>
