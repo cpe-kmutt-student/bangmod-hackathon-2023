@@ -7,7 +7,7 @@ import { AdvisorFormData, TeamFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
 
 export type TeamFormDataWithFile = TeamFormData & {
-  teacherAttachment: FileList | null;
+  teacherAttachment?: FileList | null;
 };
 
 export const defaultAdvisorData: AdvisorFormData[] = [{
@@ -229,7 +229,7 @@ export const TeamForm = ({
           <div class="relative md:w-1/2">
             <ImageInputBox
               name="teacherAttachment"
-              obj={data[0].teacherAttachment}
+              obj={data[0].teacherAttachment || null}
               setObj={setData}
             />
           </div>

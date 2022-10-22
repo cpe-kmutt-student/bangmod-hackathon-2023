@@ -6,7 +6,7 @@ import {
 import { defaultAdvisorData, defaultTeamForm, TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
 import { fetch } from '@/utils/Fetch';
 import { AdvisorFormData } from 'api-schema';
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 export type RegistrationFormData = {
   students: StudentFormDataWithFile[],
@@ -20,10 +20,20 @@ export const RegistrationForm = () => {
     Array(3).fill(defaultStudentFormData)
   );
 
+  useEffect(() => {
+    fetch('/input/get')
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const handleSubmit = (e: Event) => {
     e.preventDefault();
 
     const team = teamFormData[0];
+    delete team.teacherAttachment;
+
     const students = studentFormsData
       .slice(0, team.amount || 2)
       .map((student) => {
@@ -31,7 +41,8 @@ export const RegistrationForm = () => {
         delete student.pp7Attachment;
         return student;
       });
-    const advisor = advisorFormData;
+
+    const advisor = advisorFormData[0];
     const payload = { team, students, advisor };
 
     // TODO: upload files
