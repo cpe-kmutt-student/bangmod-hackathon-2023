@@ -99,9 +99,10 @@ export const Navbar = () => {
           />
           <button
             className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
-            onClick={navigateTologin}
+            // onClick={navigateTologin}
+            disabled
           >
-            สมัคร
+            ยังไม่เปิดรับสมัคร
           </button>
         </nav>
       </div>
@@ -135,9 +136,10 @@ export const Navbar = () => {
               />
               <button
                 className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
-                onClick={navigateTologin}
+                // onClick={navigateTologin}
+                disabled
               >
-                สมัคร
+                ยังไม่เปิดรับสมัคร
               </button>
             </nav>
           </div>
