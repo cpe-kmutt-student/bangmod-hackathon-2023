@@ -1,18 +1,27 @@
+import { fetch } from '@/utils/Fetch';
 import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater, useRef, useState } from "preact/hooks";
 
 const MAX_DISPLAY_FILE_SIZE = 10;
 const MAX_FILE_SIZE_MIB = 1_048_576 * MAX_DISPLAY_FILE_SIZE;
 
+const uploadAttachment = (attachment: File, type: number) => {
+  const formData = new FormData();
+  formData.append('file', attachment);
+  fetch.post(`/file/document?type=${type}`, formData).catch(console.error);
+};
+
 const ImageInputBox = <T,>({
   obj,
   setObj,
   name,
+  attachmentType,
   index = 0,
 }: {
   obj: FileList | null;
   setObj: StateUpdater<T[]>;
   name: string;
+  attachmentType: 0 | 1 | 2 | 3;
   index?: number;
 }) => {
   const inputRef: any = useRef(null);
@@ -31,6 +40,7 @@ const ImageInputBox = <T,>({
     } else {
       setError(null);
       setObj((prev) => setFormObject(prev, index, name, files));
+      uploadAttachment(files[0], attachmentType);
     }
   };
 
@@ -42,6 +52,7 @@ const ImageInputBox = <T,>({
     } else {
       setError(null);
       setObj((prev) => setFormObject(prev, index, name, files));
+      uploadAttachment(files[0], attachmentType);
     }
   };
 

@@ -314,6 +314,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             obj={data[index].selfImageAttachment || null}
             setObj={setData}
             name="selfImageAttachment"
+            attachmentType={1}
             index={index}
           />
           <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
@@ -327,6 +328,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             obj={data[index].idCardAttachment || null}
             setObj={setData}
             name="idCardAttachment"
+            attachmentType={2}
             index={index}
           />
           <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
@@ -340,6 +342,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             obj={data[index].pp7Attachment || null}
             setObj={setData}
             name="pp7Attachment"
+            attachmentType={3}
             index={index}
           />
         </div>
