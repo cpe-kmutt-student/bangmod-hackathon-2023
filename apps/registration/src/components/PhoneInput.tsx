@@ -1,4 +1,6 @@
+import { setFormObject } from '@/utils/FormUtil';
 import { StateUpdater, useState } from "preact/hooks";
+
 const PhoneInput = <T,>({
   name,
   placeholder,
@@ -7,14 +9,16 @@ const PhoneInput = <T,>({
   setObj,
   required,
   width,
+  index = 0,
 }: {
   name: string;
   label?: string;
   placeholder: string;
   obj: string | number;
-  setObj: StateUpdater<T>;
+  setObj: StateUpdater<T[]>;
   required?: boolean;
   width?: string;
+  index?: number,
 }) => {
   const [isValid, setIsValid] = useState<boolean>(true);
 
@@ -22,7 +26,7 @@ const PhoneInput = <T,>({
     if (!(event.target instanceof HTMLInputElement)) return;
     const phone = event.target.value;
     // if (phone.length > 10) return;
-    setObj((obj) => ({ ...obj, [name]: phone }));
+    setObj((prev) => setFormObject(prev, index, name, phone));
     setIsValid(phone.length == 10);
   };
 

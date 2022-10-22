@@ -1,0 +1,6 @@
+select:focus + span {
+  border-color: rgb(168 85 247);
+ }
+select:hover{
+  cursor: pointer;
+}

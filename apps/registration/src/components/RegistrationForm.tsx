@@ -8,11 +8,11 @@ import { useState } from "preact/hooks";
 
 export type RegistrationFormData = {
   students: StudentFormDataWithFile[],
-  team: TeamFormDataWithFile,
+  team: TeamFormDataWithFile[],
 };
 
 export const RegistrationForm = () => {
-  const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile>(defaultTeamForm);
+  const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>(defaultTeamForm);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array(3).fill(defaultStudentFormData)
   );
@@ -34,15 +34,13 @@ export const RegistrationForm = () => {
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      <img className="absolute top-0 left-0 mt-4 w-24 md:w-32" src="logo.webp" alt="" />
-
       <div className="flex w-full flex-col md:mx-12 z-20">
         <RegisterHeader />
 
         <form onSubmit={handleSubmit}>
-          <TeamForm data={teamFormData} setData={setTeamFormData} />
+          <TeamForm data={teamFormData[0]} setData={setTeamFormData} />
 
-          {Array.from(Array(Number(teamFormData.amount)).keys()).map((i) => (
+          {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm
               data={studentFormsData}
               setData={setStudentFormsData}
@@ -60,7 +58,7 @@ export const RegistrationForm = () => {
 const RegisterButton = () => {
   return (
     <div className="flex justify-center mb-32">
-      <button className="px-4 py-3 rounded-xl bg-black text-white drop-shadow-lg">
+      <button className="px-4 py-3 rounded-xl bg-black hover:bg-gray-900 text-white drop-shadow-lg">
         ยืนยันการกรอกข้อมูล
       </button>
     </div>
