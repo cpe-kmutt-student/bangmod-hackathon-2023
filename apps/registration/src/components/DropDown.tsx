@@ -59,7 +59,7 @@ const DropDown = <T,>({
         ))}
         
       </select>
-      <span className='absolute bg-[#DB9116] z-[200] border-gray-300 pointer-events-none w-[30px] h-[48.7%] md:h-[54.7%] right-4 bottom-2 md:right-0 md:bottom-0 border-r border-y rounded-r-md flex align-center justify-center leading-[43px] md:leading-[35px] text-white text-lg'>▾</span>
+      <span className='absolute bg-[#DB9116] z-10 border-gray-300 pointer-events-none w-[30px] h-[48.7%] md:h-[54.7%] right-4 bottom-2 md:right-0 md:bottom-0 border-r border-y rounded-r-md flex align-center justify-center leading-[43px] md:leading-[35px] text-white text-lg'>▾</span>
     </div>
   );
 };

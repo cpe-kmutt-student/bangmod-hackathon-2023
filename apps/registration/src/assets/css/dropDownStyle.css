@@ -1,6 +1,7 @@
-select:focus + span {
+select:focus+span {
   border-color: rgb(168 85 247);
- }
-select:hover{
+}
+
+select:hover {
   cursor: pointer;
 }

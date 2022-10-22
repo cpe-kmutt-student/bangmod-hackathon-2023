@@ -35,6 +35,7 @@ export const defaultTeamForm: TeamFormDataWithFile[] = [{
 
 
 type TeamFormProps = {
+  isComplete: boolean,
   data: TeamFormDataWithFile[];
   setData: StateUpdater<TeamFormDataWithFile[]>;
   advisor: AdvisorFormData[],
@@ -42,6 +43,7 @@ type TeamFormProps = {
 };
 
 export const TeamForm = ({
+  isComplete,
   data,
   setData,
   advisor,
@@ -49,6 +51,8 @@ export const TeamForm = ({
 }: TeamFormProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
+      {isComplete && <div className="z-20 absolute w-full h-full bg-gray-700 bg-opacity-60 rounded-[20px]"></div>}
+
       <img className="absolute z-10 top-0 left-0 transform -translate-x-40 -translate-y-12 w-48 blur-md" src="cloud.webp" alt="" />
       <img className="absolute z-10 top-0 right-0 transform translate-x-12 -translate-y-20 w-36" src="cloud.webp" alt="" />
       <img className="absolute z-10 top-0 right-0 transform translate-x-24 -translate-y-28 w-28 blur-sm" src="cloud.webp" alt="" />
