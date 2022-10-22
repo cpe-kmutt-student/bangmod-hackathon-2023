@@ -52,7 +52,7 @@ export const AuthProvider = ({
       .then((response) => {
         setStatus('authenticated');
         setUser(response.data);
-        
+
         const previousLoggedIn = localStorage.getItem('login');
         if (previousLoggedIn) {
           localStorage.removeItem('login');

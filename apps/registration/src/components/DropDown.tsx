@@ -5,7 +5,9 @@ type option = {
   label?: string | number;
   value?: string | number;
 };
+
 // if select on focus span next to it border-purple-500
+
 const DropDown = <T,>({
   obj,
   setObj,
@@ -30,8 +32,6 @@ const DropDown = <T,>({
     const value = event.target.value;
     setObj((prev) => setFormObject(prev, index, name, value));
   };
-
-
 
   return (
     <div className={`${width && width} flex flex-col px-4 py-2 md:p-0 relative`}>

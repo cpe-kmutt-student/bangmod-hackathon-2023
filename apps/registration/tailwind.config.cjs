@@ -1,5 +1,6 @@
 const tailwindConfig = require('tailwind');
 const defaultTheme = require('tailwindcss/defaultTheme');
+
 const config = {
   presets: [tailwindConfig],
   content: ['./src/**/*.{html,tsx}'],

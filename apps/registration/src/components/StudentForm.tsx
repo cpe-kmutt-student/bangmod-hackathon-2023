@@ -236,7 +236,6 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             required
             index={index}
           />
-
           <InputBox
             obj={data[index].line}
             setObj={setData}
