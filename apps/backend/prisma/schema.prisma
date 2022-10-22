@@ -42,7 +42,7 @@ model FileHistory {
 model Team {
   id          Int           @id @default(autoincrement())
   auth        Auth?         @relation(fields: [email], references: [email])
-  email       String?        @unique
+  email       String?       @unique
   name        String?
   school      String?
   isComplete  Boolean?      @default(false)

@@ -72,7 +72,7 @@ export class Server extends Springpress {
 
     registry.registerGlobalMiddleware(new CompressionMiddleware());
     register(new IndexController());
-    registerWithAuthMiddleware(new AuthController(this.authService));
+    registerWithAuthMiddleware(new AuthController(this.authService, this.inputService));
     registerWithAuthMiddleware(new FileController(this.fileService), this.fileMiddleware);
     registerWithAuthMiddleware(new InputController(this.inputService));
   }

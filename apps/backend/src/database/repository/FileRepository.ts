@@ -24,8 +24,14 @@ export class FileRepository {
     uploadDate: Date,
   ) {
     const email = user.email;
-    const participant = await this.database.participant.findUnique({
+    const team = await this.database.team.findUnique({
       where: { email: email }
+    });
+
+    if(!team) return;
+
+    const participant = await this.database.participant.findFirst({
+      where: { email: email, teamId: team.id }
     });
 
     if (!participant) return;

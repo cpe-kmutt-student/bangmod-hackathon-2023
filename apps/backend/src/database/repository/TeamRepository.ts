@@ -8,6 +8,12 @@ export class TeamRepository {
     this.database = database;
   }
 
+  public async createEmptyTeam(email: string) {
+    return this.database.team.create({
+      data: { email }
+    });
+  }
+
   public async createTeamByEmail(email: string, data: Partial<Team>): Promise<Team> {
     return this.database.team.create({
       data: {

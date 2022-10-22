@@ -50,7 +50,7 @@ export class InputService {
   }
 
   private validParticipant(participant: any): boolean {
-    for (let key in participant) {
+    for (const key in participant) {
       if (key === 'email' && !this.validEmail(participant[key])) return false;
       else if (key === 'phoneNumber' && !this.validPhone(participant[key])) return false;
       else if (key === 'prefixEn' && !this.validPrefixEn(participant[key])) return false;
@@ -68,9 +68,10 @@ export class InputService {
     const { students, team, advisor } = data;
     if (!students || !team || !advisor) return false;
 
-    if (team.amount !== 2 && team.amount !== 3) return false;
-    if (typeof team.isComplete !== 'boolean') return false;
-    if (!this.validDefault(team.school) || !this.validDefault(team.name)) return false;
+    if (team.amount && (team.amount !== 2 && team.amount !== 3)) return false;
+    if (!!team.isComplete && typeof team.isComplete !== 'boolean') return false;
+    if(team.school && !this.validDefault(team.school)) return false;
+    if(team.name && !this.validDefault(team.name)) return false;
 
     this.validParticipant(advisor);
 
@@ -93,14 +94,14 @@ export class InputService {
 
     if (team) {
       const teamKey = Object.keys(RegistrationFormDataTemplate.team);
-      for (let key in team) {
+      for (const key in team) {
         if (!teamKey.includes(key)) return false
       }
     }
 
     if (advisor) {
       const advisorKey = Object.keys(RegistrationFormDataTemplate.advisor);
-      for (let key in advisor) {
+      for (const key in advisor) {
         if (!advisorKey.includes(key)) return false
       }
     }
@@ -108,8 +109,8 @@ export class InputService {
     if (Array.isArray(students) && students.length > 0) {
       if (students.length < 1 || students.length > 3) return false;
       const studentKey = Object.keys(RegistrationFormDataTemplate.students[0]);
-      for (let student of students) {
-        for (let key in student) {
+      for (const student of students) {
+        for (const key in student) {
           if (!studentKey.includes(key)) return false;
         }
       }
@@ -121,7 +122,7 @@ export class InputService {
   private haveAllKeyAndNotNull(registrationFormData: any): boolean {
     if (!registrationFormData) return false;
 
-    for (let key in registrationFormData) {
+    for (const key in registrationFormData) {
       if (!['students', 'team', 'advisor'].includes(key)) return false;
     }
 
@@ -129,7 +130,7 @@ export class InputService {
 
     if (!students || !team || !advisor) return false;
 
-    for (let key in RegistrationFormDataTemplate.team) {
+    for (const key in RegistrationFormDataTemplate.team) {
       if (key !== 'isComplete') {
         if (!team[key]) return false;
       } else {
@@ -137,15 +138,15 @@ export class InputService {
       }
     }
 
-    for (let key in RegistrationFormDataTemplate.advisor) {
-      if (!advisor[key]) return false;
+    for (const key in RegistrationFormDataTemplate.advisor) {
+      if (!['midddleNameEn', 'middleNameTh'].includes(key) && !advisor[key]) return false;
     }
 
     if (!Array.isArray(students) || students.length < 2 || students.length > 3) return false;
 
-    for (let student of students) {
-      for (let key in RegistrationFormDataTemplate.students[0]) {
-        if (!student[key]) return false;
+    for (const student of students) {
+      for (const key in RegistrationFormDataTemplate.students[0]) {
+        if (!['midddleNameEn', 'middleNameTh', 'foodType', 'foodAllergy', 'drugAllergy', 'disease'].includes(key) && !student[key]) return false;
       }
     }
 
@@ -190,7 +191,7 @@ export class InputService {
   ): Promise<PartialRegisForm | null> {
     const { students, team, advisor } = registrationFormData;
 
-    if (!students && !team && !advisor) {
+    if (!students || !team || !advisor) {
       throw Error('No data provided');
     }
 
@@ -208,9 +209,12 @@ export class InputService {
       students: partialStudents
     }
 
-    if (!this.validInput(registerForm)) return null;
-    if (partialTeam.isComplete && !this.haveAllKeyAndNotNull(registerForm)) return null;
-    if (!partialTeam.name && !partialTeam.school) return null;
+    if (!this.validInput(registerForm)) {
+      throw Error('Input that not null invalid value');
+    }
+    if (partialTeam.isComplete && !this.haveAllKeyAndNotNull(registerForm)) {
+      throw Error('Submit complete but all input not completed');
+    };
 
     const teamId = await this.saveTeamByEmail(email, partialTeam);
     await this.saveStudentsByTeamId(teamId, partialStudents);
@@ -269,6 +273,13 @@ export class InputService {
         await this.participantRepository.createStudent(dataStudents[i], teamId);
       }
     }
+  }
+
+  public async createTeamIfNotPresent(email: string) {
+    const team = await this.teamRepository.getTeamByEmail(email);
+    if (team) return;
+
+    await this.teamRepository.createEmptyTeam(email);
   }
 
 }
