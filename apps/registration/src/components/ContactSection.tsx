@@ -39,15 +39,15 @@ export const ContactSection = () => {
             </div>
             <div className="flex flex-col justify-center text-white">
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0945169692">0945169692</a>
+                <a href="tel:0945169692">09-4516-9692</a>
                 <div>(พี่เจต)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0982725713">0982725713</a>
+                <a href="tel:0982725713">09-8272-5713</a>
                 <div>(พี่ปัน)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0939416441">0939416441</a>
+                <a href="tel:0939416441">09-3941-6441</a>
                 <div>(พี่เฟรนด์)</div>
               </div>
             </div>
