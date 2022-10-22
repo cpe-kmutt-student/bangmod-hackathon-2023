@@ -3,30 +3,38 @@ import EmailInputbox from "@/components/EmailInputbox";
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
-import { TeamFormData } from 'api-schema';
+import { AdvisorFormData, TeamFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
 
 export type TeamFormDataWithFile = TeamFormData & {
+  advisor: AdvisorFormData;
   teacherAttachment: FileList | null;
 };
 
-export const defaultTeamForm = {
-  teamName: "",
+export const defaultAdvisorData: AdvisorFormData = {
+  prefixTh: "",
+  firstnameTh: "",
+  middleNameTh: "",
+  surnameTh: "",
+  prefixEn: "",
+  firstnameEn: "",
+  middleNameEn: "",
+  surnameEn: "",
+  email: "",
+  phoneNumber: "",
+  lineId: "",
+}
+
+export const defaultTeamForm: TeamFormDataWithFile = {
+  name: "",
   school: "",
   amount: 0,
-  prefixTH: "",
-  nameTH: "",
-  middleNameTH: "",
-  surnameTH: "",
-  prefixEN: "",
-  nameEN: "",
-  middleNameEN: "",
-  surnameEN: "",
-  email: "",
-  phone: "",
-  line: "",
+  isComplete: false,
   teacherAttachment: null,
+  advisor: defaultAdvisorData,
 };
+
+
 
 type TeamFormProps = {
   data: TeamFormDataWithFile;
@@ -47,7 +55,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         {/* first grid */}
         <div className="flex flex-col items-center justify-center  md:flex-row md:justify-between md:space-x-5">
           <InputBox
-            obj={data.teamName}
+            obj={data.name}
             setObj={setData}
             name="teamName"
             label="ชื่อทีม"
@@ -85,7 +93,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col items-center justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={data.prefixTH}
+            obj={data.advisor.prefixTh}
             setObj={setData}
             name="prefixTH"
             label="คำนำหน้า"
@@ -98,7 +106,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={data.nameTH}
+            obj={data.advisor.firstnameTh}
             setObj={setData}
             name="nameTH"
             label="ชื่อ (ภาษาไทย)"
@@ -107,7 +115,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.middleNameTH}
+            obj={data.advisor.middleNameTh}
             setObj={setData}
             name="middleNameTH"
             label="ชื่อกลาง (ภาษาไทย)"
@@ -115,7 +123,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.surnameTH}
+            obj={data.advisor.surnameTh}
             setObj={setData}
             name="surnameTH"
             label="นามสกุล (ภาษาไทย)"
@@ -128,7 +136,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           {/* <div className="flex flex-col justify-center md:flex-row  md:justify-between "> */}
           <DropDown
-            obj={data.prefixEN}
+            obj={data.advisor.prefixEn}
             setObj={setData}
             name="prefixEN"
             label="Prefix"
@@ -141,7 +149,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[13%]"
           />
           <InputBox
-            obj={data.nameEN}
+            obj={data.advisor.firstnameEn}
             setObj={setData}
             name="nameEN"
             label="Name"
@@ -150,7 +158,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.middleNameEN}
+            obj={data.advisor.middleNameEn}
             setObj={setData}
             name="middleNameEN"
             label="Middle name"
@@ -158,7 +166,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[27%]"
           />
           <InputBox
-            obj={data.surnameEN}
+            obj={data.advisor.surnameEn}
             setObj={setData}
             name="surnameEN"
             label="Surname"
@@ -170,7 +178,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
         {/* Fourth grid */}
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <EmailInputbox
-            obj={data.email}
+            obj={data.advisor.email}
             setObj={setData}
             name="email"
             label="Email"
@@ -179,7 +187,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[30%]"
           />
           <PhoneInput
-            obj={data.phone}
+            obj={data.advisor.phoneNumber}
             setObj={setData}
             name="phone"
             label="เบอร์โทรศัพท์"
@@ -188,7 +196,7 @@ export const TeamForm = ({ data, setData }: TeamFormProps) => {
             width="w-full md:w-[25%]"
           />
           <InputBox
-            obj={data.line}
+            obj={data.advisor.lineId}
             setObj={setData}
             name="line"
             label="Line ID"

@@ -13,6 +13,7 @@ export type RegistrationFormData = {
 
 export const RegistrationForm = () => {
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile>(defaultTeamForm);
+  const [advisorFormData, setAdvisorFormData] = useState<StudentFormDataWithFile>(defaultStudentFormData);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>(
     Array(3).fill(defaultStudentFormData)
   );

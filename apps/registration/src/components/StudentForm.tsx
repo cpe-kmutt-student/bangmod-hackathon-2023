@@ -41,25 +41,25 @@ export type StudentFormDataWithFile = StudentFormData & {
   pp7Attachment: FileList | null;
 };
 
-export const defaultStudentFormData = {
-  prefixTH: "",
-  nameTH: "",
-  middleNameTH: "",
-  surnameTH: "",
-  prefixEN: "",
-  nameEN: "",
-  middleNameEN: "",
-  surnameEN: "",
-  nicknameTH: "",
+export const defaultStudentFormData: StudentFormDataWithFile = {
+  prefixTh: "",
+  firstnameTh: "",
+  middleNameTh: "",
+  surnameTh: "",
+  prefixEn: "",
+  firstnameEn: "",
+  middleNameEn: "",
+  surnameEn: "",
+  nickname: "",
   grade: "",
-  coolQuote: "",
+  quote: "",
   email: "",
-  phone: "",
-  line: "",
-  preferFood: "",
-  allergyFood: "",
-  allergyDrug: "",
-  medicalProblem: "",
+  phoneNumber: "",
+  lineId: "",
+  foodType: "",
+  foodAllergy: "",
+  drugAllergy: "",
+  disease: "",
   selfImageAttachment: null,
   idCardAttachment: null,
   pp7Attachment: null,
@@ -84,9 +84,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
       <div className="text-white my-5 md:px-6 md:py-4">
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <DropDown
-            obj={data[index].prefixTH}
+            obj={data[index].prefixTh}
             setObj={setData}
-            name="prefixTH"
+            name="prefixTh"
             label="คำนำหน้า"
             options={[
               { label: "นาย", value: "นาย" },
@@ -98,9 +98,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
           <InputBox
-            obj={data[index].nameTH}
+            obj={data[index].firstnameTh}
             setObj={setData}
-            name="nameTH"
+            name="firstnameTh"
             label="ชื่อจริง (ภาษาไทย)"
             placeholder="ชื่อจริง"
             width="w-full md:w-[27%]"
@@ -108,9 +108,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
           <InputBox
-            obj={data[index].middleNameTH}
+            obj={data[index].middleNameTh}
             setObj={setData}
-            name="middleNameTH"
+            name="middleNameTh"
             label="ชื่อกลาง (ภาษาไทย)"
             placeholder="ชื่อกลาง"
             width="w-full md:w-[27%]"
@@ -118,9 +118,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
           <InputBox
-            obj={data[index].surnameTH}
+            obj={data[index].surnameTh}
             setObj={setData}
-            name="surnameTH"
+            name="surnameTh"
             label="นามสกุล (ภาษาไทย)"
             placeholder="นามสกุล"
             width="w-full md:w-[27%]"
@@ -131,9 +131,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <DropDown
-            obj={data[index].prefixEN}
+            obj={data[index].prefixEn}
             setObj={setData}
-            name="prefixEN"
+            name="prefixEn"
             label="Prefix"
             options={[
               { label: "Mr.", value: "Mr." },
@@ -146,9 +146,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           />
 
           <InputBox
-            obj={data[index].nameEN}
+            obj={data[index].firstnameEn}
             setObj={setData}
-            name="nameEN"
+            name="firstnameEn"
             label="Firstname"
             placeholder="Firstname"
             width="w-full md:w-[27%]"
@@ -157,9 +157,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           />
 
           <InputBox
-            obj={data[index].middleNameEN}
+            obj={data[index].middleNameEn}
             setObj={setData}
-            name="middleNameEN"
+            name="middleNameEn"
             label="Middle Name"
             placeholder="Middle Name"
             width="w-full md:w-[27%]"
@@ -168,9 +168,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           />
 
           <InputBox
-            obj={data[index].surnameEN}
+            obj={data[index].surnameEn}
             setObj={setData}
-            name="surnameEN"
+            name="surnameEn"
             label="Surname"
             placeholder="Surname"
             width="w-full md:w-[27%]"
@@ -181,9 +181,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <InputBox
-            obj={data[index].nicknameTH}
+            obj={data[index].nickname}
             setObj={setData}
-            name="nicknameTH"
+            name="nickname"
             label="ชื่อเล่น(ภาษาไทย)"
             placeholder="Nickname"
             width="w-full md:w-[25%]"
@@ -201,9 +201,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
           <InputBox
-            obj={data[index].coolQuote}
+            obj={data[index].quote}
             setObj={setData}
-            name="coolQuote"
+            name="quote"
             label="คำคมประจำใจ"
             placeholder="Cool Qoute"
             width="w-full md:w-[51%]"
@@ -225,9 +225,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           />
 
           <InputBox
-            obj={data[index].phone}
+            obj={data[index].phoneNumber}
             setObj={setData}
-            name="phone"
+            name="phoneNumber"
             label="เบอร์โทรศัพท์"
             placeholder="Tel number"
             width="w-full md:w-[25%]"
@@ -235,9 +235,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
             index={index}
           />
           <InputBox
-            obj={data[index].line}
+            obj={data[index].lineId}
             setObj={setData}
-            name="line"
+            name="lineId"
             label="ID LINE"
             placeholder="ID LINE"
             width="w-full md:w-[41%]"
@@ -248,9 +248,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <InputBox
-            obj={data[index].preferFood}
+            obj={data[index].foodType}
             setObj={setData}
-            name="preferFood"
+            name="foodType"
             label="ประเภทอาหาร"
             placeholder="เช่น ฮาลาล มังสวิรัติ"
             width="w-full md:w-[49%]"
@@ -261,9 +261,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <InputBox
-            obj={data[index].allergyFood}
+            obj={data[index].foodAllergy}
             setObj={setData}
-            name="allergyFood"
+            name="foodAllergy"
             label="อาหารที่แพ้"
             placeholder="Food allergy"
             width="w-full md:w-[49%]"
@@ -272,9 +272,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
           />
 
           <InputBox
-            obj={data[index].allergyDrug}
+            obj={data[index].drugAllergy}
             setObj={setData}
-            name="allergyDrug"
+            name="drugAllergy"
             label="ยาที่แพ้"
             placeholder="Drugs allergy"
             width="w-full md:w-[49%]"
@@ -285,9 +285,9 @@ export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
 
         <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
           <TextAreaBox
-            obj={data[index].medicalProblem}
+            obj={data[index].disease}
             setObj={setData}
-            name="medicalProblem"
+            name="disease"
             label="โรคประจำตัวและวิธีประถมพยาบาลเบื้องต้น"
             placeholder="Medical problems and first-aid"
             width="w-full"
