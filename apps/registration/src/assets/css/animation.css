@@ -1,0 +1,29 @@
+.khoam{
+  animation-name: khaomTrans;
+  animation-iteration-count: infinite;
+}
+
+#khoomBack1{
+  animation-duration: 20s;
+  animation-delay: 4s;
+}
+
+#khoomBack2{
+  animation-duration: 17s;
+  animation-delay: 2s;
+}
+
+#khoomMid{
+  animation-duration: 25s;
+  animation-delay: 1s;
+}
+
+#khoomFront{
+  animation-duration: 17s;
+  animation-delay: 3s;
+}
+
+@keyframes khaomTrans {
+  0%   {bottom: 0px ;}
+  100% {bottom: 110%;}
+}

@@ -39,7 +39,7 @@ export const Navbar = () => {
     <div className="fixed w-full h-16 md:h-30 z-50">
       <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-between items-center z-10 px-5">
         <span className="p-2 rounded-md w-10" />
-        <a href="/register" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
+        <a href="/" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
         <button
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
