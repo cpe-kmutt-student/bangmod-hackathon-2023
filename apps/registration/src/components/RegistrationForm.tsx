@@ -20,59 +20,17 @@ export type RegistrationFormData = {
 
 export const RegistrationForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [autoSaveInterval, setAutoSaveInterval] = useState<NodeJS.Timer>();
+  const [needToSave, setNeedToSave] = useState<number>(0);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>([]);
   const [advisorFormData, setAdvisorFormData] = useState<AdvisorFormData[]>([]);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>([]);
-  
-  const runAutoSave = () => {
-    const intervalId = setInterval(() => {
-      if (!saveButtonRef.current) return;
-      saveButtonRef.current.click();
-    }, 1000 * 30);
-    setAutoSaveInterval(intervalId);
-  };
-
-  const stopAutoSave = () => {
-    clearInterval(autoSaveInterval);
-  };
-
-  useEffect(() => {
-    fetch('/input/get')
-      .then((response) => {
-        if (!response.data.team.isComplete) runAutoSave();
-
-        setTeamFormData([response.data.team]);
-        setAdvisorFormData([response.data.advisor]);
-
-        if (response.data.students.length === 0) {
-          setStudentFormsData(defaultStudentFormData)
-        } else {
-          setStudentFormsData(response.data.students);
-        }
-
-        setIsLoading(false);
-      })
-      .catch((error) => console.error(error));
-    return () => stopAutoSave();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex justify-center items-center mt-24 text-white">
-        <Spinner style="w-12" />
-      </div>
-    );
-  }
 
   const save = (isComplete: boolean) => {
     setIsEditing(false);
 
     if (isComplete) {
-      stopAutoSave();
       teamFormData[0].isComplete = true;
       setTeamFormData(teamFormData.slice());
     }
@@ -94,7 +52,6 @@ export const RegistrationForm = () => {
     const advisor = advisorFormData[0];
     const payload = { team, students, advisor };
 
-
     fetch
       .post('/input/save', payload)
       .then(() => {
@@ -108,6 +65,33 @@ export const RegistrationForm = () => {
       })
       .catch((error) => console.error(error));
   };
+
+  useEffect(() => {
+    let autoSaveIntervalId: NodeJS.Timer;
+
+    fetch('/input/get')
+      .then((response) => {
+        autoSaveIntervalId = setInterval(() => {
+          setNeedToSave((prev) => prev + 1);
+        }, 1000 * 3);
+
+        setTeamFormData([response.data.team]);
+        setAdvisorFormData([response.data.advisor]);
+
+        if (response.data.students.length === 0) {
+          setStudentFormsData(defaultStudentFormData)
+        } else {
+          setStudentFormsData(response.data.students);
+        }
+
+        setIsLoading(false);
+      })
+      .catch((error) => console.error(error));
+
+    return () => {
+      autoSaveIntervalId && clearInterval(autoSaveIntervalId);
+    };
+  }, []);
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
@@ -132,24 +116,36 @@ export const RegistrationForm = () => {
     });
   };
 
-  const handleAutoSave = (e: Event) => {
-    e.preventDefault();
-    save(false);
-  };
-
   const edit = () => {
     setIsEditing(true);
     teamFormData[0].isComplete = false;
     setTeamFormData(teamFormData.slice());
-    runAutoSave();
   };
+
+  const handleFormSubmit = (e: Event) => {
+    e.preventDefault();
+  };
+
+  // Hacky way to update which call from interval
+  useEffect(() => {
+    if (isLoading || !teamFormData || (teamFormData[0] && teamFormData[0].isComplete)) return;
+    save(false)
+  }, [needToSave, teamFormData]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex justify-center items-center mt-24 text-white">
+        <Spinner style="w-12" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex h-full items-center justify-center">
       <div className="flex w-full flex-col md:mx-12 z-20">
         <RegisterHeader />
 
-        <form ref={formRef} onSubmit={handleAutoSave}>
+        <form ref={formRef} onSubmit={handleFormSubmit}>
           <TeamForm
             isComplete={(teamFormData[0].isComplete && !isEditing) || false}
             data={teamFormData}
@@ -157,7 +153,6 @@ export const RegistrationForm = () => {
             advisor={advisorFormData}
             setAdvisor={setAdvisorFormData}
           />
-          {console.log(teamFormData[0].amount)}
           {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm
               isComplete={(teamFormData[0].isComplete && !isEditing) || false}
@@ -168,8 +163,6 @@ export const RegistrationForm = () => {
           ))}
 
           <div className="flex justify-center mb-32">
-            <button ref={saveButtonRef} type="hidden" />
-
             {teamFormData[0].isComplete && !isEditing
               ?
                 <button
