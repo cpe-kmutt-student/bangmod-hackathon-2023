@@ -32,8 +32,6 @@ export const defaultTeamForm: TeamFormDataWithFile[] = [{
   teacherAttachment: null,
 }];
 
-
-
 type TeamFormProps = {
   isComplete: boolean,
   data: TeamFormDataWithFile[];
