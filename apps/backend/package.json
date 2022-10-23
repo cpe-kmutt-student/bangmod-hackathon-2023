@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
-    "api-schema": "*",
+    "@bmh2023/api-schema": "*",
     "compression": "^1.7.4",
     "dotenv": "^16.0.2",
     "form-data": "^4.0.0",

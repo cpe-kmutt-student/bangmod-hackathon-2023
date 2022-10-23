@@ -1,5 +1,5 @@
 {
-  "name": "api-schema",
+  "name": "@bmh2023/api-schema",
   "version": "0.0.0",
   "private": true,
   "main": "src/index.ts",
