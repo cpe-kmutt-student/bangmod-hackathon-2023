@@ -45,17 +45,12 @@ const ImageInputBox = <T,>({
   useEffect(() => {
     if (files.length === 0) return;
 
-    if (attachmentType === 0) {
-      setFileUrl(import.meta.env.VITE_BACKEND_URL + files[0].url);
-      setFileName(files[0].originalName);
-    } else {
-      const targetFile = files
+    const targetFile = files
         .filter((file) => file.index === index && file.fileType === attachmentType)[0];
 
-      if (targetFile) {
-        setFileUrl(import.meta.env.VITE_BACKEND_URL + targetFile.url);
-        setFileName(targetFile.originalName);
-      }
+    if (targetFile) {
+      setFileUrl(import.meta.env.VITE_BACKEND_URL + targetFile.url);
+      setFileName(targetFile.originalName);
     }
   }, []);
 
