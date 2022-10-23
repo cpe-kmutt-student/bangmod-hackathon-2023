@@ -36,12 +36,19 @@ export const Hero = () => {
         ref={logo}
         className="
           z-20 w-full h-full absolute transform translate-y-48 2xl:-translate-y-36 2xl:flex 2xl:justify-center
-          lg:z-20
+          lg:z-30
           xl:z-40
         "
       >
         <img className="w-2/3 md:w-2/5 2xl:w-1/3 m-auto" src="logo.webp" alt="" />
       </div>
+      <img
+          src="bg2.webp"
+          alt=""
+          className="
+            w-full absolute bottom-0 z-40 md:z-30 transform translate-y-2 md:translate-y-[6rem]
+          "
+        />
       <div className="absolute w-full h-screen">
         <div className="relative w-full h-full z-0 flex justify-center items-end">
           <img
@@ -81,7 +88,7 @@ export const Hero = () => {
           src="bg1.webp"
           alt=""
         />
-        <div className="w-full -mt-2 h-8 md:h-32 lg:h-64 bg-[#8F4581]" />
+        <div className="w-full -mt-2 h-8 md:h-32 lg:h-64 bg-gradient-to-r from-[#763874] to-[#8F4581]" />
       </div>
     </div>
   )
