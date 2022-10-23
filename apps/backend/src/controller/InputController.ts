@@ -1,6 +1,6 @@
 import { InputService } from '@/service/InputService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
-import { InputSavePostApiSchema } from 'api-schema';
+import { InputSavePostApiSchema } from '@bmh2023/api-schema';
 import { Controller, ControllerMapping, Methods, Request, Response, RouteMapping } from 'springpress';
 
 @ControllerMapping('/input')

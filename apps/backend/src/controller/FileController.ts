@@ -1,7 +1,7 @@
 import { FileService } from '@/service/FileService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
 import { AccpetedFileType, AllowFile } from '@/utils/decorator/FileDecorator';
-import { FileGetApiSchema, FilePostApiSchema } from 'api-schema';
+import { FileGetApiSchema, FilePostApiSchema } from '@bmh2023/api-schema';
 import http from 'http';
 import { BadRequestException, Controller, ControllerMapping, Methods, NotFoundException, Request, Response, RouteMapping, UnauthorizedException } from 'springpress';
 

@@ -5,7 +5,7 @@ import InputBox from "@/components/Inputbox";
 import PhoneInput from '@/components/PhoneInput';
 import { UploadedFile } from '@/components/RegistrationForm';
 import TextAreaBox from "@/components/TextAreaBox";
-import { StudentFormData } from 'api-schema';
+import { StudentFormData } from '@bmh2023/api-schema';
 import { StateUpdater } from "preact/hooks";
 
 const LengthValidate = (str: string) => {

@@ -6,7 +6,7 @@ import {
 } from "@/components/StudentForm";
 import { TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
 import { fetch } from '@/utils/Fetch';
-import { AdvisorFormData } from 'api-schema';
+import { AdvisorFormData } from '@bmh2023/api-schema';
 import { useEffect, useRef, useState } from "preact/hooks";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';

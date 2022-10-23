@@ -1,7 +1,7 @@
 import { ParticipantRepository } from '@/database/repository/ParticipantRepository';
 import { TeamRepository } from '@/database/repository/TeamRepository';
+import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from '@bmh2023/api-schema';
 import { Participant, Team } from '@prisma/client';
-import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from 'api-schema';
 
 export type PartialRegisForm = {
   students: Partial<StudentFormData>[],

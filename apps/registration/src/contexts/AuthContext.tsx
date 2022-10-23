@@ -1,5 +1,5 @@
 import { fetch } from '@/utils/Fetch';
-import { AuthGetAuthApiSchema, AuthGetLogoutApiSchema, AuthGetMeApiSchema, Payload } from 'api-schema';
+import { AuthGetAuthApiSchema, AuthGetLogoutApiSchema, AuthGetMeApiSchema, Payload } from '@bmh2023/api-schema';
 import { ComponentChildren, createContext } from 'preact';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 import { useNavigate } from 'react-router-dom';

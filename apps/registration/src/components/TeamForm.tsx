@@ -4,7 +4,7 @@ import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
 import { UploadedFile } from '@/components/RegistrationForm';
-import { AdvisorFormData, TeamFormData } from 'api-schema';
+import { AdvisorFormData, TeamFormData } from '@bmh2023/api-schema';
 import { StateUpdater } from "preact/hooks";
 
 export type TeamFormDataWithFile = TeamFormData & {
