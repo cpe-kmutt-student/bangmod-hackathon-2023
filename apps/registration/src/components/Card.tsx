@@ -4,15 +4,17 @@ const Card = ({
   desc1,
   desc2,
   desc3,
+  section
 }: {
   img?: string;
   title?: string;
   desc1?: string;
   desc2?: string;
   desc3?: string;
+  section: "qua" | "reward";
 }) => {
   return (
-    <div className="flex flex-col w-full h-full max-w-sm mx-auto px-3 md:px-4 py-6 bg-white rounded-3xl shadow-2xl">
+    <div className="flex flex-col w-[14rem] m-2 px-4 py-10 bg-white rounded-3xl shadow-2xl">
       <div className="w-2/3 mx-auto">
         <img
           className=""
@@ -20,11 +22,12 @@ const Card = ({
           alt=""
         />
       </div>
-      <div className="h-full flex flex-col justify-center items-center text-center mt-4">
+      
+      <div className= {"h-full flex flex-col  items-center text-center mt-4 " + (section === "qua" ? "justify-center" :"justify-start" )} >
         <p className="font-bold text-purple-900 lg:text-base "> {title} </p>
-        <p className="text-purple-700 "> {desc1} </p>
-        <p className="text-purple-700 "> {desc2} </p>
-        <p className="text-purple-700 "> {desc3} </p>
+        {desc1 == undefined ? <p className="text-white">You found us.</p> : <p className="text-purple-700 ">{desc1}</p>}
+        {desc2 == undefined ? <p className="text-white pointer-events-none">{section == "qua" ? '': "You found us."}</p> : <p className="text-purple-700 ">{desc2}</p>}
+        <p className="text-purple-700 ">{desc3}</p>
       </div>
     </div>
   );

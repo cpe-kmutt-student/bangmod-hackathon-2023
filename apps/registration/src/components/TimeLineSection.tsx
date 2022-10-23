@@ -19,11 +19,11 @@ export const TimeLineSection = () => {
         ไทม์ไลน์
       </div>
 
-      <div className="hidden sm:flex flex-col space-y-2">
+      <div className="hidden md:flex flex-col space-y-2">
         <HorizontalTimeline />
       </div>
 
-      <div className="sm:hidden relative h-full w-full place-items-center">
+      <div className="md:hidden relative h-full w-full place-items-center">
         <div className="absolute h-full w-full flex items-center justify-center">
           <div className="bg-white w-2 h-full lg:w-full lg:h-3 rounded-xl"></div>
         </div>

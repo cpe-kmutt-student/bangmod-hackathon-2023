@@ -15,13 +15,13 @@ export const HomePage = () => {
       <Hero />
 
       <div className="w-full h-full">
-        <img
+        {/* <img
           src="bg2.webp"
           alt=""
           className="
-            w-full absolute -bottom-8 z-40 transform translate-y-2 md:translate-y-[6rem]
+            w-full absolute bottom-0 z-40 transform md:translate-y-[6rem]
           "
-        />
+        /> */}
 
         <div
           className="
