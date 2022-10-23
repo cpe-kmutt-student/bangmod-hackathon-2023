@@ -24,7 +24,7 @@ export class InputService {
 
   private excludeEmpty<T extends Object>(object: T): Partial<T> {
     return Object.fromEntries(Object.entries(object).filter(([key, value]) => {
-      return value !== null && value !== undefined && value !== '';
+      return value !== null && value !== undefined && value !== '' && value !== 0;
     })) as Partial<T>;
   }
 
@@ -68,8 +68,9 @@ export class InputService {
     const { students, team, advisor } = data;
     if (!students || !team || !advisor) return false;
 
-    if (!team.amount) return false;
-    team.amount = Number.parseInt(team.amount.toString());
+    if (typeof team.amount === 'string') {
+      team.amount = Number.parseInt(team.amount);
+    }
 
     if (team.amount && (team.amount !== 2 && team.amount !== 3)) return false;
     if (!!team.isComplete && typeof team.isComplete !== 'boolean') return false;
@@ -165,7 +166,18 @@ export class InputService {
 
     const students = await this.participantRepository.getStudentsDataIntoFormByTeamId(team.id);
     const advisor = await this.participantRepository.getAdvisorDataIntoFormByTeamId(team.id);
-    const teamFormData = { ...getTeamForm, amount: students.length };
+
+    let studentFormCount = 0;
+    let studentLength = 0;
+
+    students.forEach((student) => {
+      if(!this.checkStudentNull(student)) studentFormCount += 1;
+    });
+
+    if (studentFormCount === 3) studentLength = 3;
+    else if (studentFormCount === 1 || studentFormCount === 2) studentLength = 2;
+
+    const teamFormData = { ...getTeamForm, amount: studentLength };
 
     let advisorFormData: AdvisorFormData;
     if (advisor) {
@@ -227,6 +239,7 @@ export class InputService {
 
   private async saveTeamByEmail(email: string, team: Partial<TeamFormData>): Promise<number> {
     if (!!team.amount) delete team.amount;
+
     const dataToSave: Partial<Team> = { ...team };
     const searchTeam = await this.teamRepository.getTeamByEmail(email);
 
