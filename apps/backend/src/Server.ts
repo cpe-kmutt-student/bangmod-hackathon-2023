@@ -45,13 +45,21 @@ export class Server extends Springpress {
   private readonly inputService = new InputService(this.participantRepository, this.teamRepository);
 
   public async onStartup(): Promise<void> {
-    console.log(`Connecting to the database...`);
-    await this.databaseConnector.connect();
+    try {
+      console.log(`Connecting to the database...`);
+      await this.databaseConnector.connect();
 
-    console.log(`Registering all controllers...`);
-    this.registerControllers();
+      console.log(`Connecting to file storage system...`);
+      await this.seaweedClient.healthCheck();
 
-    console.log(`Listening on port ${this.getPort()}`);
+      console.log(`Registering all controllers...`);
+      this.registerControllers();
+
+      console.log(`Listening on port ${this.getPort()}`);
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
   }
 
   private registerControllers(): void {
