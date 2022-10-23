@@ -37,24 +37,6 @@ export class FileController extends Controller {
   }
 
   @RequireAuth()
-  @AllowFile(AccpetedFileType.SOURCECODE, false)
-  @RouteMapping('/sourcecode', Methods.POST)
-  private async uploadSourceCode(req: Request<FilePostApiSchema>, res: Response) {
-    if (!req.file) throw new BadRequestException('No provided file');
-    if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
-
-    const session = req.session!;
-    const fileType = Number.parseInt(req.query.type);
-
-    const hashedEmail = this.fileService.getHashedEmail(session.email);
-    const fileId = await this.fileService.rememberFile(session, req.file, fileType);
-
-    if (!fileId) throw new BadRequestException('Cannot upload this file');
-
-    res.status(200).json({ url: `/file/storage/${hashedEmail}/${fileId}/${req.file.originalname}` });
-  }
-
-  @RequireAuth()
   @RouteMapping('/storage/:hashedEmail/:fileId/:originalName', Methods.GET)
   private async getFile(req: Request<FileGetApiSchema>, res: Response) {
     const hashedEmail = req.params.hashedEmail;

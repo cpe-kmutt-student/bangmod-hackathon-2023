@@ -2,7 +2,6 @@ import { RouteUtil } from 'springpress';
 
 export enum AccpetedFileType {
   DOCUMENT,
-  SOURCECODE,
 };
 
 export const AllowFile = (type: AccpetedFileType, allowMultipleFiles: boolean) => {
@@ -10,7 +9,6 @@ export const AllowFile = (type: AccpetedFileType, allowMultipleFiles: boolean) =
     allowMultipartFormData: {
       allowMultipleFiles: allowMultipleFiles,
       isDocument: type === AccpetedFileType.DOCUMENT,
-      isSourceCode: type === AccpetedFileType.SOURCECODE,
     },
   });
 };

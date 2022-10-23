@@ -4,7 +4,6 @@ import { SeaweedStorageEngine } from '@/utils/seaweedfs/SeaweedStorageEngine';
 import { OAuthUser } from '@/utils/Types';
 import crypto from 'crypto';
 import multer, { FileFilterCallback, Multer } from 'multer';
-import path from 'path';
 import { BadRequestException, Request } from 'springpress';
 
 type File = Express.Multer.File;
@@ -14,7 +13,6 @@ export class FileService {
   private readonly fileRepository: FileRepository;
   private readonly seaweedClient: SeaweedClient;
   private readonly documentUpload: Multer;
-  private readonly sourceCodeUpload: Multer;
 
   private static readonly MAX_FILE_SIZE = 1_048_576 * 10;
 
@@ -30,10 +28,6 @@ export class FileService {
         fileSize: FileService.MAX_FILE_SIZE,
       },
     });
-    this.sourceCodeUpload = multer({
-      storage: storageEngine,
-      fileFilter: this.filterFile(this.filterSourceCodeFile),
-    });
   }
 
   private filterFile(filter: (file: File) => boolean) {
@@ -48,17 +42,8 @@ export class FileService {
     return allowedMimes.includes(file.mimetype);
   }
 
-  private filterSourceCodeFile(file: File): boolean {
-    const allowedExtension = ['.c', '.cc', '.cpp', '.java'];
-    return allowedExtension.includes(path.extname(file.originalname));
-  }
-
   public uploadSingleDocument(fileName: string) {
     return this.documentUpload.single(fileName);
-  }
-
-  public uploadSingleSourcecode(fileName: string) {
-    return this.sourceCodeUpload.single(fileName);
   }
 
   public async rememberFile(user: OAuthUser, file: File, fileType: FileType): Promise<number | null> {

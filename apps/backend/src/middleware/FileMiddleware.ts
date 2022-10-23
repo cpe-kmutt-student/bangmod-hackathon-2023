@@ -21,8 +21,6 @@ export class FileMiddleware extends Middleware {
       const metadata = routeMetadata.allowMultipartFormData!;
       if (metadata.isDocument) {
         this.fileService.uploadSingleDocument('file')(req as any, res, (error) => nextFunction(error));
-      } else if (metadata.isSourceCode) {
-        this.fileService.uploadSingleSourcecode('file')(req as any, res, (error) => nextFunction(error));
       } else {
         throw new BadRequestException('Unknow file type');
       }
