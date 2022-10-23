@@ -47,4 +47,4 @@ COPY --from=composer --chown=springpress:nodejs /app .
 USER springpress
 EXPOSE 3000
 
-CMD [ "yarn", "workspace", "backend", "run", "start" ]
+CMD [ "node", "app/apps/backend/dist/App.js" ]
