@@ -2,11 +2,12 @@ import { FileRepository, FileType } from '@/database/repository/FileRepository';
 import { SeaweedClient } from '@/utils/seaweedfs/SeaweedClient';
 import { SeaweedStorageEngine } from '@/utils/seaweedfs/SeaweedStorageEngine';
 import { OAuthUser } from '@/utils/Types';
+import { File } from '@prisma/client';
 import crypto from 'crypto';
 import multer, { FileFilterCallback, Multer } from 'multer';
 import { BadRequestException, Request } from 'springpress';
 
-type File = Express.Multer.File;
+type UploadingFile = Express.Multer.File;
 
 export class FileService {
 
@@ -30,14 +31,14 @@ export class FileService {
     });
   }
 
-  private filterFile(filter: (file: File) => boolean) {
-    return (req: Request, file: File, callback: FileFilterCallback) => {
+  private filterFile(filter: (file: UploadingFile) => boolean) {
+    return (req: Request, file: UploadingFile, callback: FileFilterCallback) => {
       if (filter(file)) return callback(null, true);
       callback(new BadRequestException('This file extension not allowed'));
     };
   }
 
-  private filterDocumentFile(file: File): boolean {
+  private filterDocumentFile(file: UploadingFile): boolean {
     const allowedMimes = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
     return allowedMimes.includes(file.mimetype);
   }
@@ -46,20 +47,31 @@ export class FileService {
     return this.documentUpload.single(fileName);
   }
 
-  public async rememberFile(user: OAuthUser, file: File, fileType: FileType): Promise<number | null> {
+  public async rememberFile(
+    user: OAuthUser,
+    i: number,
+    file: UploadingFile,
+    fileType: FileType,
+  ): Promise<File | null> {
     if (!Object.values(FileType).includes(fileType)) {
       return null;
     }
 
-    const fileId = await this.fileRepository.remember(
+    const newFile = await this.fileRepository.remember(
       user,
+      i,
       file.originalname,
       file.filename,
       fileType,
       new Date(),
     );
 
-    return fileId ? fileId : null;
+    return newFile || null;
+  }
+
+  public async getDocuments(email: string) {
+    const documents = await this.fileRepository.getFilesByEmail(email);
+    return documents;
   }
 
   public getHashedEmail(email: string): string {
@@ -71,14 +83,13 @@ export class FileService {
     return hash === hashedEmail;
   }
 
-  public async getFile(fileId: string, originalName: string): Promise<string | null> {
-    if (Number.isNaN(fileId) || Number.isNaN(Number.parseFloat(fileId))) {
-      return null;
+  public async getFile(fileKey: string, originalName: string): Promise<string | null> {
+    if (!fileKey.includes(',')) {
+      fileKey = fileKey.charAt(0) + ',' + fileKey.slice(1, fileKey.length)
     }
-
-    const file = await this.fileRepository.getFileById(Number.parseInt(fileId));
+    
+    const file = await this.fileRepository.getFileByFileKey(fileKey);
     if (!file || (file.originalName !== originalName)) return null;
-
     return this.seaweedClient.read(file.fileKey);
   }
 

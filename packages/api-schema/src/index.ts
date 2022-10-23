@@ -31,7 +31,7 @@ export type AuthGetLogoutApiSchema = CreateApiSchema<{
 export type FileGetApiSchema = CreateApiSchema<{
   param: {
     hashedEmail: string,
-    fileId: string,
+    fileKey: string,
     originalName: string,
   },
 }>;
@@ -39,6 +39,7 @@ export type FileGetApiSchema = CreateApiSchema<{
 export type FilePostApiSchema = CreateApiSchema<{
   query: {
     type: string,
+    i: string,
   },
 }>;
 

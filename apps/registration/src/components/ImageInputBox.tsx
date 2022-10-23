@@ -1,7 +1,7 @@
+import { UploadedFile } from '@/components/RegistrationForm';
 import { Spinner } from '@/components/Spinner';
 import { fetch } from '@/utils/Fetch';
-import { setFormObject } from '@/utils/FormUtil';
-import { StateUpdater, useRef, useState } from "preact/hooks";
+import { StateUpdater, useEffect, useRef, useState } from "preact/hooks";
 
 const MAX_DISPLAY_FILE_SIZE = 10;
 const MAX_FILE_SIZE_MIB = 1_048_576 * MAX_DISPLAY_FILE_SIZE;
@@ -12,15 +12,18 @@ const ImageInputBox = <T,>({
   name,
   attachmentType,
   index = 0,
+  files,
 }: {
   obj: FileList | null;
   setObj: StateUpdater<T[]>;
   name: string;
   attachmentType: 0 | 1 | 2 | 3;
   index?: number;
+  files: UploadedFile[],
 }) => {
   const inputRef: any = useRef(null);
-  const [imageUrl, setImageUrl] = useState<string>('');
+  const [fileName, setFileName] = useState<string>('');
+  const [fileUrl, setFileUrl] = useState<string>('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [error, setError] = useState<String | null>();
 
@@ -28,14 +31,33 @@ const ImageInputBox = <T,>({
     const formData = new FormData();
     formData.append('file', attachment);
     return fetch
-      .post(`/file/document?type=${type}`, formData, {
+      .post(`/file/document?type=${type}&i=${index}`, formData, {
         onUploadProgress: (progressEvent) => {
           setUploadProgress(progressEvent.progress || 0);
         },
       })
-      .then((response) => { setImageUrl(import.meta.env.VITE_BACKEND_URL + response.data.url) })
+      .then((response) => {
+        setFileUrl(import.meta.env.VITE_BACKEND_URL + response.data.url)
+      })
       .catch(console.error);
   };
+
+  useEffect(() => {
+    if (files.length === 0) return;
+
+    if (attachmentType === 0) {
+      setFileUrl(import.meta.env.VITE_BACKEND_URL + files[0].url);
+      setFileName(files[0].originalName);
+    } else {
+      const targetFile = files
+        .filter((file) => file.index === index && file.fileType === attachmentType)[0];
+
+      if (targetFile) {
+        setFileUrl(import.meta.env.VITE_BACKEND_URL + targetFile.url);
+        setFileName(targetFile.originalName);
+      }
+    }
+  }, []);
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -49,7 +71,7 @@ const ImageInputBox = <T,>({
       setError(error);
     } else {
       setError(null);
-      setObj((prev) => setFormObject(prev, index, name, files));
+      setFileName(files[0].name);
       uploadAttachment(files[0], attachmentType);
     }
   };
@@ -61,7 +83,7 @@ const ImageInputBox = <T,>({
       setError(error);
     } else {
       setError(null);
-      setObj((prev) => setFormObject(prev, index, name, files));
+      setFileName(files[0].name);
       uploadAttachment(files[0], attachmentType);
     }
   };
@@ -91,14 +113,14 @@ const ImageInputBox = <T,>({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {obj
+        {!!fileName
           ?
           <div className="w-full flex flex-col justify-center space-y-2">
-            {uploadProgress === 1 ? (
+            {(uploadProgress === 1 || fileUrl) ? (
               <ul className="text-center">
-                {Array.from(obj).map((file: File) => (
-                  <a className="text-blue-700 underline text-sm" href={imageUrl} target="_blank">{file.name}</a>
-                ))}
+                {fileUrl &&
+                  <a className="text-blue-700 underline text-sm" href={fileUrl} target="_blank">{fileName}</a>
+                }
               </ul>
             ) : (
               <div className="flex flex-row items-center space-x-2 mx-8">
@@ -114,7 +136,8 @@ const ImageInputBox = <T,>({
               type="button"
               className="mx-auto text-white w-fit px-4 py-2 text-xs rounded-lg focus:ring-red-300 bg-red-500 hover:bg-red-500/60 active:bg-red-400"
               onClick={() => {
-                setObj((prev) => setFormObject(prev, index, name, null));
+                setFileName('');
+                setFileUrl('');
               }}
             >
               Cancel

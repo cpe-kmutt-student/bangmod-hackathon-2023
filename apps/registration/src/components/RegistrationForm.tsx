@@ -13,6 +13,13 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
+export type UploadedFile = {
+  index: number,
+  originalName: string,
+  fileType: number,
+  url: string,
+};
+
 export type RegistrationFormData = {
   students: StudentFormDataWithFile[],
   team: TeamFormDataWithFile[],
@@ -23,9 +30,11 @@ export const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [needToSave, setNeedToSave] = useState<number>(0);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isFormComplete, setIsFormComplete] = useState<boolean>(false);
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>([]);
   const [advisorFormData, setAdvisorFormData] = useState<AdvisorFormData[]>([]);
   const [studentFormsData, setStudentFormsData] = useState<StudentFormDataWithFile[]>([]);
+  const [files, setFiles] = useState<UploadedFile[]>([]);
 
   const save = (isComplete: boolean) => {
     setIsEditing(false);
@@ -33,6 +42,7 @@ export const RegistrationForm = () => {
     if (isComplete) {
       teamFormData[0].isComplete = true;
       setTeamFormData(teamFormData.slice());
+      setIsFormComplete(isComplete);
     }
 
     const team = { ...teamFormData[0] };
@@ -71,6 +81,7 @@ export const RegistrationForm = () => {
 
     fetch('/input/get')
       .then((response) => {
+        // Create autosave clock, hacky way!
         autoSaveIntervalId = setInterval(() => {
           setNeedToSave((prev) => prev + 1);
         }, 1000 * 3);
@@ -83,10 +94,13 @@ export const RegistrationForm = () => {
         } else {
           setStudentFormsData(response.data.students);
         }
-
+        
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
+
+    fetch('/file/document')
+      .then((response) => setFiles(response.data));
 
     return () => {
       autoSaveIntervalId && clearInterval(autoSaveIntervalId);
@@ -119,6 +133,7 @@ export const RegistrationForm = () => {
   const edit = () => {
     setIsEditing(true);
     teamFormData[0].isComplete = false;
+    setIsFormComplete(false);
     setTeamFormData(teamFormData.slice());
   };
 
@@ -126,11 +141,15 @@ export const RegistrationForm = () => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    setIsFormComplete(teamFormData[0]?.isComplete || false);
+  }, [teamFormData]);
+
   // Hacky way to update which call from interval
   useEffect(() => {
-    if (isLoading || !teamFormData || (teamFormData[0] && teamFormData[0].isComplete)) return;
-    save(false)
-  }, [needToSave, teamFormData]);
+    if (isLoading || isFormComplete) return;
+    save(false);
+  }, [needToSave, isFormComplete]);
 
   if (isLoading) {
     return (
@@ -152,6 +171,7 @@ export const RegistrationForm = () => {
             setData={setTeamFormData}
             advisor={advisorFormData}
             setAdvisor={setAdvisorFormData}
+            files={files}
           />
           {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm
@@ -159,6 +179,7 @@ export const RegistrationForm = () => {
               data={studentFormsData}
               setData={setStudentFormsData}
               index={i}
+              files={files}
             />
           ))}
 

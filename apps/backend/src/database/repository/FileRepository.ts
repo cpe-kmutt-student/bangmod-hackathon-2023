@@ -18,6 +18,7 @@ export class FileRepository {
 
   public async remember(
     user: OAuthUser,
+    i: number,
     originalName: string,
     fileKey: string,
     fileType: FileType,
@@ -28,61 +29,87 @@ export class FileRepository {
       where: { email: email }
     });
 
-    if(!team) return;
+    if (!team) return;
 
-    const participant = await this.database.participant.findFirst({
+    if ((fileType === FileType.ADVISOR_DOCUMENT) && (i !== 0)) return;
+    if ((fileType !== FileType.ADVISOR_DOCUMENT) && ![0, 1, 2].includes(i)) return;
+
+    const participants = await this.database.participant.findMany({
       where: { teamId: team.id }
     });
 
-    if (!participant) return;
+    if (!participants) return;
 
-    const newFile = await this.database.file.create({
-      data: {
+    const participantId = participants[i].id + +(fileType !== FileType.ADVISOR_DOCUMENT);
+
+    const newFile = await this.database.file.upsert({
+      where: {
+        participantId_fileType: {
+          participantId: participantId,
+          fileType: fileType,
+        },
+      },
+      update: {
+        fileKey: fileKey,
+        uploadDate: uploadDate,
+        originalName: originalName,
+      },
+      create: {
         fileKey: fileKey,
         fileType: fileType,
+        index: i,
         originalName: originalName,
         uploadDate: uploadDate,
-        participantId: participant.id,
+        participantId: participantId,
       }
     });
 
-    await this.createFileHistory(newFile);
-    return newFile.id;
+    await this.createFileHistory(participantId, newFile, fileType);
+    return newFile;
   }
 
-  public async updateFileById(id: number, data: Partial<File>) {
-    const updateFile = await this.database.file.update({
-      where: { id: id },
-      data: data
-    });
-    await this.createFileHistory(updateFile);
-  }
-
-  public async createFileHistory(file: File) {
+  public async createFileHistory(participantId: number, file: File, fileType: number) {
     await this.database.fileHistory.create({
       data: {
+        participantId: participantId,
+        fileType: fileType,
         fileKey: file.fileKey,
         uploadDate: file.uploadDate,
-        fileId: file.id,
       }
     });
   }
 
-  public async getFileById(id: number) {
-    return this.database.file.findUnique({
-      where: { id: id },
+  public async getFileByFileKey(fileKey: string) {
+    return this.database.file.findFirst({
+      where: { fileKey: fileKey },
     });
+  }
+
+  public async getFilesByEmail(email: string) {
+    const team = await this.database.team.findUnique({
+      where: { email: email },
+    });
+
+    if (!team) return;
+
+    const participants = await this.database.participant.findMany({
+      where: { teamId: team.id },
+    });
+
+    if (!participants) return;
+    const participantIds = participants.map((participant) => ({ participantId: participant.id }));
+
+    const files = await this.database.file.findMany({
+      where: { OR: participantIds },
+      orderBy: { participantId: 'asc' },
+    });
+
+    return files;
   }
 
   public async getFileByParticipantId(id: number) {
     return this.database.file.findMany({
       where: { participantId: id }
-    });
-  }
-
-  public async deleteFileById(id: number) {
-    this.database.file.delete({
-      where: { id: id }
     });
   }
 

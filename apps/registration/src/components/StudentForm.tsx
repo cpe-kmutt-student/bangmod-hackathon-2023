@@ -3,6 +3,7 @@ import EmailInputbox from '@/components/EmailInputbox';
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import PhoneInput from '@/components/PhoneInput';
+import { UploadedFile } from '@/components/RegistrationForm';
 import TextAreaBox from "@/components/TextAreaBox";
 import { StudentFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
@@ -72,9 +73,16 @@ type StudentFromProps = {
   data: StudentFormDataWithFile[];
   setData: StateUpdater<StudentFormDataWithFile[]>;
   index: number;
+  files: UploadedFile[],
 };
 
-export const StudentForm = ({ isComplete, data, setData, index }: StudentFromProps) => {
+export const StudentForm = ({
+  isComplete,
+  data,
+  setData, 
+  index,
+  files,
+}: StudentFromProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
       {isComplete && <div className="z-20 absolute w-full h-full bg-gray-700 bg-opacity-60 rounded-[20px]"></div>}
@@ -317,6 +325,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             name="selfImageAttachment"
             attachmentType={1}
             index={index}
+            files={files}
           />
           <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
             2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
@@ -331,6 +340,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             name="idCardAttachment"
             attachmentType={2}
             index={index}
+            files={files}
           />
           <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
             3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
@@ -345,6 +355,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
             name="pp7Attachment"
             attachmentType={3}
             index={index}
+            files={files}
           />
         </div>
       </div>
