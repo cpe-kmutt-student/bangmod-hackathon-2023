@@ -11,21 +11,21 @@ export const ContactSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="contact-section" className="h-full py-24 pb-52">
+    <section ref={ref} id="contact-section" className="h-screen flex justify-center items-center flex-col py-24 pb-52">
       <div>
         <div className="py-4 text-6xl text-center text-white font-bold mb-12">
-          <h1>NEED HELP?</h1>
+          <h1 className='whitespace-nowrap'>NEED HELP?</h1>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-24">
-          <div className="flex flex-row space-x-4">
-            <div className="bg-gray-300 rounded-full p-3">
-              <img className="w-18 h-18" src="fb-icon.webp" alt="" />
+        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 ">
+          <div className="flex flex-row ">
+            <div className="py-3 px-6">
+              <img className="border-[10px] rounded-full border-gray-300 w-[6rem] max-w-none" src="fb-icon.webp" alt="" />
             </div>
             <div className="flex flex-col justify-center space-y-2">
               <div className="text-white font-bold text-xl">BANGMOD HACKATHON 2023</div>
               <a
-                className="text-white bg-[#db9116] w-fit px-4 py-1 rounded-lg text-sm"
+                className="text-white bg-[#db9116] w-fit px-4 py-1 mt-2 rounded-lg text-sm"
                 href="https://www.facebook.com/BangmodHackathon"
                 target="_blank"
               >
@@ -33,21 +33,21 @@ export const ContactSection = () => {
               </a>
             </div>
           </div>
-          <div className="flex flex-row space-x-4">
-            <div className="bg-gray-300 rounded-full p-3">
-              <img className="w-18 h-18" src="tel-icon.webp" alt="" />
+          <div className="flex flex-row ">
+            <div className="py-3 px-6 xl:pl-24">
+              <img className="border-[10px] rounded-full border-gray-300 w-[6rem] max-w-none" src="tel-icon.webp" alt="" />
             </div>
             <div className="flex flex-col justify-center text-white">
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0945169692">09-4516-9692</a>
+                <a href="tel:0945169692" className='whitespace-nowrap min-w-fit'>09-4516-9692</a>
                 <div>(พี่เจต)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0982725713">09-8272-5713</a>
+                <a href="tel:0982725713" className='whitespace-nowrap min-w-fit'>09-8272-5713</a>
                 <div>(พี่ปัน)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0939416441">09-3941-6441</a>
+                <a href="tel:0939416441" className='whitespace-nowrap min-w-fit'>09-3941-6441</a>
                 <div>(พี่เฟรนด์)</div>
               </div>
             </div>

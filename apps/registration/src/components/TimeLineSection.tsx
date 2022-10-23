@@ -14,7 +14,7 @@ export const TimeLineSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="timeline-section" className="h-full py-12 lg:py-24">
+    <section ref={ref} id="timeline-section" className="h-full md:h-screen flex flex-col justify-center items-center py-12 lg:py-24">
       <div className="w-fit mx-auto mb-8 px-8  py-4 bg-yellow-600 rounded-xl text-base lg:text-2xl text-white font-bold shadow-xl text-center">
         ไทม์ไลน์
       </div>
