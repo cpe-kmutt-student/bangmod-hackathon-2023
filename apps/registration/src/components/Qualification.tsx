@@ -56,6 +56,17 @@ export const Qualification = () => {
           />
         </div>
       </div>
+      <div className="bg-white p-3 md:p-10 rounded-3xl mb-8 mt-5">
+        <div className="flex justify-center mx-auto  px-16 py-4 bg-violet-400 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
+          เอกสารที่ต้องใช้ในการสมัคร
+        </div>
+        <ul className="list-decimal p-3 md:p-5 leading-loose text-purple-700 text-xs md:text-xl md:space-y-3">
+          <li>รูปนักเรียนขนาด 1.5 นิ้ว</li>
+          <li>สำเนาบัตรปชชผู้เข้าร่วมเฉพาะด้านหน้า / บัตรนักเรียน พร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย</li>
+          <li>ปพ.7 ของผู้เข้าแข่งขันตัวจริง</li>
+          <li>หนังสือรับรองของอาจารย์ที่ปรึกษาตัวจริง</li>
+        </ul>
+      </div> 
     </section>
   );
 };
