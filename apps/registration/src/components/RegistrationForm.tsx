@@ -25,7 +25,7 @@ export const RegistrationForm = () => {
     const intervalId = setInterval(() => {
       if (!saveButtonRef.current) return;
       saveButtonRef.current.click();
-    }, 1000 * 3);
+    }, 1000 * 30);
     setAutoSaveInterval(intervalId);
   };
 
