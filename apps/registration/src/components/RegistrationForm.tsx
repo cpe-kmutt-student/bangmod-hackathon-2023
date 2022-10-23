@@ -18,6 +18,7 @@ export type RegistrationFormData = {
 };
 
 export const RegistrationForm = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
   const [autoSaveInterval, setAutoSaveInterval] = useState<NodeJS.Timer>();
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -100,6 +101,14 @@ export const RegistrationForm = () => {
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
+    
+    if (!formRef.current) return;
+    
+    const isFormValid = formRef.current.checkValidity();
+    if (!isFormValid) {
+      formRef.current.reportValidity();
+      return;
+    }
 
     MySwal.fire({
       title: 'ยืนยันการบันทึกข้อมูล',
@@ -130,7 +139,7 @@ export const RegistrationForm = () => {
       <div className="flex w-full flex-col md:mx-12 z-20">
         <RegisterHeader />
 
-        <form onSubmit={handleAutoSave}>
+        <form ref={formRef} onSubmit={handleAutoSave}>
           <TeamForm
             isComplete={(teamFormData[0].isComplete && !isEditing) || false}
             data={teamFormData}
@@ -162,6 +171,7 @@ export const RegistrationForm = () => {
                 </button>
               :
                 <button
+                  type="submit"
                   onClick={(e) => handleSubmit(e)}
                   className="px-4 py-3 rounded-xl bg-black hover:bg-gray-900 text-white drop-shadow-lg"
                 >
