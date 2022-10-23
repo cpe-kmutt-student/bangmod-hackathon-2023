@@ -9,7 +9,7 @@ datasource db {
 
 model Auth {
   email      String   @id
-  sessionId  String   @unique
+  sessionId  String
   name       String
   picture    String
   expiryDate DateTime
