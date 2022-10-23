@@ -14,7 +14,7 @@ export const ContactSection = () => {
     <section ref={ref} id="contact-section" className="h-full py-24 pb-52">
       <div>
         <div className="py-4 text-6xl text-center text-white font-bold mb-12">
-          <h1>NEED HELPS?</h1>
+          <h1>NEED HELP?</h1>
         </div>
 
         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-24">
@@ -39,15 +39,15 @@ export const ContactSection = () => {
             </div>
             <div className="flex flex-col justify-center text-white">
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0945169692">0945169692</a>
+                <a href="tel:0945169692">09-4516-9692</a>
                 <div>(พี่เจต)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0982725713">0982725713</a>
+                <a href="tel:0982725713">09-8272-5713</a>
                 <div>(พี่ปัน)</div>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <a href="tel:0939416441">0939416441</a>
+                <a href="tel:0939416441">09-3941-6441</a>
                 <div>(พี่เฟรนด์)</div>
               </div>
             </div>
@@ -56,7 +56,7 @@ export const ContactSection = () => {
 
         <div className="mt-12 text-center font-bold text-white">
           <p>ภาควิชาวิศวกรรมคอมพิวเตอร์ คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
-          <p>ชั้น 10 อาคารวิศววัฒนะ 126ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140</p>
+          <p>ชั้น 10 อาคารวิศววัฒนะ 126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพฯ 10140</p>
         </div>
       </div>
     </section>

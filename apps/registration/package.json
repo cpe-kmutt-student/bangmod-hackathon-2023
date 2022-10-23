@@ -13,6 +13,8 @@
     "api-schema": "*",
     "axios": "^1.1.2",
     "react-router-dom": "6",
+    "sweetalert2": "^11.6.1",
+    "sweetalert2-react-content": "^5.0.5",
     "vite-preact-ts": "*"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import { FileService } from '@/service/FileService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
-import { AllowFile, FileType } from '@/utils/decorator/FileDecorator';
-import { FileGetApiSchema } from 'api-schema';
+import { AccpetedFileType, AllowFile } from '@/utils/decorator/FileDecorator';
+import { FileGetApiSchema, FilePostApiSchema } from 'api-schema';
 import http from 'http';
 import { BadRequestException, Controller, ControllerMapping, Methods, NotFoundException, Request, Response, RouteMapping, UnauthorizedException } from 'springpress';
 
@@ -16,21 +16,24 @@ export class FileController extends Controller {
   }
 
   @RequireAuth()
-  @AllowFile(FileType.DOCUMENT, false)
+  @AllowFile(AccpetedFileType.DOCUMENT, false)
   @RouteMapping('/document', Methods.POST)
-  private async uploadRegistrationDocument(req: Request, res: Response) {
+  private async uploadRegistrationDocument(req: Request<FilePostApiSchema>, res: Response) {
+    const stackError = (req as any).error;
+    if (stackError) throw new Error('Parsing file error');
+    
     if (!req.file) throw new BadRequestException('No provided file');
-    await this.fileService.rememberFile(req.session!, req.file);
-    res.status(200).json({ success: true });
-  }
+    if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
 
-  @RequireAuth()
-  @AllowFile(FileType.SOURCECODE, false)
-  @RouteMapping('/sourcecode', Methods.POST)
-  private async uploadSourceCode(req: Request, res: Response) {
-    if (!req.file) throw new BadRequestException('No provided file');
-    await this.fileService.rememberFile(req.session!, req.file);
-    res.status(200).json({ success: true });
+    const session = req.session!;
+    const fileType = Number.parseInt(req.query.type);
+
+    const hashedEmail = this.fileService.getHashedEmail(session.email);
+    const fileId = await this.fileService.rememberFile(session, req.file, fileType);
+
+    if (!fileId) throw new BadRequestException('Cannot upload this file');
+
+    res.status(200).json({ url: `/file/storage/${hashedEmail}/${fileId}/${req.file.originalname}` });
   }
 
   @RequireAuth()

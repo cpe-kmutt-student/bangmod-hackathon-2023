@@ -38,307 +38,315 @@ const InputFile = () => {
 };
 
 export type StudentFormDataWithFile = StudentFormData & {
-  selfImageAttachment: FileList | null;
-  idCardAttachment: FileList | null;
-  pp7Attachment: FileList | null;
+  selfImageAttachment?: FileList | null;
+  idCardAttachment?: FileList | null;
+  pp7Attachment?: FileList | null;
 };
 
-export const defaultStudentFormData = {
-  prefixTH: "",
-  nameTH: "",
-  middleNameTH: "",
-  surnameTH: "",
-  prefixEN: "",
-  nameEN: "",
-  middleNameEN: "",
-  surnameEN: "",
-  nicknameTH: "",
+export const defaultStudentFormData: StudentFormDataWithFile = {
+  prefixTh: "",
+  firstnameTh: "",
+  middleNameTh: "",
+  surnameTh: "",
+  prefixEn: "",
+  firstnameEn: "",
+  middleNameEn: "",
+  surnameEn: "",
+  nickname: "",
   grade: "",
-  coolQuote: "",
+  quote: "",
   email: "",
-  phone: "",
-  line: "",
-  preferFood: "",
-  allergyFood: "",
-  allergyDrug: "",
-  medicalProblem: "",
+  phoneNumber: "",
+  lineId: "",
+  foodType: "",
+  foodAllergy: "",
+  drugAllergy: "",
+  disease: "",
   selfImageAttachment: null,
   idCardAttachment: null,
   pp7Attachment: null,
 };
 
 type StudentFromProps = {
+  isComplete: boolean,
   data: StudentFormDataWithFile[];
   setData: StateUpdater<StudentFormDataWithFile[]>;
   index: number;
 };
 
-export const StudentForm = ({ data, setData, index }: StudentFromProps) => {
+export const StudentForm = ({ isComplete, data, setData, index }: StudentFromProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
-      <img className="w-64 absolute top-2/3 left-0 transform -translate-x-44 scale-75 opacity-70" src="flower.svg" alt="" />
-      <img className="w-64 absolute bottom-0 right-0 transform translate-x-40 opacity-70" src="flower.svg" alt="" />
+      {isComplete && <div className="z-20 absolute w-full h-full bg-gray-700 bg-opacity-60 rounded-[20px]"></div>}
 
-      <h1 className="bg-white rounded-t-[20px] px-5 py-4 md:pl-6 text-2xl font-bold text-center md:text-left text-[#6c30a4]">
-        รายละเอียดสมาชิกคนที่ {index + 1}
-      </h1>
+      <div className="z-10">
+        <img className="w-64 absolute top-2/3 left-0 transform -translate-x-44 scale-75 opacity-70" src="flower.svg" alt="" />
+        <img className="w-64 absolute bottom-0 right-0 transform translate-x-40 opacity-70" src="flower.svg" alt="" />
 
-      <div className="text-white my-5 md:px-6 md:py-4">
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <DropDown
-            obj={data[index].prefixTH}
-            setObj={setData}
-            name="prefixTH"
-            label="คำนำหน้า"
-            options={[
-              { label: "นาย", value: "นาย" },
-              { label: "นาง", value: "นาง" },
-              { label: "นางสาว", value: "นางสาว" },
-            ]}
-            required
-            width="w-full md:w-[13%]"
-            index={index}
-          />
-          <InputBox
-            obj={data[index].nameTH}
-            setObj={setData}
-            name="nameTH"
-            label="ชื่อจริง (ภาษาไทย)"
-            placeholder="ชื่อจริง"
-            width="w-full md:w-[27%]"
-            required
-            index={index}
-          />
-          <InputBox
-            obj={data[index].middleNameTH}
-            setObj={setData}
-            name="middleNameTH"
-            label="ชื่อกลาง (ภาษาไทย)"
-            placeholder="ชื่อกลาง"
-            width="w-full md:w-[27%]"
-            required={false}
-            index={index}
-          />
-          <InputBox
-            obj={data[index].surnameTH}
-            setObj={setData}
-            name="surnameTH"
-            label="นามสกุล (ภาษาไทย)"
-            placeholder="นามสกุล"
-            width="w-full md:w-[27%]"
-            required
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <DropDown
-            obj={data[index].prefixEN}
-            setObj={setData}
-            name="prefixEN"
-            label="Prefix"
-            options={[
-              { label: "Mr.", value: "Mr." },
-              { label: "Mrs.", value: "Mrs." },
-              { label: "Miss.", value: "Miss." },
-            ]}
-            required
-            width="w-full md:w-[13%]"
-            index={index}
-          />
-
-          <InputBox
-            obj={data[index].nameEN}
-            setObj={setData}
-            name="nameEN"
-            label="ชื่อจริง (ภาษาอังกฤษ)"
-            placeholder="Firstname"
-            width="w-full md:w-[27%]"
-            required
-            index={index}
-          />
-
-          <InputBox
-            obj={data[index].middleNameEN}
-            setObj={setData}
-            name="middleNameEN"
-            label="ชื่อกลาง (ภาษาอังกฤษ)"
-            placeholder="Middle Name"
-            width="w-full md:w-[27%]"
-            required={false}
-            index={index}
-          />
-
-          <InputBox
-            obj={data[index].surnameEN}
-            setObj={setData}
-            name="surnameEN"
-            label="นามสกุล (ภาษาอังกฤษ)"
-            placeholder="Surname"
-            width="w-full md:w-[27%]"
-            required
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <InputBox
-            obj={data[index].nicknameTH}
-            setObj={setData}
-            name="nicknameTH"
-            label="ชื่อเล่น (ภาษาไทย)"
-            placeholder="Nickname"
-            width="w-full md:w-[25%]"
-            required
-            index={index}
-          />
-          <InputBox
-            obj={data[index].grade}
-            setObj={setData}
-            name="grade"
-            label="ระดับชั้น"
-            placeholder="ระดับชั้น"
-            width="w-full md:w-[20%]"
-            required
-            index={index}
-          />
-          <InputBox
-            obj={data[index].coolQuote}
-            setObj={setData}
-            name="coolQuote"
-            label="คำคมประจำใจ"
-            placeholder="คำคมประจำใจ"
-            width="w-full md:w-[51%]"
-            required
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <EmailInputbox
-            obj={data[index].email}
-            setObj={setData}
-            name="email"
-            label="E-mail"
-            placeholder="E-mail"
-            width="w-full md:w-[30%]"
-            required
-            index={index}
-          />
-
-          <PhoneInput
-            obj={data[index].phone}
-            setObj={setData}
-            name="phone"
-            label="เบอร์โทรศัพท์"
-            placeholder="เบอร์โทรศัพท์"
-            width="w-full md:w-[25%]"
-            required
-            index={index}
-          />
-          <InputBox
-            obj={data[index].line}
-            setObj={setData}
-            name="line"
-            label="LINE ID"
-            placeholder="LINE ID"
-            width="w-full md:w-[41%]"
-            required
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <InputBox
-            obj={data[index].preferFood}
-            setObj={setData}
-            name="preferFood"
-            label="ประเภทอาหาร"
-            placeholder="เช่น ฮาลาล มังสวิรัติ"
-            width="w-full md:w-[49%]"
-            required={false}
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <InputBox
-            obj={data[index].allergyFood}
-            setObj={setData}
-            name="allergyFood"
-            label="อาหารที่แพ้"
-            placeholder="อาหารที่แพ้"
-            width="w-full md:w-[49%]"
-            required={false}
-            index={index}
-          />
-
-          <InputBox
-            obj={data[index].allergyDrug}
-            setObj={setData}
-            name="allergyDrug"
-            label="ยาที่แพ้"
-            placeholder="ยาที่แพ้"
-            width="w-full md:w-[49%]"
-            required={false}
-            index={index}
-          />
-        </div>
-
-        <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
-          <TextAreaBox
-            obj={data[index].medicalProblem}
-            setObj={setData}
-            name="medicalProblem"
-            label="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
-            placeholder="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
-            width="w-full"
-            required={false}
-            index={index}
-          />
-        </div>
-
-        <h1 className="text-white pt-2 pl-6 md:pl-0 md:text-2xl font-bold">
-          แนบไฟล์เอกสาร
+        <h1 className="bg-white rounded-t-[20px] px-5 py-4 md:pl-6 text-2xl font-bold text-center md:text-left text-[#6c30a4]">
+          รายละเอียดสมาชิกคนที่ {index + 1}
         </h1>
-        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
-          1. รูปนักเรียนขนาด 1.5นิ้ว
-          <span className="text-[#ffdc19]">
-                *
-          </span>
-        </h2>
-        <ImageInputBox
-          obj={data[index].selfImageAttachment}
-          setObj={setData}
-          name="selfImageAttachment"
-          index={index}
-        />
-        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
-          2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
-          หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
-          <span className="text-[#ffdc19]">
-                *
-          </span>
-        </h2>
-        <ImageInputBox
-          obj={data[index].idCardAttachment}
-          setObj={setData}
-          name="idCardAttachment"
-          index={index}
-        />
-        <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
-          3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
-          <span className="text-[#ffdc19]">
-                *
-          </span>
-        </h2>
-        {/* <InputFile /> */}
-        <ImageInputBox
-          obj={data[index].pp7Attachment}
-          setObj={setData}
-          name="pp7Attachment"
-          index={index}
-        />
+
+        <div className="text-white my-5 md:px-6 md:py-4">
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <DropDown
+              obj={data[index].prefixTh}
+              setObj={setData}
+              name="prefixTh"
+              label="คำนำหน้า"
+              options={[
+                { label: "นาย", value: "นาย" },
+                { label: "นาง", value: "นาง" },
+                { label: "นางสาว", value: "นางสาว" },
+              ]}
+              required
+              width="w-full md:w-[13%]"
+              index={index}
+            />
+            <InputBox
+              obj={data[index].firstnameTh}
+              setObj={setData}
+              name="firstnameTh"
+              label="ชื่อจริง (ภาษาไทย)"
+              placeholder="ชื่อจริง"
+              width="w-full md:w-[27%]"
+              required
+              index={index}
+            />
+            <InputBox
+              obj={data[index].middleNameTh}
+              setObj={setData}
+              name="middleNameTh"
+              label="ชื่อกลาง (ภาษาไทย)"
+              placeholder="ชื่อกลาง"
+              width="w-full md:w-[27%]"
+              required={false}
+              index={index}
+            />
+            <InputBox
+              obj={data[index].surnameTh}
+              setObj={setData}
+              name="surnameTh"
+              label="นามสกุล (ภาษาไทย)"
+              placeholder="นามสกุล"
+              width="w-full md:w-[27%]"
+              required
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <DropDown
+              obj={data[index].prefixEn}
+              setObj={setData}
+              name="prefixEn"
+              label="Prefix"
+              options={[
+                { label: "Mr.", value: "Mr." },
+                { label: "Mrs.", value: "Mrs." },
+                { label: "Miss.", value: "Miss." },
+              ]}
+              required
+              width="w-full md:w-[13%]"
+              index={index}
+            />
+
+            <InputBox
+              obj={data[index].firstnameEn}
+              setObj={setData}
+              name="firstnameEn"
+              label="ชื่อจริง (ภาษาอังกฤษ)"
+              placeholder="Firstname"
+              width="w-full md:w-[27%]"
+              required
+              index={index}
+            />
+
+            <InputBox
+              obj={data[index].middleNameEn}
+              setObj={setData}
+              name="middleNameEn"
+              label="ชื่อกลาง (ภาษาอังกฤษ)"
+              placeholder="Middle Name"
+              width="w-full md:w-[27%]"
+              required={false}
+              index={index}
+            />
+
+            <InputBox
+              obj={data[index].surnameEn}
+              setObj={setData}
+              name="surnameEn"
+              label="นามสกุล (ภาษาอังกฤษ)"
+              placeholder="Surname"
+              width="w-full md:w-[27%]"
+              required
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <InputBox
+              obj={data[index].nickname}
+              setObj={setData}
+              name="nickname"
+              label="ชื่อเล่น (ภาษาไทย)"
+              placeholder="Nickname"
+              width="w-full md:w-[25%]"
+              required
+              index={index}
+            />
+            <InputBox
+              obj={data[index].grade}
+              setObj={setData}
+              name="grade"
+              label="ระดับชั้น"
+              placeholder="ระดับชั้น"
+              width="w-full md:w-[20%]"
+              required
+              index={index}
+            />
+            <InputBox
+              obj={data[index].quote}
+              setObj={setData}
+              name="quote"
+              label="คำคมประจำใจ"
+              placeholder="คำคมประจำใจ"
+              width="w-full md:w-[51%]"
+              required
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <EmailInputbox
+              obj={data[index].email}
+              setObj={setData}
+              name="email"
+              label="E-mail"
+              placeholder="E-mail"
+              width="w-full md:w-[30%]"
+              required
+              index={index}
+            />
+
+            <PhoneInput
+              obj={data[index].phoneNumber}
+              setObj={setData}
+              name="phoneNumber"
+              label="เบอร์โทรศัพท์"
+              placeholder="เบอร์โทรศัพท์"
+              width="w-full md:w-[25%]"
+              required
+              index={index}
+            />
+            <InputBox
+              obj={data[index].lineId}
+              setObj={setData}
+              name="lineId"
+              label="LINE ID"
+              placeholder="LINE ID"
+              width="w-full md:w-[41%]"
+              required
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <InputBox
+              obj={data[index].foodType}
+              setObj={setData}
+              name="foodType"
+              label="ประเภทอาหาร"
+              placeholder="เช่น ฮาลาล มังสวิรัติ"
+              width="w-full md:w-[49%]"
+              required={false}
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <InputBox
+              obj={data[index].foodAllergy}
+              setObj={setData}
+              name="foodAllergy"
+              label="อาหารที่แพ้"
+              placeholder="อาหารที่แพ้"
+              width="w-full md:w-[49%]"
+              required={false}
+              index={index}
+            />
+
+            <InputBox
+              obj={data[index].drugAllergy}
+              setObj={setData}
+              name="drugAllergy"
+              label="ยาที่แพ้"
+              placeholder="ยาที่แพ้"
+              width="w-full md:w-[49%]"
+              required={false}
+              index={index}
+            />
+          </div>
+
+          <div className="flex md:pb-4 flex-col md:flex-row md:justify-between">
+            <TextAreaBox
+              obj={data[index].disease}
+              setObj={setData}
+              name="disease"
+              label="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
+              placeholder="โรคประจำตัวและวิธีปฐมพยาบาลเบื้องต้น"
+              width="w-full"
+              required={false}
+              index={index}
+            />
+          </div>
+
+          <h1 className="text-white pt-2 pl-6 md:pl-0 md:text-2xl font-bold">
+            แนบไฟล์เอกสาร
+          </h1>
+          <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
+            1. รูปนักเรียนขนาด 1.5นิ้ว
+            <span className="text-[#ffdc19]">
+              *
+            </span>
+          </h2>
+          <ImageInputBox
+            obj={data[index].selfImageAttachment || null}
+            setObj={setData}
+            name="selfImageAttachment"
+            attachmentType={1}
+            index={index}
+          />
+          <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
+            2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
+            หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
+            <span className="text-[#ffdc19]">
+              *
+            </span>
+          </h2>
+          <ImageInputBox
+            obj={data[index].idCardAttachment || null}
+            setObj={setData}
+            name="idCardAttachment"
+            attachmentType={2}
+            index={index}
+          />
+          <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
+            3. ปพ.7 ของผู้เข้าแข่งขันตัวจริง
+            <span className="text-[#ffdc19]">
+              *
+            </span>
+          </h2>
+          {/* <InputFile /> */}
+          <ImageInputBox
+            obj={data[index].pp7Attachment || null}
+            setObj={setData}
+            name="pp7Attachment"
+            attachmentType={3}
+            index={index}
+          />
+        </div>
       </div>
     </div>
   );

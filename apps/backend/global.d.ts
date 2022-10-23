@@ -27,7 +27,6 @@ declare global {
       allowMultipartFormData?: {
         allowMultiple: boolean,
         isDocument?: boolean,
-        isSourceCode?: boolean,
       };
     }
   }

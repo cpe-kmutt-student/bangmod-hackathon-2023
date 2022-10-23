@@ -1,15 +1,19 @@
 import { AuthController } from '@/controller/AuthController';
 import { FileController } from '@/controller/FileController';
 import { IndexController } from '@/controller/IndexController';
+import { InputController } from '@/controller/InputController';
 import { DatabaseConnector } from '@/database/DatabaseConnector';
 import { FileRepository } from '@/database/repository/FileRepository';
+import { ParticipantRepository } from '@/database/repository/ParticipantRepository';
 import { SessionRepository } from '@/database/repository/SessionRepository';
+import { TeamRepository } from '@/database/repository/TeamRepository';
 import { AuthMiddleware } from '@/middleware/AuthMiddleware';
 import { CompressionMiddleware } from '@/middleware/CompressionMiddleware';
 import { DevCorsMiddleware } from '@/middleware/DevCorsMiddleware';
 import { FileMiddleware } from '@/middleware/FileMiddleware';
 import { AuthService } from '@/service/AuthService';
 import { FileService } from '@/service/FileService';
+import { InputService } from '@/service/InputService';
 import { CookieProvider } from '@/utils/cookies/CookieProvider';
 import { SeaweedClient } from '@/utils/seaweedfs/SeaweedClient';
 import { Controller, Middleware, Springpress } from 'springpress';
@@ -36,14 +40,26 @@ export class Server extends Springpress {
   private readonly fileService    = new FileService(this.fileRepository, this.seaweedClient);
   private readonly fileMiddleware = new FileMiddleware(this.fileService);
 
+  private readonly participantRepository = new ParticipantRepository(this.databaseClient);
+  private readonly teamRepository = new TeamRepository(this.databaseClient);
+  private readonly inputService = new InputService(this.participantRepository, this.teamRepository);
+
   public async onStartup(): Promise<void> {
-    console.log(`Connecting to the database...`);
-    await this.databaseConnector.connect();
+    try {
+      console.log(`Connecting to the database...`);
+      await this.databaseConnector.connect();
 
-    console.log(`Registering all controllers...`);
-    this.registerControllers();
+      console.log(`Connecting to file storage system...`);
+      await this.seaweedClient.healthCheck();
 
-    console.log(`Listening on port ${this.getPort()}`);
+      console.log(`Registering all controllers...`);
+      this.registerControllers();
+
+      console.log(`Listening on port ${this.getPort()}`);
+    } catch (error) {
+      console.error(error);
+      process.exit(1);
+    }
   }
 
   private registerControllers(): void {
@@ -64,8 +80,9 @@ export class Server extends Springpress {
 
     registry.registerGlobalMiddleware(new CompressionMiddleware());
     register(new IndexController());
-    registerWithAuthMiddleware(new AuthController(this.authService));
+    registerWithAuthMiddleware(new AuthController(this.authService, this.inputService));
     registerWithAuthMiddleware(new FileController(this.fileService), this.fileMiddleware);
+    registerWithAuthMiddleware(new InputController(this.inputService));
   }
   
 }
