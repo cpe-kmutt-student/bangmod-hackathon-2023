@@ -103,7 +103,7 @@ export const TimeLineSection = () => {
         <div className="grid grid-cols-9 lg:grid-rows-5 lg:col-span-2 lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
-              title="การแข่งขันรอบ Semi Final และรอบชิงชนะเลิศ (On-site)"
+              title="การแข่งขันรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ (On-site)"
               display="19 Jan 2023"
               startTime="19 Jan 2023 00:00:00 GMT+0700"
               endTime="19 Jan 2023 23:59:59 GMT+0700"
@@ -128,7 +128,7 @@ export const TimeLineSection = () => {
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
-              title="ประกาศผลผู้ผ่านการคัดเลือกรอบ Semi Final และชิงชนะเลิศ"
+              title="ประกาศผลผู้ผ่านการคัดเลือกรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ"
               display="19 Jan 2023"
               startTime="19 Jan 2023 00:00:00 GMT+0700"
               endTime="19 Jan 2023 23:59:59 GMT+0700"

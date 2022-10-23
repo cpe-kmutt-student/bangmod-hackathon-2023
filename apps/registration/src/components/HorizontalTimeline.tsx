@@ -27,7 +27,7 @@ const UpperHorizontalTimeline = () => {
       />
       <div className="col-span-3" />
       <Card
-        header="การแข่งขันรอบ Semi Final และรอบชิงชนะเลิศ (On-Site)" 
+        header="การแข่งขันรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ (On-Site)" 
         small
         display="19 Jan 2023"
         startTime="19 Jan 2023 00:00:00 GMT+0700"
@@ -57,7 +57,7 @@ const LowerHorizontalTimeline = () => {
       />
       <div className="col-span-3" />
       <Card
-        header="ประกาศผลผู้ผ่านการคัดเลือกรอบ Semi Final และชิงชนะเลิศ"
+        header="ประกาศผลผู้ผ่านการคัดเลือกรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ"
         small
         display="19 Jan 2023"
         startTime="19 Jan 2023 00:00:00 GMT+0700"
