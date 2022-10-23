@@ -19,6 +19,9 @@ export class FileController extends Controller {
   @AllowFile(AccpetedFileType.DOCUMENT, false)
   @RouteMapping('/document', Methods.POST)
   private async uploadRegistrationDocument(req: Request<FilePostApiSchema>, res: Response) {
+    const stackError = (req as any).error;
+    if (stackError) throw new Error('Parsing file error');
+    
     if (!req.file) throw new BadRequestException('No provided file');
     if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
 
