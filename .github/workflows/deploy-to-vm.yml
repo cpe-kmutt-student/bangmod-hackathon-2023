@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASS }}
           rm: true
-          source: "apps/dashboard/dist/*,apps/registration/dist/*"
+          source: "apps/registration/dist/*"
           target: "/var/www/dev.bmh.kmutt.in.th/html/${{ inputs.context }}"
           strip_components: 3
       
@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASS }}
           rm: true
-          source: "apps/dashboard/dist/*,apps/registration/dist/*"
+          source: "apps/registration/dist/*"
           target: "/var/www/bmh.kmutt.in.th/html/${{ inputs.context }}"
           strip_components: 3
           
