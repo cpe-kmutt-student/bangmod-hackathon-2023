@@ -51,7 +51,7 @@ const InputName =({
       />
 
       {isValid ? (
-          <span className="text-red-700">Please enter valid name.</span>
+          <span className="text-red-400">กรุณาใช้ภาษาไทยหรืออังกฤษเท่านั้น</span>
         ) : (
           <label></label>
         )}

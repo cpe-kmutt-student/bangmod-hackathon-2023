@@ -56,7 +56,7 @@ const EmailInputbox = <T,>({
         />
 
         {isValid ? (
-          <span className="text-red-500">Please enter valid email.</span>
+          <span className="text-red-400">กรุณากรอก E-mail ให้ถูกต้อง</span>
         ) : (
           <label></label>
         )}

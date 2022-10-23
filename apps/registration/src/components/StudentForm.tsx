@@ -2,6 +2,7 @@ import DropDown from "@/components/DropDown";
 import EmailInputbox from '@/components/EmailInputbox';
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
+import PhoneInput from '@/components/PhoneInput';
 import TextAreaBox from "@/components/TextAreaBox";
 import { StudentFormData } from 'api-schema';
 import { StateUpdater } from "preact/hooks";
@@ -229,7 +230,7 @@ export const StudentForm = ({ isComplete, data, setData, index }: StudentFromPro
               index={index}
             />
 
-            <InputBox
+            <PhoneInput
               obj={data[index].phoneNumber}
               setObj={setData}
               name="phoneNumber"

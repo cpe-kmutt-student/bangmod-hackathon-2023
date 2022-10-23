@@ -57,7 +57,7 @@ const PhoneInput = <T,>({
         {isValid ? (
           <div></div>
         ) : (
-          <span className="text-sm text-red-500 z-5">Please Enter Phone</span>
+          <span className="text-sm text-red-400 z-5">กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง</span>
         )}
       </div>
     </div>
