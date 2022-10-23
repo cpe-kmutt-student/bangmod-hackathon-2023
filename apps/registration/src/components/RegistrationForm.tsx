@@ -20,6 +20,7 @@ export type RegistrationFormData = {
 export const RegistrationForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const saveButtonRef = useRef<HTMLButtonElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [autoSaveInterval, setAutoSaveInterval] = useState<NodeJS.Timer>();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [teamFormData, setTeamFormData] = useState<TeamFormDataWithFile[]>([]);
@@ -45,12 +46,13 @@ export const RegistrationForm = () => {
         setTeamFormData([response.data.team]);
         setAdvisorFormData([response.data.advisor]);
         setStudentFormsData(response.data.students);
+        setIsLoading(false);
       })
       .catch((error) => console.error(error));
     return () => stopAutoSave();
   }, []);
 
-  if (teamFormData.length === 0 || advisorFormData.length === 0 || studentFormsData.length === 0) {
+  if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center mt-24 text-white">
         <Spinner style="w-12" />
