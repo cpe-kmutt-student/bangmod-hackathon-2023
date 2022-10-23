@@ -7,6 +7,10 @@ import { TeamForm, TeamFormDataWithFile } from "@/components/TeamForm";
 import { fetch } from '@/utils/Fetch';
 import { AdvisorFormData } from 'api-schema';
 import { useEffect, useRef, useState } from "preact/hooks";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 export type RegistrationFormData = {
   students: StudentFormDataWithFile[],
@@ -82,13 +86,31 @@ export const RegistrationForm = () => {
 
     fetch
       .post('/input/save', payload)
-      .then((response) => {})
+      .then(() => {
+        if (isComplete) {
+          MySwal.fire({
+            title: 'บันทึกข้อมูลสำเร็จ',
+            text: 'คุณสามารถกลับมาแก้ไขข้อมูลได้จนกว่าจะปิดรับสมัคร',
+            icon: 'success',
+          })
+        }
+      })
       .catch((error) => console.error(error));
   };
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
-    save(true);
+
+    MySwal.fire({
+      title: 'ยืนยันการบันทึกข้อมูล',
+      confirmButtonText: 'บันทึก',
+      showDenyButton: true,
+      denyButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        save(true);
+      }
+    });
   };
 
   const handleAutoSave = (e: Event) => {
