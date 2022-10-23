@@ -14,16 +14,16 @@ export const TimeLineSection = () => {
   }, [isVisible]);
 
   return (
-    <section ref={ref} id="timeline-section" className="h-full py-12 lg:py-24">
+    <section ref={ref} id="timeline-section" className="h-full md:h-screen flex flex-col justify-center items-center py-12 lg:py-24">
       <div className="w-fit mx-auto mb-8 px-8  py-4 bg-yellow-600 rounded-xl text-base lg:text-2xl text-white font-bold shadow-xl text-center">
         ไทม์ไลน์
       </div>
 
-      <div className="hidden sm:flex flex-col space-y-2">
+      <div className="hidden md:flex flex-col space-y-2">
         <HorizontalTimeline />
       </div>
 
-      <div className="sm:hidden relative h-full w-full place-items-center">
+      <div className="md:hidden relative h-full w-full place-items-center">
         <div className="absolute h-full w-full flex items-center justify-center">
           <div className="bg-white w-2 h-full lg:w-full lg:h-3 rounded-xl"></div>
         </div>

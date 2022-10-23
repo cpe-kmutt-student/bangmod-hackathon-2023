@@ -1,7 +1,7 @@
 import { ParticipantRepository } from '@/database/repository/ParticipantRepository';
 import { TeamRepository } from '@/database/repository/TeamRepository';
+import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from '@bmh2023/api-schema';
 import { Participant, Team } from '@prisma/client';
-import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from 'api-schema';
 
 export type PartialRegisForm = {
   students: Partial<StudentFormData>[],
@@ -24,7 +24,7 @@ export class InputService {
 
   private excludeEmpty<T extends Object>(object: T): Partial<T> {
     return Object.fromEntries(Object.entries(object).filter(([key, value]) => {
-      return value !== null && value !== undefined && value !== '';
+      return value !== null && value !== undefined && value !== '' && value !== 0;
     })) as Partial<T>;
   }
 
@@ -63,18 +63,19 @@ export class InputService {
   }
 
   private validInput(data: PartialRegisForm): boolean {
-    if (!this.validKey(data)) return false;
+    if (!this.validKey(data)) throw Error('Have invalid key');
 
     const { students, team, advisor } = data;
     if (!students || !team || !advisor) return false;
 
-    if (!team.amount) return false;
-    team.amount = Number.parseInt(team.amount.toString());
+    if (typeof team.amount === 'string') {
+      team.amount = Number.parseInt(team.amount);
+    }
 
     if (team.amount && (team.amount !== 2 && team.amount !== 3)) return false;
     if (!!team.isComplete && typeof team.isComplete !== 'boolean') return false;
-    if(team.school && !this.validDefault(team.school)) return false;
-    if(team.name && !this.validDefault(team.name)) return false;
+    if (team.school && !this.validDefault(team.school)) return false;
+    if (team.name && !this.validDefault(team.name)) return false;
 
     this.validParticipant(advisor);
 
@@ -165,7 +166,18 @@ export class InputService {
 
     const students = await this.participantRepository.getStudentsDataIntoFormByTeamId(team.id);
     const advisor = await this.participantRepository.getAdvisorDataIntoFormByTeamId(team.id);
-    const teamFormData = { ...getTeamForm, amount: students.length };
+
+    let studentFormCount = 0;
+    let studentLength = 0;
+
+    students.forEach((student) => {
+      if(!this.checkStudentNull(student)) studentFormCount += 1;
+    });
+
+    if (studentFormCount === 3) studentLength = 3;
+    else if (studentFormCount === 1 || studentFormCount === 2) studentLength = 2;
+
+    const teamFormData = { ...getTeamForm, amount: studentLength };
 
     let advisorFormData: AdvisorFormData;
     if (advisor) {
@@ -227,6 +239,7 @@ export class InputService {
 
   private async saveTeamByEmail(email: string, team: Partial<TeamFormData>): Promise<number> {
     if (!!team.amount) delete team.amount;
+
     const dataToSave: Partial<Team> = { ...team };
     const searchTeam = await this.teamRepository.getTeamByEmail(email);
 
@@ -252,37 +265,57 @@ export class InputService {
     const participants = await this.participantRepository.getStudentsDataByTeamId(teamId);
     const dataStudents: Partial<Participant>[] = students.filter((dataStudent) => Object.keys(dataStudent).length !== 0);
 
+    let databaseNotNullCount = 0;
+
+    participants.forEach((participant) => {
+      if(!this.checkStudentNull(participant)) databaseNotNullCount += 1;
+    });
+
     // Never have students in database
     if (participants.length === 0) {
       dataStudents.forEach((dataStudent) => dataStudent.teamId = teamId);
       await this.participantRepository.createStudents(dataStudents);
-    } else if (participants.length === dataStudents.length) {
+    } else if (databaseNotNullCount === dataStudents.length) {
       for (let i = 0; i < dataStudents.length; i++) {
         await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
       }
-    } else if (participants.length > dataStudents.length) {
-      for (let i = participants.length - 1; i >= dataStudents.length; i--) {
-        await this.participantRepository.deleteParticipantById(participants[i].id);
+    } else if (databaseNotNullCount > dataStudents.length) {
+      for (let i = databaseNotNullCount - 1; i >= dataStudents.length; i--) {
+        await this.participantRepository.setStudentDataToNullById(participants[i].id);
       }
       for (let i = 0; i < dataStudents.length; i++) {
         await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
       }
     } else {
-      // Case dataStudent.length > database.length
-      for (let i = 0; i < participants.length; i++) {
+      for (let i = 0; i < dataStudents.length; i++) {
         await this.participantRepository.updateParticipantById(participants[i].id, dataStudents[i]);
-      }
-      for (let i = participants.length; i < dataStudents.length; i++) {
-        await this.participantRepository.createStudent(dataStudents[i], teamId);
       }
     }
   }
 
-  public async createTeamIfNotPresent(email: string) {
-    const team = await this.teamRepository.getTeamByEmail(email);
-    if (team) return;
+  private checkStudentNull(student: any): boolean {
+    if (typeof (student) !== 'object' || Object.keys(student).length === 0) return false;
+    for (const key in student) {
+      if (!['id', 'teamId', 'isAdvisor'].includes(key) && student[key] !== null) return false;
+    }
+    return true;
+  }
 
-    await this.teamRepository.createEmptyTeam(email);
+  public async createTeamIfNotPresent(email: string): Promise<number> {
+    const team = await this.teamRepository.getTeamByEmail(email);
+    if (team) return team.id;
+
+    const createTeam = await this.teamRepository.createEmptyTeam(email);
+    return createTeam.id;
+  }
+
+  public async createParticipantsIfNotPresent(teamId: number) {
+
+    const participants = await this.participantRepository.getParticipantsByTeamId(teamId);
+
+    if (participants.length !== 0) return;
+
+    await this.participantRepository.createEmptyParticipants(teamId);
   }
 
 }

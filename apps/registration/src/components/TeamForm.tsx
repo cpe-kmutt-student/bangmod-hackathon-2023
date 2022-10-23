@@ -3,7 +3,8 @@ import EmailInputbox from "@/components/EmailInputbox";
 import ImageInputBox from "@/components/ImageInputBox";
 import InputBox from "@/components/Inputbox";
 import PhoneInput from "@/components/PhoneInput";
-import { AdvisorFormData, TeamFormData } from 'api-schema';
+import { UploadedFile } from '@/components/RegistrationForm';
+import { AdvisorFormData, TeamFormData } from '@bmh2023/api-schema';
 import { StateUpdater } from "preact/hooks";
 
 export type TeamFormDataWithFile = TeamFormData & {
@@ -38,6 +39,7 @@ type TeamFormProps = {
   setData: StateUpdater<TeamFormDataWithFile[]>;
   advisor: AdvisorFormData[],
   setAdvisor: StateUpdater<AdvisorFormData[]>;
+  files: UploadedFile[],
 };
 
 export const TeamForm = ({
@@ -46,6 +48,7 @@ export const TeamForm = ({
   setData,
   advisor,
   setAdvisor,
+  files,
 }: TeamFormProps) => {
   return (
     <div className="bg-white bg-opacity-20 drop-shadow-lg rounded-[20px]">
@@ -234,6 +237,7 @@ export const TeamForm = ({
               obj={data[0].teacherAttachment || null}
               attachmentType={0}
               setObj={setData}
+              files={files}
             />
           </div>
         </div>

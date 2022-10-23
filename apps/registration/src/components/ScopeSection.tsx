@@ -17,7 +17,7 @@ export const ScopeSection = () => {
       </div>
 
       <div className="bg-white p-3 md:p-10 rounded-3xl mb-8">
-        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-violet-400 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
+        <div className="w-full flex justify-center mx-auto py-4 bg-violet-400 rounded-xl text-md md:text-2xl text-white font-bold shadow-xl">
           พื้นฐานวิทยาการคอมพิวเตอร์
         </div>
         <ul className="list-decimal p-3 md:p-5 leading-loose  text-purple-700 font-semibold text-xs md:text-xl md:space-y-3">
@@ -59,7 +59,7 @@ export const ScopeSection = () => {
       </div>
 
       <div className="bg-white p-3 md:p-10 rounded-3xl">
-        <div className="w-full flex justify-center mx-auto  px-16 py-4 bg-violet-400 rounded-xl text-xs md:text-2xl text-white font-bold shadow-xl">
+        <div className="w-full flex justify-center mx-auto py-4 bg-violet-400 rounded-xl text-md md:text-2xl text-white font-bold shadow-xl">
           อัลกอริทึม
         </div>
         <ul className="list-decimal p-3 md:p-5 leading-loose font-semibold text-purple-700 text-xs md:text-xl md:space-y-3">

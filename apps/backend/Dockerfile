@@ -24,19 +24,7 @@ COPY --from=deps /app/out/full .
 COPY turbo.json .
 RUN yarn turbo run build --filter=backend...
 
-# 3. Composition stage
-FROM scratch AS composer
-WORKDIR /app
-
-# Ccreate a directory like yarn workspace to install dependencies
-COPY --from=builder /app/package.json /app/yarn.lock .
-COPY --from=builder /app/apps/backend/package.json ./apps/backend/
-COPY --from=builder /app/apps/backend/dist ./apps/backend/dist
-
-# Copy Prisma Client
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-
-# 4. Running stage
+# 3. Running stage
 FROM node:16.17-alpine AS runner
 WORKDIR /app
 
@@ -48,10 +36,10 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 springpress
 
-COPY --from=composer --chown=springpress:nodejs /app .
-RUN yarn install --production --frozen-lockfile
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder --chown=springpress:nodejs /app .
 
 USER springpress
 EXPOSE 3000
 
-CMD [ "yarn", "workspace", "backend", "run", "start" ]
+CMD [ "node", "apps/backend/dist/App.js" ]

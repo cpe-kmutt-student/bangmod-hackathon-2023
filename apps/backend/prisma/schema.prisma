@@ -9,7 +9,7 @@ datasource db {
 
 model Auth {
   email      String   @id
-  sessionId  String   @unique
+  sessionId  String
   name       String
   picture    String
   expiryDate DateTime
@@ -17,24 +17,24 @@ model Auth {
 }
 
 model File {
-  id            Int           @id @default(autoincrement())
-  participant   Participant   @relation(fields: [participantId], references: [id])
+  participant   Participant @relation(fields: [participantId], references: [id])
   participantId Int
+  index         Int
   originalName  String
   fileKey       String
   fileType      Int
-  uploadDate    DateTime      @default(now())
-  fileHistories FileHistory[]
-  question      Question?     @relation("QuestionFile")
-  testCase      Question?     @relation("TestCaseFile")
+  uploadDate    DateTime    @default(now())
+
+  @@id([participantId, fileType])
 }
 
 model FileHistory {
-  id         Int      @id @default(autoincrement())
-  file       File     @relation(fields: [fileId], references: [id])
-  fileId     Int
-  fileKey    String
-  uploadDate DateTime @default(now())
+  id            Int         @id @default(autoincrement())
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId Int
+  fileType      Int
+  fileKey       String
+  uploadDate    DateTime    @default(now())
 }
 
 // -------- Personal Information --------
@@ -50,8 +50,8 @@ model Team {
 }
 
 model Participant {
-  id           Int      @id @default(autoincrement())
-  team         Team?    @relation(fields: [teamId], references: [id])
+  id           Int           @id @default(autoincrement())
+  team         Team?         @relation(fields: [teamId], references: [id])
   teamId       Int?
   prefixTh     String?
   firstnameTh  String?
@@ -64,7 +64,7 @@ model Participant {
   email        String?
   phoneNumber  String?
   lineId       String?
-  isAdvisor    Boolean? @default(false)
+  isAdvisor    Boolean?      @default(false)
   nickname     String?
   grade        String?
   quote        String?
@@ -73,26 +73,5 @@ model Participant {
   drugAllergy  String?
   disease      String?
   files        File[]
-  results      Result[]
-}
-
-// -------- Grading --------
-
-model Question {
-  id             Int      @id @default(autoincrement())
-  questionFile   File     @relation("QuestionFile", fields: [questionFileId], references: [id])
-  questionFileId Int      @unique
-  testCaseFile   File     @relation("TestCaseFile", fields: [testCaseFileId], references: [id])
-  testCaseFileId Int      @unique
-  results        Result[]
-}
-
-model Result {
-  id            Int         @id @default(autoincrement())
-  participant   Participant @relation(fields: [participantId], references: [id])
-  participantId Int
-  question      Question    @relation(fields: [questionId], references: [id])
-  questionId    Int
-  score         Int
-  timestamp     DateTime    @default(now())
+  FileHistory  FileHistory[]
 }

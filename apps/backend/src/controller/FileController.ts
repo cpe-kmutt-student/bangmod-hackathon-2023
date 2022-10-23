@@ -1,7 +1,7 @@
 import { FileService } from '@/service/FileService';
 import { RequireAuth } from '@/utils/decorator/AuthDecorator';
 import { AccpetedFileType, AllowFile } from '@/utils/decorator/FileDecorator';
-import { FileGetApiSchema, FilePostApiSchema } from 'api-schema';
+import { FileGetApiSchema, FilePostApiSchema } from '@bmh2023/api-schema';
 import http from 'http';
 import { BadRequestException, Controller, ControllerMapping, Methods, NotFoundException, Request, Response, RouteMapping, UnauthorizedException } from 'springpress';
 
@@ -24,30 +24,51 @@ export class FileController extends Controller {
     
     if (!req.file) throw new BadRequestException('No provided file');
     if (!req.query.type) throw new BadRequestException('Query `type` is invalid');
+    if (!req.query.i) throw new BadRequestException('Query `i` is invalid');
 
     const session = req.session!;
     const fileType = Number.parseInt(req.query.type);
 
     const hashedEmail = this.fileService.getHashedEmail(session.email);
-    const fileId = await this.fileService.rememberFile(session, req.file, fileType);
+    const index = Number.parseInt(req.query.i);
+    const file = await this.fileService.rememberFile(session, index, req.file, fileType);
 
-    if (!fileId) throw new BadRequestException('Cannot upload this file');
+    if (!file) throw new BadRequestException('Cannot upload this file');
 
-    res.status(200).json({ url: `/file/storage/${hashedEmail}/${fileId}/${req.file.originalname}` });
+    const displayFileKey = file.fileKey.replace(',', '');
+    res.status(200).json({ url: `/file/storage/${hashedEmail}/${displayFileKey}/${req.file.originalname}` });
   }
 
   @RequireAuth()
-  @RouteMapping('/storage/:hashedEmail/:fileId/:originalName', Methods.GET)
+  @RouteMapping('/document', Methods.GET)
+  private async getDocuments(req: Request, res: Response) {
+    const documents = await this.fileService.getDocuments(req.session!.email);
+    if (!documents) throw new NotFoundException('Cannot file any uploaded file');
+
+    const hashedEmail = this.fileService.getHashedEmail(req.session!.email);
+    const filteredDocuments = documents
+      .map((document) => ({
+        index: document.index,
+        originalName: document.originalName,
+        fileType: document.fileType,
+        url: `/file/storage/${hashedEmail}/${document.fileKey.replace(',', '')}/${document.originalName}`,
+      }))
+
+    res.status(200).json(filteredDocuments)
+  }
+
+  @RequireAuth()
+  @RouteMapping('/storage/:hashedEmail/:fileKey/:originalName', Methods.GET)
   private async getFile(req: Request<FileGetApiSchema>, res: Response) {
     const hashedEmail = req.params.hashedEmail;
-    const fileId = req.params.fileId;
+    const fileKey = req.params.fileKey;
     const originalName = req.params.originalName;
   
     if (!this.fileService.isFileOwner(req.session!, hashedEmail)) {
       throw new UnauthorizedException('No permission to access this file');
     }
 
-    const fileUrl = await this.fileService.getFile(fileId, originalName);
+    const fileUrl = await this.fileService.getFile(fileKey, originalName);
     if (!fileUrl) throw new NotFoundException('Resource not found');
   
     // Proxy to SeaweedFS

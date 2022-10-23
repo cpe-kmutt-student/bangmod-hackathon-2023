@@ -28,9 +28,32 @@ export class ParticipantRepository {
     });
   }
 
+  public async createEmptyParticipants(teamId: number) {
+    await this.database.participant.create({
+      data: {
+        isAdvisor: true,
+        teamId
+      }
+    });
+
+    await this.database.participant.createMany({
+      data: [
+        { isAdvisor: false, teamId },
+        { isAdvisor: false, teamId },
+        { isAdvisor: false, teamId }
+      ]
+    });
+  }
+
   public async createStudents(data: Partial<Participant>[]): Promise<void> {
     await this.database.participant.createMany({
       data: data
+    });
+  }
+
+  public async getParticipantsByTeamId(id: number) {
+    return this.database.participant.findMany({
+      where: { teamId: id }
     });
   }
 
@@ -88,6 +111,33 @@ export class ParticipantRepository {
         prefixTh: true,
         surnameEn: true,
         surnameTh: true,
+      }
+    });
+  }
+
+  public async setStudentDataToNullById(id: number) {
+    await this.database.participant.update({
+      where: { id: id },
+      data: {
+        disease: null,
+        drugAllergy: null,
+        email: null,
+        firstnameEn: null,
+        firstnameTh: null,
+        foodAllergy: null,
+        foodType: null,
+        grade: null,
+        isAdvisor: false,
+        lineId: null,
+        middleNameEn: null,
+        middleNameTh: null,
+        nickname: null,
+        phoneNumber: null,
+        prefixEn: null,
+        prefixTh: null,
+        quote: null,
+        surnameEn: null,
+        surnameTh: null,
       }
     });
   }
