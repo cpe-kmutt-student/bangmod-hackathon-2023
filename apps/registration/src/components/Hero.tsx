@@ -36,7 +36,7 @@ export const Hero = () => {
         ref={logo}
         className="
           z-20 w-full h-full absolute transform translate-y-48 2xl:-translate-y-36 2xl:flex 2xl:justify-center
-          lg:z-30
+          md:z-30
           xl:z-40
         "
       >
