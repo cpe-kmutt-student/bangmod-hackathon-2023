@@ -22,9 +22,9 @@ const Card = ({
       </div>
       <div className="h-full flex flex-col justify-center items-center text-center mt-4">
         <p className="font-bold text-purple-900 lg:text-base "> {title} </p>
-        <p className="text-sm font-light text-purple-700 "> {desc1} </p>
-        <p className="text-sm font-light text-purple-700 "> {desc2} </p>
-        <p className="text-sm font-light text-purple-700 "> {desc3} </p>
+        <p className="text-purple-700 "> {desc1} </p>
+        <p className="text-purple-700 "> {desc2} </p>
+        <p className="text-purple-700 "> {desc3} </p>
       </div>
     </div>
   );
