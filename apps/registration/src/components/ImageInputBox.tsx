@@ -52,7 +52,7 @@ const ImageInputBox = <T,>({
       setFileUrl(import.meta.env.VITE_BACKEND_URL + targetFile.url);
       setFileName(targetFile.originalName);
     }
-  }, []);
+  }, [files]);
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
