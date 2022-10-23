@@ -43,7 +43,7 @@ export type StudentFormDataWithFile = StudentFormData & {
   pp7Attachment?: FileList | null;
 };
 
-export const defaultStudentFormData: StudentFormDataWithFile = {
+export const defaultStudentFormData: StudentFormDataWithFile[] = Array(3).fill({
   prefixTh: "",
   firstnameTh: "",
   middleNameTh: "",
@@ -65,7 +65,7 @@ export const defaultStudentFormData: StudentFormDataWithFile = {
   selfImageAttachment: null,
   idCardAttachment: null,
   pp7Attachment: null,
-};
+});
 
 type StudentFromProps = {
   isComplete: boolean,

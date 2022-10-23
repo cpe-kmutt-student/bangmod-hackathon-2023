@@ -1,5 +1,6 @@
 import { Spinner } from '@/components/Spinner';
 import {
+  defaultStudentFormData,
   StudentForm,
   StudentFormDataWithFile
 } from "@/components/StudentForm";
@@ -43,9 +44,16 @@ export const RegistrationForm = () => {
     fetch('/input/get')
       .then((response) => {
         if (!response.data.team.isComplete) runAutoSave();
+
         setTeamFormData([response.data.team]);
         setAdvisorFormData([response.data.advisor]);
-        setStudentFormsData(response.data.students);
+
+        if (response.data.students.length === 0) {
+          setStudentFormsData(defaultStudentFormData)
+        } else {
+          setStudentFormsData(response.data.students);
+        }
+
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
@@ -149,7 +157,7 @@ export const RegistrationForm = () => {
             advisor={advisorFormData}
             setAdvisor={setAdvisorFormData}
           />
-
+          {console.log(teamFormData[0].amount)}
           {Array.from(Array(Number(teamFormData[0].amount)).keys()).map((i) => (
             <StudentForm
               isComplete={(teamFormData[0].isComplete && !isEditing) || false}
