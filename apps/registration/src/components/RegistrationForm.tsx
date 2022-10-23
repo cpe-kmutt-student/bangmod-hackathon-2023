@@ -84,7 +84,7 @@ export const RegistrationForm = () => {
         // Create autosave clock, hacky way!
         autoSaveIntervalId = setInterval(() => {
           setNeedToSave((prev) => prev + 1);
-        }, 1000 * 3);
+        }, 1000 * 30);
 
         setTeamFormData([response.data.team]);
         setAdvisorFormData([response.data.advisor]);
