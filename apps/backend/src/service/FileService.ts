@@ -16,6 +16,8 @@ export class FileService {
   private readonly documentUpload: Multer;
   private readonly sourceCodeUpload: Multer;
 
+  private static readonly MAX_FILE_SIZE = 1_048_576 * 10;
+
   public constructor(fileRepository: FileRepository, seaweedClient: SeaweedClient) {
     this.fileRepository = fileRepository;
     this.seaweedClient = seaweedClient;
@@ -24,6 +26,9 @@ export class FileService {
     this.documentUpload = multer({
       storage: storageEngine,
       fileFilter: this.filterFile(this.filterDocumentFile),
+      limits: {
+        fileSize: FileService.MAX_FILE_SIZE,
+      },
     });
     this.sourceCodeUpload = multer({
       storage: storageEngine,
