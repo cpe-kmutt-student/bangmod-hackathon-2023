@@ -20,12 +20,16 @@ import { Controller, Middleware, Springpress } from 'springpress';
 
 export class Server extends Springpress {
 
-  private readonly cookieProvider     = new CookieProvider('this_is_a_secret');
+  private readonly cookieProvider     = new CookieProvider(process.env.SESSION_SECRET);
 
   private readonly databaseConnector  = new DatabaseConnector();
   private readonly databaseClient     = this.databaseConnector.getClient();
-  private readonly sessionRepository  = new SessionRepository(this.databaseClient);
 
+  private readonly seaweedClient      = new SeaweedClient(
+    process.env.STORAGE_HOST, Number.parseInt(process.env.STORAGE_PORT)
+  );
+
+  private readonly sessionRepository  = new SessionRepository(this.databaseClient);
   private readonly authService        = new AuthService(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -35,14 +39,13 @@ export class Server extends Springpress {
   );
   private readonly authMiddleware = new AuthMiddleware(this.authService);
 
-  private readonly seaweedClient  = new SeaweedClient('localhost', 9333);
   private readonly fileRepository = new FileRepository(this.databaseClient);
   private readonly fileService    = new FileService(this.fileRepository, this.seaweedClient);
   private readonly fileMiddleware = new FileMiddleware(this.fileService);
 
-  private readonly participantRepository = new ParticipantRepository(this.databaseClient);
-  private readonly teamRepository = new TeamRepository(this.databaseClient);
-  private readonly inputService = new InputService(this.participantRepository, this.teamRepository);
+  private readonly participantRepository  = new ParticipantRepository(this.databaseClient);
+  private readonly teamRepository         = new TeamRepository(this.databaseClient);
+  private readonly inputService           = new InputService(this.participantRepository, this.teamRepository);
 
   public async onStartup(): Promise<void> {
     try {
