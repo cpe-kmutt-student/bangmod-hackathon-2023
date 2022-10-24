@@ -1,6 +1,13 @@
 version: "3.9"
 
 services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./apps/backend/Dockerfile
+    platform: linux/amd64
+
   mysql:
     image: mysql
     ports:
