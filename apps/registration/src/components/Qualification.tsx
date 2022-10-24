@@ -37,7 +37,7 @@ export const Qualification = () => {
             <Card
               img="qualification/teacher.webp"
               desc1="อาจารย์ที่ปรึกษาทีม 1 คน "
-              desc2="โดยอาจารย์ที่ปรึกษาต้องเป็น อาจารย์ที่สอนในสถานศึกษานั้นๆ"
+              desc2="โดยอาจารย์ที่ปรึกษาต้องเป็น อาจารย์ที่สอนในสถานศึกษานั้น ๆ"
               section = "qua"
 
             />
@@ -49,15 +49,15 @@ export const Qualification = () => {
         </div>
       </div>
 
-      <div className="bg-white p-3 md:p-10 rounded-3xl mb-8 mt-5 ">
+      <div className="bg-white p-3 md:p-10 rounded-3xl mb-8 mt-9 ">
         <div className="flex justify-center mx-auto py-4 bg-violet-400 rounded-xl md:text-2xl text-white font-bold shadow-xl">
           เอกสารที่ต้องใช้ในการสมัคร
         </div>
         <ul className="list-decimal p-3 ml-2 md:p-5 leading-loose text-purple-700 md:text-xl md:space-y-3">
           <li>รูปนักเรียนขนาด 1.5 นิ้ว</li>
-          <li>สำเนาบัตรปชชผู้เข้าร่วมเฉพาะด้านหน้า / บัตรนักเรียน พร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย</li>
+          <li>สำเนาบัตรประชาชนหรือบัตรนักเรียนของผู้เข้าเเข่งขัน (พร้อมเซ็นรับรองสำเนาถูกต้อง)</li>
           <li>ปพ.7 ของผู้เข้าแข่งขันตัวจริง</li>
-          <li>หนังสือรับรองของอาจารย์ที่ปรึกษาตัวจริง</li>
+          <li>เอกสารหรือหนังสือยืนยันสถานภาพการเป็นอาจารย์ประจำสถาบันการศึกษา (บัตรประจำตัวครูอาจารย์, บัตรข้าราชการครูและบุคลากรทางการศึกษา)</li>
         </ul>
       </div> 
     </section>
