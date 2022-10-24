@@ -36,10 +36,3 @@ yarn dev
 ## Guildlines Table
 
 - [Building a Component](.github/guildelines/building-component.md)
-
-## 💿 Infrastructure
-
-This repository contains only registration platform.  
-For Auto grader, we use the powerful software crafted by **[Vectier](https://github.com/vectier)** named **Codern** which is closed-source software.
-
-<img src="https://i.imgur.com/49EvTfF.png" alt="" >
