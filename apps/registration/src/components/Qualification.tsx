@@ -50,7 +50,7 @@ export const Qualification = () => {
       </div>
 
       <div className="bg-white p-3 md:p-10 rounded-3xl mb-8 mt-9 ">
-        <div className="flex justify-center mx-auto py-4 bg-violet-400 rounded-xl md:text-2xl text-white font-bold shadow-xl">
+        <div className="flex justify-center mx-auto py-4 bg-[#7c81be] rounded-xl md:text-2xl text-white font-bold shadow-xl">
           เอกสารที่ต้องใช้ในการสมัคร
         </div>
         <ul className="list-decimal p-3 ml-2 md:p-5 leading-loose text-purple-700 md:text-xl md:space-y-3">
