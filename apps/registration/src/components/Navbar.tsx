@@ -65,7 +65,7 @@ export const Navbar = () => {
           href="/"
           className="h-20"
         >
-          <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" />
+          <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto mr-8" />
         </a>
         <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] p-0 text-white drop-shadow">
           <NavElement
