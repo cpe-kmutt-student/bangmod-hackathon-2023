@@ -47,19 +47,21 @@ const DropDown = <T,>({
         ''
       )}
 
-      <select
-        value={obj || ''}
-        required={required}
-        onChange={handleChange}
-        className="p-2 md:p-1 md:px-2 md:pr-6 block w-full rounded-md border border-gray-300 text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
-      >
-        
-        {options.map((e: option) => (
-          <option value={e.value}>{e.label}</option>
-        ))}
-        
-      </select>
-      <span className='absolute bg-[#DB9116] z-10 border-gray-300 pointer-events-none w-[30px] h-[48.7%] md:h-[54.7%] right-4 bottom-2 md:right-0 md:bottom-0 border-r border-y rounded-r-md flex align-center justify-center leading-[43px] md:leading-[35px] text-white text-lg'>▾</span>
+      <div className="relative">
+        <select
+          value={obj || ''}
+          required={required}
+          onChange={handleChange}
+          className="p-2 md:p-1 md:px-2 md:pr-6 block w-full rounded-md border border-gray-300 text-black placeholder-[#b597d1] drop-shadow-md focus:z-10 focus:border-purple-500 focus:outline-none focus:ring-purple-500"
+        >
+
+          {options.map((e: option) => (
+            <option value={e.value}>{e.label}</option>
+          ))}
+
+        </select>
+        <span className='absolute bg-[#DB9116] z-10 border-gray-300 pointer-events-none w-[30px] h-full top-0 right-0 border-r border-y rounded-r-md flex align-center justify-center leading-[43px] md:leading-[35px] text-white text-lg'>▾</span>
+      </div>
     </div>
   );
 };
