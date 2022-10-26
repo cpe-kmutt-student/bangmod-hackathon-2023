@@ -161,7 +161,7 @@ export const RegistrationForm = () => {
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      <div className="flex w-full flex-col md:mx-12 z-20">
+      <div className="flex w-full flex-col z-20">
         <RegisterHeader />
 
         <form ref={formRef} onSubmit={handleFormSubmit}>
