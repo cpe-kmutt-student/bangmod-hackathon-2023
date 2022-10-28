@@ -25,8 +25,8 @@ const Card = ({
       
       <div className= {"h-full flex flex-col  items-center text-center mt-4 " + (section === "qua" ? "justify-center" :"justify-start" )} >
         <p className="font-bold text-purple-900 lg:text-base "> {title} </p>
-        {desc1 == undefined ? <p className="text-white">You found us.</p> : <p className="text-purple-700 ">{desc1}</p>}
-        {desc2 == undefined ? <p className="text-white pointer-events-none">{section == "qua" ? '': "You found us."}</p> : <p className="text-purple-700 ">{desc2}</p>}
+        {desc1 == undefined ? <p className="text-white">---</p> : <p className="text-purple-700 ">{desc1}</p>}
+        {desc2 == undefined ? <p className="text-white pointer-events-none">{section == "qua" ? '': "---"}</p> : <p className="text-purple-700 ">{desc2}</p>}
         <p className="text-purple-700 ">{desc3}</p>
       </div>
     </div>
