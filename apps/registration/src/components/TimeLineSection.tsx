@@ -68,15 +68,15 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="การแข่งขันรอบคัดเลือก(Online)"
-              display="20 Dec 2022"
-              startTime="20 Dec 2022 00:00:00 GMT+0700"
-              endTime="20 Dec 2022 23:59:59 GMT+0700"
+              display="24 Dec 2022"
+              startTime="24 Dec 2022 00:00:00 GMT+0700"
+              endTime="24 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="20 Dec 2022 00:00:00 GMT+0700"
-              endTime="20 Dec 2022 23:59:59 GMT+0700"
+              startTime="24 Dec 2022 00:00:00 GMT+0700"
+              endTime="24 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
@@ -86,15 +86,15 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="21 Dec 2022 00:00:00 GMT+0700"
+              startTime="25 Dec 2022 00:00:00 GMT+0700"
               endTime="18 Jan 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ประกาศผลผู้ที่ผ่านการคัดเลือกรอบแรก"
-              display="21 Dec 2022"
-              startTime="21 Dec 2022 00:00:00 GMT+0700"
+              display="25 Dec 2022"
+              startTime="25 Dec 2022 00:00:00 GMT+0700"
               endTime="18 Jan 2023 23:59:59 GMT+0700"
             />
           </div>
