@@ -52,7 +52,7 @@ const ImageInputBox = <T,>({
       setFileUrl(import.meta.env.VITE_BACKEND_URL + targetFile.url);
       setFileName(targetFile.originalName);
     }
-  }, []);
+  }, [files]);
 
   const handleDragOver = (event: DragEvent) => {
     event.preventDefault();
@@ -110,13 +110,9 @@ const ImageInputBox = <T,>({
       >
         {!!fileName
           ?
-          <div className="w-full flex flex-col justify-center space-y-2">
+          <div className="w-full flex flex-col justify-center space-y-2 px-4 text-center">
             {(uploadProgress === 1 || fileUrl) ? (
-              <ul className="text-center">
-                {fileUrl &&
-                  <a className="text-blue-700 underline text-sm" href={fileUrl} target="_blank">{fileName}</a>
-                }
-              </ul>
+              <a className="text-blue-700 underline text-ellipsis overflow-hidden text-sm" href={fileUrl} target="_blank">{fileName}</a>
             ) : (
               <div className="flex flex-row items-center space-x-2 mx-8">
                 <div>

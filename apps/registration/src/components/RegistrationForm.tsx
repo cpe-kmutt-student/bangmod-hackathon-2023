@@ -84,7 +84,7 @@ export const RegistrationForm = () => {
         // Create autosave clock, hacky way!
         autoSaveIntervalId = setInterval(() => {
           setNeedToSave((prev) => prev + 1);
-        }, 1000 * 3);
+        }, 1000 * 30);
 
         setTeamFormData([response.data.team]);
         setAdvisorFormData([response.data.advisor]);
@@ -161,7 +161,7 @@ export const RegistrationForm = () => {
 
   return (
     <div className="relative flex h-full items-center justify-center">
-      <div className="flex w-full flex-col md:mx-12 z-20">
+      <div className="flex w-full flex-col z-20">
         <RegisterHeader />
 
         <form ref={formRef} onSubmit={handleFormSubmit}>

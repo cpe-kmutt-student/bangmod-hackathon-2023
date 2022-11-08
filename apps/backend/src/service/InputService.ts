@@ -1,6 +1,7 @@
 import { ParticipantRepository } from '@/database/repository/ParticipantRepository';
 import { TeamRepository } from '@/database/repository/TeamRepository';
-import { AdvisorFormData, RegistrationFormData, RegistrationFormDataTemplate, StudentFormData, TeamFormData } from '@bmh2023/api-schema';
+import { RegistrationFormDataTemplate } from '@/utils/default/Default';
+import { AdvisorFormData, RegistrationFormData, StudentFormData, TeamFormData } from '@bmh2023/api-schema';
 import { Participant, Team } from '@prisma/client';
 
 export type PartialRegisForm = {
@@ -143,14 +144,14 @@ export class InputService {
     }
 
     for (const key in RegistrationFormDataTemplate.advisor) {
-      if (!['midddleNameEn', 'middleNameTh'].includes(key) && !advisor[key]) return false;
+      if (!['middleNameEn', 'middleNameTh'].includes(key) && !advisor[key]) return false;
     }
 
     if (!Array.isArray(students) || students.length < 2 || students.length > 3) return false;
 
     for (const student of students) {
       for (const key in RegistrationFormDataTemplate.students[0]) {
-        if (!['midddleNameEn', 'middleNameTh', 'foodType', 'foodAllergy', 'drugAllergy', 'disease'].includes(key) && !student[key]) return false;
+        if (!['middleNameEn', 'middleNameTh', 'foodType', 'foodAllergy', 'drugAllergy', 'disease'].includes(key) && !student[key]) return false;
       }
     }
 

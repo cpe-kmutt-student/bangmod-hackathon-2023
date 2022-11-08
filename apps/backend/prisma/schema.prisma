@@ -20,7 +20,7 @@ model File {
   participant   Participant @relation(fields: [participantId], references: [id])
   participantId Int
   index         Int
-  originalName  String
+  originalName  String      @db.Text
   fileKey       String
   fileType      Int
   uploadDate    DateTime    @default(now())

@@ -8,35 +8,6 @@ import TextAreaBox from "@/components/TextAreaBox";
 import { StudentFormData } from '@bmh2023/api-schema';
 import { StateUpdater } from "preact/hooks";
 
-const LengthValidate = (str: string) => {
-  return str.length < 3 || str.length > 30 ? false : true;
-};
-
-const TextValidation = (str: string, lang: "EN" | "TH") => {
-  if (lang === "EN") {
-    return /^[a-zA-Z]+$/.test(str);
-  } else if (lang === "TH") {
-    return /^[ก-ฮ]+$/.test(str);
-  }
-};
-
-const TextInputValidation = (text: string, lang: "EN" | "TH") => {
-  return TextValidation(text, lang) && LengthValidate(text) ? true : false;
-};
-
-const InputFile = () => {
-  return (
-    <div className="flex align-center justify-center">
-      <button
-        className="text-[#B597D1] rounded-md drop-shadow-md bg-white border-2 border-dashed border-[#9F6FCE]
-                          w-[80%] mb-4 min-h-[70px] sm:min-h-[100px] max-w-[300px]
-                          md:max-w-[450px] md:text-[40px] md:w-[50%] md:min-h-[150px] md:mb-5"
-      >
-        +
-      </button>
-    </div>
-  );
-};
 
 export type StudentFormDataWithFile = StudentFormData & {
   selfImageAttachment?: FileList | null;
@@ -328,8 +299,7 @@ export const StudentForm = ({
             files={files}
           />
           <h2 className="pl-6 pr-4 md:pl-0 md:pr-0">
-            2. สำเนาบัตรประชาชนผู้เข้าร่วมเฉพาะด้านหน้า
-            หรือบัตรนักเรียนพร้อมลงชื่อสำเนาถูกต้องให้เรียบร้อย
+            2. สำเนาบัตรประชาชนหรือบัตรนักเรียนของผู้เข้าแข่งขัน (พร้อมเซ็นรับรองสำเนาถูกต้อง)
             <span className="text-[#ffdc19]">
               *
             </span>

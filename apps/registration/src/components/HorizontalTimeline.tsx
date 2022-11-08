@@ -21,9 +21,9 @@ const UpperHorizontalTimeline = () => {
       <Card
         header="การแข่งขันรอบคัดเลือก (Online)"
         small
-        display="20 Dec 2022"
-        startTime="20 Dec 2022 00:00:00 GMT+0700"
-        endTime="20 Dec 2022 23:59:59 GMT+0700"
+        display="24 Dec 2022"
+        startTime="24 Dec 2022 00:00:00 GMT+0700"
+        endTime="24 Dec 2022 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
       <Card
@@ -51,8 +51,8 @@ const LowerHorizontalTimeline = () => {
       <Card
         header="ประกาศผลผู้ผ่านการคัดเลือก"
         small
-        display="21 Dec 2022"
-        startTime="21 Dec 2022 00:00:00 GMT+0700"
+        display="25 Dec 2022"
+        startTime="25 Dec 2022 00:00:00 GMT+0700"
         endTime="18 Jan 2023 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
@@ -85,12 +85,12 @@ const Card = ({
 
   return (
     <div className="flex flex-col col-span-5 bg-white h-24 pt-2 px-2 -mx-3 rounded-xl">
-      <div className={`h-12 text-center p-2 text-white rounded-lg ${isCurrentEvent ? 'bg-pink-500' : 'bg-violet-400'}`}>
+      <div className={`h-12 text-center p-2 text-white rounded-lg ${isCurrentEvent ? 'bg-pink-500' : 'bg-[#7c81be]'}`}>
         <div className={`flex items-center justify-center h-full ${small ? 'text-xs' : 'text-sm'}`}>
           {header}
         </div>
       </div>
-      <div className={`text-sm m-auto ${isCurrentEvent ? 'text-pink-500' : 'text-violet-600'}`}>
+      <div className={`text-sm m-auto font-extrabold ${isCurrentEvent ? 'text-pink-500' : 'text-[#6C30A4]'}`}>
         {display}
       </div>
     </div>
@@ -112,12 +112,12 @@ const HorizontalMainLine = () => {
       />
       <HorizontalLine />
       <StopPoint
-        startTime="20 Dec 2022 00:00:00 GMT+0700"
-        endTime="20 Dec 2022 23:59:59 GMT+0700"
+        startTime="24 Dec 2022 00:00:00 GMT+0700"
+        endTime="24 Dec 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="21 Dec 2022 00:00:00 GMT+0700"
+        startTime="25 Dec 2022 00:00:00 GMT+0700"
         endTime="18 Jan 2023 23:59:59 GMT+0700"
       />
       <HorizontalLine />
@@ -154,7 +154,7 @@ const StopPoint = ({
   return (
     <div className="col-span-1 mx-auto flex-none w-4 h-4 rounded-full bg-white">
       <div className="w-full h-full flex justify-center items-center">
-        <div className={`w-2.5 h-2.5 rounded-full ${isCurrentEvent ? 'bg-pink-500' : 'bg-violet-500'}`}></div>
+        <div className={`w-2.5 h-2.5 rounded-full ${isCurrentEvent ? 'bg-pink-500' : 'bg-[#7c81be]'}`}></div>
       </div>
     </div>
   );
