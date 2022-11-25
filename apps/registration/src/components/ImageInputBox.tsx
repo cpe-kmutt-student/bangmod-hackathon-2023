@@ -2,6 +2,10 @@ import { UploadedFile } from '@/components/RegistrationForm';
 import { Spinner } from '@/components/Spinner';
 import { fetch } from '@/utils/Fetch';
 import { StateUpdater, useEffect, useRef, useState } from "preact/hooks";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 const MAX_DISPLAY_FILE_SIZE = 10;
 const MAX_FILE_SIZE_MIB = 1_048_576 * MAX_DISPLAY_FILE_SIZE;
@@ -39,7 +43,12 @@ const ImageInputBox = <T,>({
       .then((response) => {
         setFileUrl(import.meta.env.VITE_BACKEND_URL + response.data.url)
       })
-      .catch(console.error);
+      .catch(() => {
+        MySwal.fire({
+          title: 'อัพโหลดไฟล์มีปัญหา',
+          icon: 'error',
+        })
+      });
   };
 
   useEffect(() => {
