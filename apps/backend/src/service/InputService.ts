@@ -78,7 +78,7 @@ export class InputService {
     if (team.school && !this.validDefault(team.school)) return false;
     if (team.name && !this.validDefault(team.name)) return false;
 
-    this.validParticipant(advisor);
+    if (!this.validParticipant(advisor)) return false;
 
     if (students.length < 0 && students.length > 3) return false;
     const isSomeStudentsInvalid = students.some((student) => !this.validParticipant(student));
