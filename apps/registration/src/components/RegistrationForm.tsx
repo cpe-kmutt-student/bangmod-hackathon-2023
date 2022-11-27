@@ -73,7 +73,13 @@ export const RegistrationForm = () => {
           })
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        MySwal.fire({
+          title: 'บันทึกข้อมูลผิดพลาด',
+          text: error.message,
+          icon: 'error',
+        })
+      });
   };
 
   useEffect(() => {
