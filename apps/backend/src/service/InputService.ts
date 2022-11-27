@@ -52,8 +52,8 @@ export class InputService {
 
   private validParticipant(participant: any): boolean {
     for (const key in participant) {
-      if (key === 'email' && !this.validEmail(participant[key])) return false;
-      else if (key === 'phoneNumber' && !this.validPhone(participant[key])) return false;
+      // if (key === 'email' && !this.validEmail(participant[key])) return false;
+      if (key === 'phoneNumber' && !this.validPhone(participant[key])) return false;
       else if (key === 'prefixEn' && !this.validPrefixEn(participant[key])) return false;
       else if (key === 'prefixTh' && !this.validPrefixTh(participant[key])) return false;
       else {
