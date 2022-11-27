@@ -74,6 +74,7 @@ export const RegistrationForm = () => {
         }
       })
       .catch((error) => {
+        if (!isComplete) return;
         MySwal.fire({
           title: 'บันทึกข้อมูลผิดพลาด',
           text: error.message,
