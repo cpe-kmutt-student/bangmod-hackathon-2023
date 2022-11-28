@@ -26,6 +26,7 @@ export const Navbar = () => {
   const { user, login } = useAuth();
   const { visibleSection } = useNavbar();
   const [navbar, setNavbar] = useState(false);
+  const isLate = new Date() > new Date(import.meta.env.VITE_CLOSE_FORM_DATE);
 
   const navigateTologin = () => {
     if (user) {
@@ -98,12 +99,24 @@ export const Navbar = () => {
             text="ติดต่อสอบถาม"
             to="#contact-section"
           />
-          <button
-            className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
-            onClick={navigateTologin}
-          >
-            สมัคร
-          </button>
+          {
+            isLate ? (
+              <button
+                className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white cursor-not-allowed"
+                disabled
+              >
+                ปิดรับสมัคร
+              </button>
+            ) :
+              (
+                <button
+                  className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
+                  onClick={navigateTologin}
+                >
+                  สมัคร
+                </button>
+              )
+          }
         </nav>
       </div>
       {
@@ -134,12 +147,24 @@ export const Navbar = () => {
                 text="ติดต่อสอบถาม"
                 to="#contact-section"
               />
-              <button
-                className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
-                onClick={navigateTologin}
-              >
-                สมัคร
-              </button>
+              {
+                isLate ? (
+                  <button
+                    className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
+                    disabled
+                  >
+                    ปิดรับสมัคร
+                  </button>
+                ) :
+                  (
+                    <button
+                      className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
+                      onClick={navigateTologin}
+                    >
+                      สมัคร
+                    </button>
+                  )
+              }
             </nav>
           </div>
         )

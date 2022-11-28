@@ -34,7 +34,7 @@ export class InputService {
   }
 
   private validEmail(data: any): boolean {
-    const emailTest = /^[^@]+@\w+(\.\w+)+\w$/
+    const emailTest = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return typeof (data) === "string" && emailTest.test(data)
   }
 
@@ -52,7 +52,7 @@ export class InputService {
 
   private validParticipant(participant: any): boolean {
     for (const key in participant) {
-      // if (key === 'email' && !this.validEmail(participant[key])) return false;
+      if (key === 'email' && !this.validEmail(participant[key])) return false;
       if (key === 'phoneNumber' && !this.validPhone(participant[key])) return false;
       else if (key === 'prefixEn' && !this.validPrefixEn(participant[key])) return false;
       else if (key === 'prefixTh' && !this.validPrefixTh(participant[key])) return false;
@@ -159,6 +159,11 @@ export class InputService {
   }
 
   public async getInputByEmail(email: string): Promise<RegistrationFormData | null> {
+    const dateLate = new Date(process.env.CLOSE_FORM_DATE);
+    const dateNow = new Date();
+
+    if (dateNow > dateLate) throw Error('Registration time has expired');
+    
     const team = await this.teamRepository.getTeamByEmail(email);
     if (!team) return null;
 
@@ -172,7 +177,7 @@ export class InputService {
     let studentLength = 0;
 
     students.forEach((student) => {
-      if(!this.checkStudentNull(student)) studentFormCount += 1;
+      if (!this.checkStudentNull(student)) studentFormCount += 1;
     });
 
     if (studentFormCount === 3) studentLength = 3;
@@ -206,6 +211,11 @@ export class InputService {
     email: string, registrationFormData: RegistrationFormData,
   ): Promise<PartialRegisForm | null> {
     const { students, team, advisor } = registrationFormData;
+
+    const dateLate = new Date(process.env.CLOSE_FORM_DATE);
+    const dateNow = new Date();
+
+    if (dateNow > dateLate) throw Error('Registration time has expired');
 
     if (!students || !team || !advisor) {
       throw Error('No data provided');
@@ -269,7 +279,7 @@ export class InputService {
     let databaseNotNullCount = 0;
 
     participants.forEach((participant) => {
-      if(!this.checkStudentNull(participant)) databaseNotNullCount += 1;
+      if (!this.checkStudentNull(participant)) databaseNotNullCount += 1;
     });
 
     // Never have students in database
