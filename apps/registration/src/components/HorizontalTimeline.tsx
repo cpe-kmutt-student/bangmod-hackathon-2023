@@ -15,7 +15,7 @@ const UpperHorizontalTimeline = () => {
       <Card header="เปิดรับสมัคร"
         display="24 Oct 2022"
         startTime="24 Oct 2022 00:00:00 GMT+0700"
-        endTime="28 Nov 2022 23:59:59 GMT+0700"
+        endTime="10 Dec 2022 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
       <Card
@@ -43,8 +43,8 @@ const LowerHorizontalTimeline = () => {
       <div className="col-span-5" />
       <Card
         header="ปิดรับสมัคร"
-        display="29 Nov 2022"
-        startTime="29 Nov 2022 00:00:00 GMT+0700"
+        display="11 Dec 2022"
+        startTime="11 Dec 2022 00:00:00 GMT+0700"
         endTime="19 Dec 2022 23:59:59 GMT+0700"
       />
       <div className="col-span-3" />
@@ -103,11 +103,11 @@ const HorizontalMainLine = () => {
       <HorizontalLine />
       <StopPoint
         startTime="24 Oct 2022 00:00:00 GMT+0700"
-        endTime="28 Nov 2022 23:59:59 GMT+0700"
+        endTime="10 Dec 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
       <StopPoint
-        startTime="29 Nov 2022 00:00:00 GMT+0700"
+        startTime="11 Dec 2022 00:00:00 GMT+0700"
         endTime="19 Dec 2022 23:59:59 GMT+0700"
       />
       <HorizontalLine />
@@ -154,7 +154,7 @@ const StopPoint = ({
   return (
     <div className="col-span-1 mx-auto flex-none w-4 h-4 rounded-full bg-white">
       <div className="w-full h-full flex justify-center items-center">
-        <div className={`w-2.5 h-2.5 rounded-full ${isCurrentEvent ? 'bg-pink-500' : 'bg-[#7c81be]'}`}></div>
+      <div className={`w-2.5 h-2.5 rounded-full ${isCurrentEvent ? 'bg-pink-500' : 'bg-[#7c81be]'}`}></div>
       </div>
     </div>
   );

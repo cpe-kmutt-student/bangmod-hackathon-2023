@@ -34,13 +34,13 @@ export const TimeLineSection = () => {
               title="เปิดรับสมัคร"
               display="24 Oct 2022"
               startTime="24 Oct 2022 00:00:00 GMT+0700"
-              endTime="28 Nov 2022 23:59:59 GMT+0700"
+              endTime="10 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center items-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
               startTime="24 Oct 2022 00:00:00 GMT+0700"
-              endTime="28 Nov 2022 23:59:59 GMT+0700"
+              endTime="10 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
@@ -50,15 +50,15 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="29 Nov 2022 00:00:00 GMT+0700"
+              startTime="11 Dec 2022 00:00:00 GMT+0700"
               endTime="19 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ปิดรับสมัคร"
-              display="29 Nov 2022"
-              startTime="29 Nov 2022 00:00:00 GMT+0700"
+              display="11 Dec 2022"
+              startTime="11 Dec 2022 00:00:00 GMT+0700"
               endTime="19 Dec 2022 23:59:59 GMT+0700"
             />
           </div>
