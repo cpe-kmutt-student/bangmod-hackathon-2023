@@ -17,6 +17,8 @@ declare global {
       STORAGE_PORT: string;
 
       FRONTEND_URL: string;
+
+      CLOSE_FORM_DATE: string;
     }
   }
 

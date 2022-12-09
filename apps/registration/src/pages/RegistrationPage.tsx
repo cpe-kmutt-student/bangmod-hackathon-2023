@@ -2,10 +2,18 @@ import { ConsentForm } from '@/components/ConsentForm';
 import { withAuth } from '@/components/hoc/withAuth';
 import { RegistrationForm } from '@/components/RegistrationForm';
 import { RegistrationNavbar } from '@/components/RegistrationNavbar';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const RegistrationPage = withAuth(() => {
   const [acceptConsent, setAcceptConsent] = useState<boolean>(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if (new Date() > new Date(import.meta.env.VITE_CLOSE_FORM_DATE)) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <div className="relative h-full min-h-screen overflow-hidden bg-[#5d298e]">
