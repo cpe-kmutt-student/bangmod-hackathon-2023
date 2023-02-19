@@ -2,7 +2,8 @@
 
 # Bangmod Hackathon 2023
 
-Monorepo for Bangmod Hackthon 2023 registration platform using [Turborepo](https://turborepo.org/) and [Yarn](https://yarnpkg.com/)
+Monorepo for Bangmod Hackthon 2023 registration platform using [Turborepo](https://turborepo.org/) and [Yarn](https://yarnpkg.com/).  
+For Autograder, we use **[Codern](https://github.com/codern-org/codern/tree/legacy)** (legacy).
 
 ## 📄 Project structure
 
