@@ -14,7 +14,7 @@ export const ContactSection = () => {
     <section ref={ref} id="contact-section" className="h-screen flex justify-center items-center flex-col py-24 pb-52">
       <div>
         <div className="py-4 text-5xl sm:text-6xl text-center text-white font-bold mb-12">
-          <h1 className='whitespace-nowrap'>NEED HELP?</h1>
+          <h1 className='whitespace-nowrap'> - Get In Touch - </h1>
         </div>
 
         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 ">
@@ -39,16 +39,16 @@ export const ContactSection = () => {
             </div>
             <div className="flex flex-col justify-center text-white">
               <div className="flex">
-                <a href="tel:0945169692" className='whitespace-nowrap min-w-auto pr-2'>09-4516-9692</a>
-                <span>(พี่เจต)</span>
+                <a href="tel:0616287673" className='whitespace-nowrap min-w-auto pr-2'>061-628-7673</a>
+                <span>(พี่เฟิร์ท)</span>
               </div>
               <div className="flex">
-                <a href="tel:0982725713" className='whitespace-nowrap min-w-auto pr-3'>09-8272-5713</a>
-                <span>(พี่ปัน)</span>
+                <a href="tel:0959283465" className='whitespace-nowrap min-w-auto pr-3'>095-928-3465</a>
+                <span>(พี่เจน)</span>
               </div>
               <div className="flex">
-                <a href="tel:0939416441" className='whitespace-nowrap min-w-auto pr-2.5'>09-3941-6441</a>
-                <span  className='whitespace-nowrap'>(พี่เฟรนด์)</span>
+                <a href="tel:0987103020" className='whitespace-nowrap min-w-auto pr-2.5'>098-710-3020</a>
+                <span  className='whitespace-nowrap'>(พี่น้ำตาล)</span>
               </div>
             </div>
           </div>

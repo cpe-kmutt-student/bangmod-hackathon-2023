@@ -93,10 +93,6 @@ export const ScopeSection = () => {
             <li>Sequential และ Binary Search</li>
             <li>Search by Elimination</li>
             <li>
-              การแบ่งข้อมูล (Partitioning) การจัดลำดับด้วยการแบ่งข้อมูลซ้ำ ๆ
-              Quick Sort
-            </li>
-            <li>
               การเรียงข้อมูลที่มีเวลาที่แย่ที่สุดเป็น O(NlogN) เช่น Heap Sort
               และ Merge Sort
             </li>

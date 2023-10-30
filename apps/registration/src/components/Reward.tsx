@@ -42,12 +42,6 @@ export const Reward = () => {
             desc2="พร้อมโล่รางวัลประกาศเกียรติคุณ"
             section="reward"
           />
-          <Card
-            img="reward/bronze-medal.webp"
-            title="รางวัลชมเชย 2 รางวัล"
-            desc1="รางวัลละ 2,000 บาท"
-            section="reward"
-          />
         </div>
       </div>
     </section>

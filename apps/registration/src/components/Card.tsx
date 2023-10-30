@@ -11,13 +11,13 @@ const Card = ({
   desc1?: string;
   desc2?: string;
   desc3?: string;
-  section: "qua" | "reward";
+  section: "qua" | "reward" | "docs";
 }) => {
   return (
-    <div className="flex flex-col w-[14rem] m-2 px-4 py-10 bg-white rounded-3xl shadow-2xl">
-      <div className="w-2/3 mx-auto">
+    <div className={"flex flex-col " + (section==="docs" ? " w-[22rem] " : " w-[14rem] ") + " m-2 px-4 py-10 bg-white rounded-3xl shadow-2xl"}>
+      <div className={"w-full px-5 mx-auto flex items-center justify-center "}>
         <img
-          className=""
+          className="h-[9rem]"
           src={img}
           alt=""
         />

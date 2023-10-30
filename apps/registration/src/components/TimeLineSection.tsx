@@ -32,15 +32,15 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="เปิดรับสมัคร"
-              display="24 Oct 2022"
-              startTime="24 Oct 2022 00:00:00 GMT+0700"
-              endTime="10 Dec 2022 23:59:59 GMT+0700"
+              display="31 Oct 2023"
+              startTime="29 Oct 2023 00:00:00 GMT+0700"
+              endTime="25 Nov 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center items-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="24 Oct 2022 00:00:00 GMT+0700"
-              endTime="10 Dec 2022 23:59:59 GMT+0700"
+              startTime="31 Oct 2023 00:00:00 GMT+0700"
+              endTime="25 Nov 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
@@ -50,16 +50,16 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="11 Dec 2022 00:00:00 GMT+0700"
-              endTime="19 Dec 2022 23:59:59 GMT+0700"
+              startTime="25 Nov 2023 00:00:00 GMT+0700"
+              endTime="30 Nov 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ปิดรับสมัคร"
-              display="11 Dec 2022"
-              startTime="11 Dec 2022 00:00:00 GMT+0700"
-              endTime="19 Dec 2022 23:59:59 GMT+0700"
+              display="25 Nov 2023"
+              startTime="25 Nov 2023 00:00:00 GMT+0700"
+              endTime="30 Nov 2023 23:59:59 GMT+0700"
             />
           </div>
         </div>
@@ -68,15 +68,15 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="การแข่งขันรอบคัดเลือก(Online)"
-              display="24 Dec 2022"
-              startTime="24 Dec 2022 00:00:00 GMT+0700"
-              endTime="24 Dec 2022 23:59:59 GMT+0700"
+              display="25 Dec 2023"
+              startTime="25 Dec 2023 00:00:00 GMT+0700"
+              endTime="25 Dec 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="24 Dec 2022 00:00:00 GMT+0700"
-              endTime="24 Dec 2022 23:59:59 GMT+0700"
+              startTime="25 Dec 2023 00:00:00 GMT+0700"
+              endTime="25 Dec 2023 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
@@ -86,16 +86,16 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="25 Dec 2022 00:00:00 GMT+0700"
-              endTime="18 Jan 2023 23:59:59 GMT+0700"
+              startTime="29 Dec 2023 00:00:00 GMT+0700"
+              endTime="18 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
-              title="ประกาศผลผู้ที่ผ่านการคัดเลือกรอบแรก"
-              display="25 Dec 2022"
-              startTime="25 Dec 2022 00:00:00 GMT+0700"
-              endTime="18 Jan 2023 23:59:59 GMT+0700"
+              title="ประกาศผลผู้ที่ผ่านการคัดเลือกรอบแรก (36 ทีม)"
+              display="29 Dec 2023"
+              startTime="29 Dec 2023 00:00:00 GMT+0700"
+              endTime="18 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
         </div>
@@ -104,34 +104,34 @@ export const TimeLineSection = () => {
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="การแข่งขันรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ (On-site)"
-              display="19 Jan 2023"
-              startTime="19 Jan 2023 00:00:00 GMT+0700"
-              endTime="19 Jan 2023 23:59:59 GMT+0700"
+              display="19 Jan 2024"
+              startTime="19 Jan 2024 00:00:00 GMT+0700"
+              endTime="19 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="19 Jan 2023 00:00:00 GMT+0700"
-              endTime="19 Jan 2023 23:59:59 GMT+0700"
+              startTime="19 Jan 2024 00:00:00 GMT+0700"
+              endTime="19 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
-          <div className="col-span-4 lg:col-span-none  lg:row-span-2"></div>
+          <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
         </div>
 
         <div className="grid grid-cols-9 lg:grid-rows-5 lg:col-span-2  lg:grid-cols-1">
           <div className="col-span-4 lg:col-span-none lg:row-span-2"></div>
           <div className="col-span-1 place-self-center lg:col-span-none lg:row-span-1">
             <TimeLinePoint
-              startTime="19 Jan 2023 00:00:00 GMT+0700"
-              endTime="19 Jan 2023 23:59:59 GMT+0700"
+              startTime="19 Jan 2024 00:00:00 GMT+0700"
+              endTime="19 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
           <div className="col-span-4 lg:col-span-none lg:row-span-2">
             <TimeLineCard
               title="ประกาศผลผู้ผ่านการคัดเลือกรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ"
-              display="19 Jan 2023"
-              startTime="19 Jan 2023 00:00:00 GMT+0700"
-              endTime="19 Jan 2023 23:59:59 GMT+0700"
+              display="19 Jan 2024"
+              startTime="19 Jan 2024 00:00:00 GMT+0700"
+              endTime="19 Jan 2024 23:59:59 GMT+0700"
             />
           </div>
         </div>
