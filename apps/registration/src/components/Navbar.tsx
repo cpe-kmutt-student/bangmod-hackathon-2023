@@ -111,7 +111,7 @@ export const Navbar = () => {
               (
                 <a
                   className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
-                  href="https://bangmod-hackathon-2024.vercel.app/policies"
+                  href="https://bangmod-hackathon-2024.pages.dev/policies"
                 >
                   สมัคร
                 </a>
@@ -159,7 +159,7 @@ export const Navbar = () => {
                   (
                     <a
                       className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
-                      href='https://bangmod-hackathon-2024.vercel.app/policies'
+                      href='https://bangmod-hackathon-2024.pages.dev/policies'
                     >
                       สมัคร
                     </a>
