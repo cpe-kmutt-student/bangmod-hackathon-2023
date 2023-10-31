@@ -23,7 +23,7 @@ export const ContactSection = () => {
               <img className="border-[10px] rounded-full border-gray-300 w-[6rem] max-w-none" src="fb-icon.webp" alt="" />
             </div>
             <div className="flex flex-col justify-center space-y-2">
-              <div className="text-white font-bold text-xl">BANGMOD HACKATHON 2023</div>
+              <div className="text-white font-bold text-xl">BANGMOD HACKATHON 2024</div>
               <a
                 className="text-white bg-[#db9116] w-fit px-4 py-1 mt-2 rounded-lg text-sm"
                 href="https://www.facebook.com/BangmodHackathon"
