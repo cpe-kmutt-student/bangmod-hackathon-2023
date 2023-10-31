@@ -23,25 +23,25 @@ export const NavElement = ({
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const { user, login } = useAuth();
+  // const { user, login } = useAuth();
   const { visibleSection } = useNavbar();
   const [navbar, setNavbar] = useState(false);
   const isLate = new Date() > new Date(import.meta.env.VITE_CLOSE_FORM_DATE);
 
-  const navigateTologin = () => {
-    if (user) {
-      navigate('/register');
-    } else {
-      localStorage.setItem('login', 'true');
-      login();
-    }
-  };
+  // const navigateTologin = () => {
+  //   if (user) {
+  //     navigate('/#');
+  //   } else {
+  //     localStorage.setItem('login', 'true');
+  //     login();
+  //   }
+  // };
 
   return (
     <div className="fixed w-full h-16 md:h-30 z-50">
       <div className="static md:hidden w-full h-full bg-[#3E245D]/70 backdrop-blur-md md:bg-transparent p-0 m-0 flex justify-between items-center z-10 px-5">
         <span className="p-2 rounded-md w-10" />
-        <a href="/" className="p-2 h-20"><img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto" /></a>
+        <a href="/" className="p-2 h-20"><img src="logo.png" alt="bangmod hackathon 2024 logo" className="h-[100%] w-auto" /></a>
         <button
           className="p-2 rounded-md"
           onClick={() => setNavbar(!navbar)}
@@ -66,7 +66,7 @@ export const Navbar = () => {
           href="/"
           className="h-20"
         >
-          <img src="logo.webp" alt="bangmod hackathon 2023 logo" className="h-[100%] w-auto mr-8" />
+          <img src="logo.png" alt="bangmod hackathon 2024 logo" className="h-[100%] w-auto mr-8" />
         </a>
         <nav className="w-full max-w-2xl h-10 rounded-md flex bg-gradient-to-r from-[#DB9116] p-0 text-white drop-shadow">
           <NavElement
@@ -109,12 +109,12 @@ export const Navbar = () => {
               </button>
             ) :
               (
-                <button
+                <a
                   className="bg-[#DB9116] flex-auto flex justify-center items-center rounded-r-md border-[0.01px] border-white"
-                  onClick={navigateTologin}
+                  href="https://bangmod-hackathon-2024.vercel.app/policies"
                 >
                   สมัคร
-                </button>
+                </a>
               )
           }
         </nav>
@@ -157,12 +157,12 @@ export const Navbar = () => {
                   </button>
                 ) :
                   (
-                    <button
+                    <a
                       className="bg-[#8B69AE] flex-auto flex justify-center items-center border-[0.01px] border-white rounded-md m-2 mx-20"
-                      onClick={navigateTologin}
+                      href='https://bangmod-hackathon-2024.vercel.app/policies'
                     >
                       สมัคร
-                    </button>
+                    </a>
                   )
               }
             </nav>

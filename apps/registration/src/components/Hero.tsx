@@ -40,7 +40,7 @@ export const Hero = () => {
           xl:z-40
         "
       >
-        <img className="w-2/3 md:w-2/5 2xl:w-1/3 m-auto" src="logo.webp" alt="" />
+        <img className="w-2/3 md:w-2/5 2xl:w-1/3 m-auto" src="logo.png" alt="" />
       </div>
       <img
           src="bg2.webp"

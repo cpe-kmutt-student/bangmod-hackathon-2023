@@ -6,7 +6,7 @@ export const RegistrationNavbar = () => {
   return (
     <nav className="sticky flex flex-row justify-between items-center px-4 md:px-24 py-2 bg-[#6a3f93] z-50">
       <a href="/">
-        <img className="w-16 h-16" src="logo.webp" alt="" />
+        <img className="w-16 h-16" src="logo.png" alt="" />
       </a>
 
       <div className="flex flex-row items-center space-x-4">
