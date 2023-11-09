@@ -48,7 +48,7 @@ export const Qualification = () => {
           <Card
             img="qualification/school.svg"
             desc1="แต่ละสถานศึกษาสามารถ"
-            desc2="ส่งผู้เข้าแข่งขันได้ 1 ทีม"
+            desc2="ส่งผู้เข้าแข่งขันได้ 2 ทีม"
             desc3="ต่อ 1 สถานศึกษาเท่านั้น"
             section="qua"
           />

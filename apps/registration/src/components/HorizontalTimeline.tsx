@@ -21,7 +21,7 @@ const UpperHorizontalTimeline = () => {
       <Card
         header="การแข่งขันรอบคัดเลือก (Online)"
         small
-        display="25 Dec 2023"
+        display="13 Jan 2024"
         startTime="25 Dec 2023 00:00:00 GMT+0700"
         endTime="25 Dec 2023 23:59:59 GMT+0700"
       />
@@ -29,7 +29,7 @@ const UpperHorizontalTimeline = () => {
       <Card
         header="การแข่งขันรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ (On-Site)" 
         small
-        display="19 Jan 2024"
+        display="29 Jan 2024"
         startTime="19 Jan 2024 00:00:00 GMT+0700"
         endTime="19 Jan 2024 23:59:59 GMT+0700"
       />
@@ -59,7 +59,7 @@ const LowerHorizontalTimeline = () => {
       <Card
         header="ประกาศผลผู้ผ่านการคัดเลือกรอบคัดเลือกครั้งที่ 2 และรอบชิงชนะเลิศ"
         small
-        display="19 Jan 2024"
+        display="29 Jan 2024"
         startTime="19 Jan 2024 00:00:00 GMT+0700"
         endTime="19 Jan 2024 23:59:59 GMT+0700"
       />
