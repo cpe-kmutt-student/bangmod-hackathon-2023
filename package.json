@@ -25,5 +25,6 @@
   "engines": {
     "npm": "please-use-yarn",
     "node": ">=16.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
